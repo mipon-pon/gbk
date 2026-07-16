@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FADING AROMA -ゲームブック：Kカフェに行こう-</title>
+<style>
+body { background-color: #f4eee2; color: #333; font-family: sans-serif; margin: 0; padding: 20px 15px; padding-bottom: 120px; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+header { width: 100%; max-width: 400px; margin-bottom: 20px; display: flex; flex-direction: column; /* 縦並びにする */align-items: center; }
+
+/* メニューアイコンを横に並べるための箱 */
+.header-menu {width: 100%; display: flex; justify-content: space-between; align-items: center; margin-top: -10px; margin-bottom: 10px;}
+.header-title {font-size: 1rem; color: #666; margin: 0;}
+.header-box {width: 45px; height: 45px; border: 2px solid #333; border-radius: 8px; background: #fff; display: flex; align-items: center; justify-content: center; box-shadow: 2px 2px 0px #333; }
+
+h1{font-size: 0.9rem; margin: 0; display: flex; flex-direction: column; align-items: center; gap: 2px; flex-grow: 1; }
+
+#app {width: 100%; max-width: 400px; border: 3px solid #555; padding: 25px; background: #fff; box-shadow: 5px 5px 0px #ccc; box-sizing: border-box; position: relative; margin-top: 0;  border-radius: 5px 5px 5px 5px; z-index: 1;}
+
+.clipboard-clip {position: absolute; top: -28px; left: 50%; transform: translateX(-50%); width: 120px; height: 50px; z-index: 10; pointer-events: none;}
+.clipboard-clip .clip-arch{position: absolute; top: 8px; left: 50%; transform: translateX(-50%);}
+.clip-base { z-index: 1; }
+.clip-arch { z-index: 2; }
+
+.clip-base, .clip-arch {position: absolute; top: 0; left: 0; width: 100%; height: 100%;}
+
+.scene {display: none; padding-top:0.75em;}
+.memo-area {width: 96%; max-width: 400px; padding: 5px 15px 0 15px; border: 1px solid #FFFFFF; background: #fdfdfd; box-sizing: border-box; font-size: 0.9rem; position: fixed; bottom: 0; left: 0; right: 0; margin: 0 auto; z-index: 500; border-radius: 10px 10px 0 0;}
+.memo-area ul { padding-left: 0; margin: 5px 0; }
+.memo-area li { margin-bottom: 5px; list-style: none; }
+.memo-area h3 { margin: 0 0 10px 0; }
+
+.btn-wrap { display: flex; gap: 5px; }
+.btn-wrap button { font-size: 0.7rem; padding: 3px 6px; cursor: pointer; background: #e5f7f9; border: 1px solid #00a1c9; }
+
+.dice-container { position: absolute; top: 5px; right: 30px; text-align: center; z-index: 1000; }
+.die-svg { width: 40px; height: 40px; background: #fff; border: 2px solid #333; border-radius: 8px; box-shadow: 2px 2px 0px #333; }
+
+p{padding:0; margin:0;}
+p.dan2{margin-bottom:1.5em;}
+
+.bad-end-text {font-style: italic; color: #8b0000; font-weight: bold; padding:15px; margin: 10px 0;}
+.bad-end-text2 {font-style: italic; color: #8b0000; font-weight: bold; padding:0; margin: 10px 0;}
+
+.end-text {font-style: italic; color: #8b5a2b; font-weight: bold; padding: 15px 15px 0 15px; margin-top:10px;}
+
+.bad-scene {
+  /* 背景の濃い色 */
+  background-color: #1a1a1a;
+  
+  /* 縞々の設定 */
+  background-image: repeating-linear-gradient(
+    -45deg,
+    #000,
+    #000 4px,      /* 黒い部分を4pxに */
+    #ccaa00 4px,   /* 黄色い部分を4pxに（少し落ち着いた黄色にしています） */
+    #ccaa00 8px    /* 4px+4pxで合計8pxのパターンに */
+  );
+  
+  /* 線の幅をここで制御（左側にだけ縞々が出るように） */
+  background-size: 8px 100%;
+  background-repeat: repeat-y;
+  
+  /* テキストの読みやすさを確保 */
+  color: #e0e0e0;
+  padding-left: 20px; /* 左側に縞々分の余白を確保 */
+  padding-top: 15px;
+  padding-bottom: 15px;
+  margin: 10px 0;
+  
+  /* 赤文字だと読みづらいので、ベースは白系にして赤をアクセントにする */
+  font-style: italic;
+  font-weight: bold;
+  border-left: 8px solid transparent; /* 縞々用のスペースを透明な枠として確保 */
+}
+
+/* ボタン */
+.common-btn {margin-top: 1.5em; padding: 10px; font-size: 16px; width: 100%; cursor: pointer; background: #e8dcc8; border: 1px solid #555; }
+.common-btn2 {margin-top: 1.5em; padding: 10px; font-size: 12px; width: 100%; cursor: pointer; background: #ececec; border: 1px solid #555; }
+.common-btn3 {margin-top: 1.5em; padding: 10px; font-size: 16px; width: 100%; cursor: pointer; color:#FFF; background: #555; border: 1px solid #555;}
+.common-btn4 {margin-top: 0.5em; padding: 10px; font-size: 12px; width: 100%; cursor: pointer; border: 1px solid #555; }
+
+.flag-area { display: flex; gap: 15px; font-size: 1.2rem; cursor: pointer; }
+.signed { color: #a52a2a; font-weight: bold; }
+
+#help-modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 260px; background: #fff; border: 3px solid #555; padding: 20px; z-index: 2000; text-align: center; border-radius: 12px; box-shadow: 5px 5px 0px #ccc; opacity: 0; transition: opacity 0.3s ease; }
+
+/* 湯気の基本設定 */
+.steam {transform-origin: bottom center;}
+.steam-left {animation: rise 2.5s infinite ease-in-out;}/* 左の湯気 */
+.steam-right {animation: rise 2.2s infinite ease-in-out 0.8s;}/* 右の湯気（開始時間をずらし、周期を少し変える） */
+
+@keyframes rise {
+0% { transform: translateY(10px); opacity: 0; }/* 最初は完全に透明 */
+30% { opacity: 1; }/* カップの中から現れる時にふんわり見える */
+70% { opacity: 1; }/* 見えている状態をキープ */
+100% { transform: translateY(-20px) translateX(-3px); opacity: 0; /* 上に消える */}
+}
+.cup-move {margin-top: 20px; vertical-align: middle;}/* ここを調整して、左右の箱と高さを合わせる */
+
+/* 赤い星にするためのクラス */
+.flag-memo{color: #a52a2a; /* 渡辺さんのサインと同じ色 */ font-weight: bold;}
+
+/* しおり用 */
+#shiori-container {position: absolute; top: -11px; left: 10px; flex-direction: row; z-index: 10;}
+.shiori {width: 10px; height: 10px; background: #ccc; transition: height 0.3s, background 0.3s; border-radius: 2px 2px 0 0;}
+/* しおりの色 */
+.shiori:nth-child(1) { background: #ef9a9a; } /* 薄い赤 */
+.shiori:nth-child(2) { background: #ffcdd2; } /* 薄いピンク */
+.shiori:nth-child(3) { background: #ffe0b2; } /* 薄いオレンジ */
+.shiori:nth-child(4) { background: #fff9c4; } /* 薄い黄色 */
+.shiori:nth-child(5) { background: #c8e6c9; } /* 薄い緑 */
+.shiori:nth-child(6) { background: #b2ebf2; } /* 薄い青緑 */
+.shiori:nth-child(7) { background: #b3e5fc; } /* 水色 */
+.shiori:nth-child(8) { background: #d1c4e9; } /* 紫 */
+.shiori:nth-child(9) { background: #e8dcc8; } /* 茶色 */
+</style>
+</head>
+<body>
+
+<header>
+<div class="header-menu">
+<!-- サイコロ -->
+	<div class="header-box">
+		<svg id="dice-svg" width="30" height="30" viewBox="0 0 100 100"></svg>
+		<span id="dice-text" style="display:none;"></span>
+	</div>
+
+<!-- コーヒーカップ -->
+	<div class="cup-container" onclick="location.reload()" style="cursor:pointer;">
+		<svg class="cup-move" viewBox="0 0 100 100" width="46" height="46">
+			<ellipse cx="50" cy="83" rx="20" ry="3" fill="#d2b48c" />
+			<path d="M24 37 L76 37 L69 77 L31 77 Z" fill="none" stroke="#555" stroke-width="5" stroke-linejoin="round"/>
+			<path d="M76 46 C 98 44, 90 66, 76 68" fill="none" stroke="#555" stroke-width="5" stroke-linecap="round"/>
+			<path class="steam steam-left" d="M39 29 q-5 -10 0 -20 q5 -10 0 -20" fill="none" stroke="#8b5a2b" stroke-width="3" stroke-linecap="round"/>
+			<path class="steam steam-right" d="M58 29 q-5 -10 0 -20 q5 -10 0 -20" fill="none" stroke="#8b5a2b" stroke-width="3" stroke-linecap="round"/>
+		</svg>
+	</div>
+
+<!-- 説明書 -->
+	<div class="header-box" onclick="toggleHelp()" style="font-weight:bold; font-size:1.2rem;">…</div>
+</div>
+<h1 class="header-title">【ゲームBOOK】Kカフェに行こう</h1>
+</header>
+
+
+
+<!-- ここから 本文 -->
+<!-- 説明書の中身 -->
+<div id="help-modal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); width:260px; background:#fff; border:3px solid #555; padding:20px; z-index:2000; text-align:center; border-radius:12px; box-shadow:5px 5px 0px #ccc;">
+	<div style="font-size:0.85rem; line-height:1.6;">
+		<p class="dan2" align="center"><strong>【遊び方】</strong></p>
+		<p class="dan2" align="left">これは物語を読み、提示される選択肢を選んで進む「ゲームブック」と呼ばれる物です。<br>画面下の「メモ帳」を活用しながら物語の結末を目指しましょう。</p>
+		<p class="dan2" align="left">物語の途中で「メモ帳」内の操作指示があった場合、該当箇所をタップ／クリックしてください。</p>
+	</div>
+	<button onclick="toggleHelp()" style="padding:8px 20px; cursor:pointer; margin-top:10px;">閉じる</button>
+</div>
+<div id="overlay" onclick="toggleHelp()" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.3); z-index:1000;"></div>
+
+
+
+<!-- しおり -->
+<div id="app">
+<!-- クリップバインダーのsvg -->
+	<div class="clipboard-clip">
+		<svg class="clip-arch" viewBox="0 0 100 50">
+			<path d="M35 25 h-30 M65 25 h30 M35 25 C35 10, 65 10, 65 25" fill="none" stroke="#555" stroke-width="3" stroke-linecap="round"/>
+		</svg>
+		<svg class="clip-base" viewBox="0 0 120 51">
+			<path d="M5 25 v20 a5 5 0 0 0 5 5 h100 a5 5 0 0 0 5 -5 v-20" fill="#fff" stroke="#555" stroke-width="3" style="stroke-linejoin: miter;"/>
+		</svg>
+	</div>
+
+
+
+<!-- 第1幕：探す -->
+	<div id="scene-1" class="scene" style="display:block;">
+		<div id="scene-1-content">
+			<p class="dan2">あなたは中野ブロードウェイにあるという開かずのカフェへ行くべく、4階へとやってきた。</p>
+			<p>薄暗く長く伸びる廊下、長年シャッターが閉まった店。不気味な看板。</p>
+			<p class="dan2">Kカフェは一体どこにあるのだろう？</p>
+			<p>あなたはキョロキョロと辺りを見渡した。</p>
+			<button class="common-btn" onclick="tryCafeEntrance()">＞ サイコロを振って運試し ＜</button>
+		</div>
+		<div id="dice-result"></div>
+	</div>
+
+	<div id="scene-bad-01-01" class="scene bad-end-text bad-scene" style="display:none;">
+		<p class="dan2">おかしい。<br>さっきから同じ場所をぐるぐると回っている気がする。</p>
+		<p class="dan2">どうも夜の中野ブロードウェイにすっかり惑わされてしまったようだ。</p>
+		<p>…今日はもう帰るとしよう。</p>
+		<button class="common-btn3" onclick="location.reload()">＞ またいらしてください ＜</button>
+	</div>
+
+	<div id="scene-bad-01-02" class="scene bad-end-text bad-scene" style="display:none;">
+		<p>店の入り口に着いた。</p>
+		<p class="dan2">扉には一枚のメモが貼られていた。</p>
+		<p class="dan2">『本日、臨時休業です』</p>
+		<p>…今日はもう帰るとしよう。</p>
+		<button class="common-btn3" onclick="location.reload()">＞ またいらしてください ＜</button>
+	</div>
+
+<!-- 第2幕：店の入り口 -->
+	<div id="scene-2" class="scene" style="display:none;">
+		<p>あなたは今、Kカフェの入り口に立っている。</p>
+		<p class="dan2">このまま扉を開ければ、カフェに入る事が出来そうだ。</p>
+		<p>あなたはこのままもう少し入り口を観察してもいいし、カフェに入店してもいい。</p>
+		<button class="common-btn" onclick="changeScene('scene-3')">＞ 扉を開けて入店する ＜</button>
+		<button class="common-btn" onclick="changeScene('scene-2-1')">＞ 入り口を観察する ＜</button>
+	</div>
+
+	<div id="scene-2-1" class="scene" style="display:none;">
+		<div id="observe-menu">
+			<p>あなたは周囲をじっくりと眺めてみる事にした。</p>
+			<button class="common-btn2" onclick="showObservation('signboard')">＞ 看板を詳しく見る ＜</button>
+			<button class="common-btn2" onclick="showObservation('door')">＞ 扉を詳しく見る ＜</button>
+			<button class="common-btn2" onclick="showObservation('hallway')">＞ 廊下を詳しく見る ＜</button>
+			<button class="common-btn2" onclick="changeScene('scene-3')">＞ 入店する ＜</button>
+		</div>
+		<div id="observation-result"></div>
+	</div>
+
+
+
+<!-- 第3幕：入店 -->
+	<div id="scene-3" class="scene">
+		<p class="dan2">扉を開けて店内に入ると、オーナーがあなたに気づいて「こんばんわ」と声をかけてくれた。</p>
+
+		<p class="dan2">ここが、Kカフェか。</p>
+
+		<p class="dan2">暖かみのあるオレンジ色の灯りが店内をぼんやりと照らし、鼻をくすぐる珈琲の芳醇な香りが、全身を優しく包み込む。</p>
+		<p class="dan2">ずっと画面越しに見ていたあの景色が今、目の前にあるという事実。否応なしに鼓動が高鳴る。</p>
+		<p>さて、どうしようか？</p>
+
+		<button class="common-btn" onclick="changeScene('scene-4')">＞ 空いている席に座る ＜</button>
+		<button class="common-btn" onclick="changeScene('scene-3-booth')">＞ 配信ブースに入る ＜</button>
+	</div>
+
+	<div id="scene-3-booth" class="scene" style="display:none;">
+		<p class="dan2">あなたはオーナーの隙を見て、配信ブースに入った。</p>
+		<p>画面越しに見ていた配信ブースに入れた事に、あなたは興奮を覚える。</p>
+		<button class="common-btn" onclick="changeScene('scene-3-booth-detail')">＞ もっと観察する ＜</button>
+		<button class="common-btn" onclick="changeScene('scene-3'); document.getElementById('seat-menu').style.display = 'block'; document.getElementById('booth-menu').style.display = 'block';">＞ 店内に戻る ＜</button>
+	</div>
+
+	<div id="scene-3-booth-detail" class="scene" style="display:none;">
+		<p class="dan2">物が雑多に置かれた配信ブースだ。</p>
+		<p>大きなホワイトボードと何かしらの荷物が置かれ、テーブルの上には配信機材が置かれている。</p>
+		<button class="common-btn" onclick="changeScene('scene-3-booth-detail2')">＞ さらに観察する ＜</button>
+		<button class="common-btn" onclick="changeScene('scene-3'); document.getElementById('seat-menu').style.display = 'block'; document.getElementById('booth-menu').style.display = 'block';">＞ 店内に戻る ＜</button>
+	</div>
+
+	<div id="scene-3-booth-detail2" class="scene" style="display:none;">
+		<p class="dan2">あなたは配信ブースの奥にナゾの扉を見つけた。</p>
+		<p>黒いその扉には、冷たい輝きを放つ銀色のノブがついている。</p>
+		<button class="common-btn" onclick="changeScene('scene-bad-02')">＞ 黒い扉を開けて中に入る ＜</button>
+		<button class="common-btn" onclick="changeScene('scene-3'); document.getElementById('seat-menu').style.display = 'block'; document.getElementById('booth-menu').style.display = 'block';">＞ 店内に戻る ＜</button>
+	</div>
+
+	<div id="scene-bad-02" class="scene bad-end-text bad-scene" style="display:none;">
+		<p>扉を開けた瞬間、強烈な吸引力があなたを襲った！</p>
+		<p class="dan2">身体が光に包まれ……</p>
+		<p class="dan2">気がつくと、あなたはまた中野ブロードウェイの入り口に立っていた。</p>
+		<button class="common-btn3" onclick="location.reload()">＞ もう一度Kカフェを探す ＜</button>
+	</div>
+
+
+
+<!-- 第4幕：注文 -->
+	<div id="scene-4" class="scene" style="display:none;">
+		<div id="menu-container">
+			<p class="dan2">席につくと、オーナーがお冷とメニューを持ってきてくれた。</p>
+			<p class="dan2">さて、何を注文しようか？</p>
+
+			<p align="center">-ALL ￥700-</p>
+			<button class="common-btn4 dan2" onclick="orderItem('beer')">ビール＆ドライナッツ</button>
+			<button class="common-btn4" onclick="orderItem('coke')">氷入りコーラ＆ビーフジャーキー</button>
+			<button class="common-btn4" onclick="orderItem('coffee')">オリジナルコーヒー＆シナモンビスケット</button>
+			<button class="common-btn4" onclick="changeScene('scene-bad-03-01')">発酵コーヒー＆乾燥キノコ</button>
+		</div>
+		<div id="order-result"></div>
+	</div>
+
+	<div id="scene-bad-03-01" class="scene" style="display:none;">
+		<div id="warning-area">
+			<p class="dan2"><span class="bad-end-text2">「※お腹の強さに自信がある方のみ！」</span><br>メニューの端に、手書きの注意書きが添えられていた。</p>
+			<p class="dan2">「あの、これ…」あなたがメニューを指さすと、オーナーは口元に微かな笑みを浮かべた。</p>
+			<p class="dan2">「それ、実験的メニューなんです。発酵珈琲豆と自家製キノコの。常連さんには密かな人気なんですよ」</p>
+
+			<p class="dan2">オーナーがさらりと口にしたその言葉に、あなたの眉はピクリと動いた。</p>
+			<p class="dan2">発酵珈琲豆に、自家製キノコ……<br>普通なら、どう考えても避けるべきメニューだ。しかし、常連が愛する味ならば、自分も味わってみたい。</p>
+			<p>憧れ続けたこのカフェの空気があなたの理性を少しだけ麻痺させている…<br>だが一方で『好奇心は猫を殺す』ということわざもある。</p>
+			<button class="common-btn" onclick="orderExperiment()">＞ 注文する ＜</button>
+			<button class="common-btn" onclick="changeScene('scene-4')">＞ 他のメニューを注文する ＜</button>
+		</div>
+
+		<div id="result-area"  class="scene bad-end-text bad-scene" style="display:none;">
+			<p class="dan2">運ばれてきた珈琲を一口飲んだ瞬間、あなたの腹部から「キュルルルッ！」と終末のラッパが鳴り響いた。</p>
+			<p class="dan2">あなたは、お腹を壊してしまった！</p>
+			<p class="dan2">オーナーに心配をかけない様、あなたは早めに帰宅する事にした…</p>
+			<button class="common-btn3" onclick="location.reload()">＞ 猛ダッシュで帰宅する ＜</button>
+		</div>
+	</div>
+
+
+
+<!-- 第5幕：会話。 -->
+	<div id="scene-5" class="scene">
+		<p class="dan2">オーダーした物が運ばれてきて、一息ついたあなたは、あらためて店内を見回す。</p>
+		<p class="dan2">ジャズのBGMが静かに流れる店内。正面の壁には大きなモニターがかけられ、背の高いカウンターの上には細々とした装飾品と食器類が置かれている。</p>
+		<p class="dan2">白く塗られた壁と、柔らかい光を放つ間接照明、むき出しの配管パイプ…<br>天井には分厚い硝子ブロックがはめこまれている。</p>
+		<p>あなたはこのままゆったり過ごしてもいいし、他のお客を観察してもいい。</p>
+
+		<button class="common-btn" onclick="changeScene('scene-end-01')">＞ ゆったり過ごす ＜</button>
+		<button class="common-btn" onclick="changeScene('cafetime-01')">＞ カフェの客に目をやる ＜</button>
+	</div>
+
+	<div id="cafetime-01" class="scene" style="display:none;">
+		<div id="cafetime-container">
+			<p>カフェの店内には数名のお客がいる。</p>
+			<p class="dan2">オーナーは給仕しながら、合間合間で珈琲を淹れている。</p>
+			<p>さて、どうしようか？</p>
+
+			<button class="common-btn4" onclick="cafetimeItem('guest-a')">カウンター席の客を見る</button>
+			<button class="common-btn4" onclick="cafetimeItem('guest-b')">ソファ席の客を見る</button>
+			<button class="common-btn4" onclick="cafetimeItem('guest-c')">二人組の男女の客を見る</button>
+			<button class="common-btn4" onclick="cafetimeItem('guest-d')">テーブル席の客を見る</button>
+			<button class="common-btn4" onclick="cafetimeItem('guest-owner')">オーナーに話しかける</button>
+		</div>
+
+		<div id="cafetime-result"></div>
+	</div>
+
+	<div id="scene-end-01" class="scene end-text" style="display:none;">
+		<p class="dan2">湯が沸く音。豆を挽く音。さざめきの様な客同士のお喋り。<br>それらをBGMに、あなたはKカフェで至福のひと時を心行くまでのんびり過ごした。</p>
+		<p class="dan2">満ち足りた気持ちを胸に、あなたは荷物をまとめるとそっと席を立ち、オーナーに会釈をして扉へ向かった。</p>
+		<p class="dan2">「ありがとうございました。またお越しください」<br>とオーナーが声をかけてくれた。</p>
+		<p class="dan2">名残惜しい気持ちと共にあなたはKカフェをあとにし、帰路へとついた</p>
+		<p align="center">＜エンディング＞<br>Kカフェからの帰還　その1</p>
+		<button class="common-btn3" onclick="location.reload()">＞ もう一度Kカフェへ行く ＜</button>
+	</div>
+
+
+
+<!-- 第6幕：帰る。 -->
+	<div id="scene-6" class="scene" style="display:none;">
+		<p class="dan2">オーナーと客が交わすマニアックな話は聞いているだけで楽しく、普段配信で見聞きしている物を生で聞ける喜びに、あなたは少し奇妙な感覚を覚えている。</p>
+
+		<p class="dan2">時計の無い店内で過ごす特別な時間はあっという間に過ぎ、時刻はそろそろ23時を迎えそうだ。</p>
+
+		<p>カフェはまだ閉店しなさそうな雰囲気だが、このままいると終電を逃してしまう。</p>
+		<p>さて、どうしようか？</p>
+
+		<button class="common-btn" onclick="changeScene('scene-end-01')">＞ 名残惜しいが帰る ＜</button>
+		<button class="common-btn" onclick="changeScene('scene-6-01')">＞ このまま朝まで過ごす ＜</button>
+	</div>
+
+	<div id="scene-6-01" class="scene" style="display:none;">
+		<p>あなたは腹を決め、今日は明け方までカフェで過ごす事にした。</p>
+		<p class="dan2">長年訪れたかったKカフェだ。時間が許す限り堪能したい。</p>
+
+		<p>数名の客が帰ったのち、深夜のカフェにはあなたともう1人の客のみとなった。</p>
+		<p class="dan2">あなたは新しい飲み物を注文すべく、オーナーに声をかけようとした。</p>
+
+		<p class="dan2">すると<br>「良かったら、一緒に呑みませんか？」と、ソファ席で呑んでいた客があなたに声をかけてきた。</p>
+		<p>あなたはその誘いを受けてもいいし、断ってもいい。</p>
+
+		<button class="common-btn" onclick="changeScene('scene-6-02')">＞ ご相伴にあずかる ＜</button>
+		<button class="common-btn" onclick="changeScene('scene-end-02')">＞ ご遠慮する ＜</button>
+	</div>
+
+	<div id="scene-6-02" class="scene" style="display:none;">
+		<div id="booze-container">
+			<p>深夜のKカフェはいつもの雰囲気から一転し、まるで隠れ家のバーへとその姿を変えた。</p>
+			<p class="dan2">テーブルにはあっという間に美味しそうなつまみが並び、グラスやチェイサーが置かれた。</p>
+
+			「お酒、いけるクチですか？」</p>
+			<p class="dan2">オーナーはあなたにそう声をかけると、酒瓶をテーブルに並べ始めた。</p>
+
+			<p>「これ、皆さんからのお土産とかなんで、お代は結構です。一緒に呑みましょう」</p>
+			<p>オーナーはそういうと楽しげに微笑み、あなたにグラスを渡した。</p>
+
+			<p>さて、どれを呑もう。</p>
+			<button class="common-btn2" onclick="boozeItem('shochu')">焼酎にする</button>
+			<button class="common-btn2" onclick="boozeItem('nihonshu')">日本酒にする</button>
+			<button class="common-btn2" onclick="boozeItem('kanbeer')">ビールにする</button>
+		</div>
+		<div id="booze-result"></div>
+	</div>
+
+
+
+	<div id="scene-6-03" class="scene" style="display:none;">
+		<div id="booze2-container">
+			<p class="dan2">「もしかして、いけるクチですか？」</p>
+			<p class="dan2">あなたがグラスを空にすると、気を良くしたのか、客がバッグから重そうな酒瓶を取り出してオーナーに渡した。</p>
+			<p>オーナーは朗らかな笑顔と共に、その瓶をテーブルに置いた。</p>
+			<p>ごとりという音と共に置かれた一升瓶。そのラベルには『滅王』という墨文字が書かれている。</p>
+			<p class="dan2">間接照明の薄明かりの下で、その瓶は誇らしげな輝きを放っている。</p>
+
+			<p>さて、何を呑もう。</p>
+			<button class="common-btn2" onclick="booze2Item('shochu2')">焼酎をもらう</button>
+			<button class="common-btn2" onclick="booze2Item('nihonshu2')">日本酒をもらう</button>
+			<button class="common-btn2" onclick="booze2Item('kanbeer2')">ビールをもらう</button>
+			<button class="common-btn2" onclick="booze2Item('mao2')">『滅王』をもらう</button>
+		</div>
+		<div id="booze2-result"></div>
+	</div>
+
+
+
+	<div id="scene-end-02" class="scene end-text" style="display:none;">
+		<p class="dan2">あなたは静かに首を横に振った。</p>
+		<p>客は「それは失礼」と残念そうに微笑み、グラスへと向き直った。</p>
+		<p class="dan2">深い静寂。オーナーが豆を挽く音が心地良く耳に届く。</p>
+
+		<p>やがて店内の灯りが少しずつ朝の光へと溶け、夜明けが近づいてきた。</p>
+		<p class="dan2">最後の一口を飲み干すと、あなたは「そろそろ帰ります」とオーナーに声をかける。</p>
+
+		<p>「ありがとうございました。またいらしてくださいね」</p>
+		<p class="dan2">オーナーが向けてくれたその笑顔は、かつてTV画面や配信で見つめていた物そのままで、あなたの胸に子供時代の懐かしさが溢れた。</p>
+
+		<p>……再びこのカフェを訪れた日、その時は迷わずご相伴にあずかろう。</p>
+		<p class="dan2">あなたはそう決意するとカフェの扉を開け、宵闇が残る中野ブロードウェイへと足を踏み出した。</p>
+
+		<p align="center">＜エンディング＞<br>Kカフェからの帰還　その2</p>
+		<button class="common-btn3" onclick="location.reload()">＞ もう一度Kカフェへ行く ＜</button>
+	</div>
+
+	<div id="scene-6-04" class="scene" style="display:none;">
+			<p class="dan2">あなたは『滅王』を飲み干す事に成功した！</p>
+			<p>喉から胃にかけて熱いマグマが流れる様な、そんな感覚を覚える。</p>
+			<p>こんなに美味しい酒は初めてだ！あなたは顔をほころばせる。</p>
+			<button class="common-btn" onclick="changeScene('scene-7')">＞ シーン7へ ＜</button>
+	</div>
+
+	<div id="scene-bad-03" class="scene bad-end-text bad-scene" style="display:none;">
+		<p>あなたは『滅王』を飲み干した！</p>
+		<p>喉から胃にかけて熱いマグマが流れる様な、そんな感覚を覚える。</p>
+		<p class="dan2">こんなに美味しい酒は初めてだ！あなたは顔をほころばせる。</p>
+
+		<p>ニコニコ微笑むオーナー達にすすめられるがまま、二杯、三杯、四杯と滅王を呑むあなた。</p>
+		<p>すると、突然強烈な眠気があなたを襲った！</p>
+		<p>大きなあくびと共に店内を見渡すと、心地よさそうな大きいソファが目に入った。</p>
+		<p class="dan2">なんて気持ち良さそうなソファなのだろう。<br>このまま身体を横たえたら、きっと気持ち良い眠りにつけそうだ…</p>
+		<p class="dan2">…　…　…</p>
+		<p class="dan2">…　…　…　…　…　…</p>
+
+		<p class="dan2">…　…　…！</p>
+
+		<p>「あれ？新しいバッヂ出たんですか？」</p>
+		<p>「ええ。先日」</p>
+		<p class="dan2">「じゃぁ、ソレください」</p>
+
+		<p>ある朝、あなたが気がかりな夢から目ざめたとき、自分がガラス瓶の中で冷たい光を放つ缶バッヂに変ってしまっているのに気づいた…！</p>
+
+		<button class="common-btn3" onclick="location.reload()">＞ もう一度Kカフェへ行く ＜</button>
+	</div>
+
+<!-- 第7幕：寝る。 -->
+	<div id="scene-7" class="scene">
+		<p>第7幕：寝る？</p>
+		<button onclick="changeScene('scene-8')">次へ</button>
+	</div>
+
+<!-- 第8幕：退店。 -->
+	<div id="scene-8" class="scene"><p>第8幕：退店。</p>
+	</div>
+</div>
+
+
+
+<!-- ここから メモ帳 -->
+<div class="memo-area">
+	<div id="shiori-container" style="display:flex; justify-content:center; gap:3px; margin-bottom:10px;">
+		<div class="shiori" data-scene="scene-1" onclick="sessionStorage.setItem('nextScene', 'scene-1'); location.reload();"></div>
+		<div class="shiori" data-scene="scene-2" onclick="sessionStorage.setItem('nextScene', 'scene-2'); location.reload();"></div>
+		<div class="shiori" data-scene="scene-3" onclick="sessionStorage.setItem('nextScene', 'scene-3'); location.reload();"></div>
+		<div class="shiori" data-scene="scene-4" onclick="sessionStorage.setItem('nextScene', 'scene-4'); location.reload();"></div>
+		<div class="shiori" data-scene="scene-5" onclick="sessionStorage.setItem('nextScene', 'scene-5'); location.reload();"></div>
+		<div class="shiori" data-scene="scene-6" onclick="sessionStorage.setItem('nextScene', 'scene-6'); location.reload();"></div>
+		<div class="shiori" data-scene="scene-7" onclick="sessionStorage.setItem('nextScene', 'scene-7'); location.reload();"></div>
+		<div class="shiori" data-scene="scene-8" onclick="sessionStorage.setItem('nextScene', 'scene-8'); location.reload();"></div>
+	</div>
+
+
+
+	<h3>[ メモ帳 / Kペイ ]</h3>
+	<ul>
+		<li style="display: flex; align-items: center; justify-content: space-between;">
+			<span id="balance-text">・Kペイ残高: 5000円</span>
+			<div class="btn-wrap">
+			<button onclick="spendMoney()">700円支払う</button>
+			<button onclick="chargeMoney()">無限チャージ</button>
+			</div>
+		</li>
+
+		<li style="display: flex; align-items: center; justify-content: space-between; margin-top:10px;">
+			<span>・<span onclick="toggleItem(this)" style="cursor:pointer; display:inline-block;">渡辺さんの本</span></span>
+
+			<div class="flag-area">
+				<span onclick="toggleFlag(this)">☆</span>
+				<span onclick="toggleFlag(this)">〇</span>
+				<span onclick="toggleFlag(this)">◇</span>
+				<span onclick="toggleFlag(this)">□</span>
+				<span onclick="toggleFlag(this)">△</span>
+			</div>
+		</li>
+	</ul>
+</div>
+
+
+<!-- ここから javascript-->
+<script>
+// 読み込み直後に一度だけ実行する
+window.onload = function() {
+    console.log("テスト環境をリセットしました");
+    // ここで強制的に変数を初期化する処理があれば入れる
+};
+
+// 1. サイコロを振るだけの共通関数
+function rollDice() {
+    const val = Math.floor(Math.random() * 6) + 1;
+    document.getElementById('dice-svg').innerHTML = getDiceSVG(val);
+    document.getElementById('dice-text').innerText = val;
+    return val; // 出た目を戻り値として返す
+}
+
+// 2. 第1幕の入り口判定（共通関数を呼び出す）
+function tryCafeEntrance() {
+    const val = rollDice(); // サイコロを振る（共通関数）
+    
+    // 1. もともとの「入り口テキストとボタン」を消す
+    document.getElementById('scene-1-content').style.display = 'none';
+    
+    // 2. 結果エリア
+    const resultDiv = document.getElementById('dice-result');
+    
+    // 3. 判定
+    if (val === 2) {
+        // バッドエンドへ切り替え
+        document.getElementById('scene-1').style.display = 'none';
+        document.getElementById('scene-bad-01-01').style.display = 'block';
+    }
+    if (val === 6) {
+        // バッドエンドへ切り替え
+        document.getElementById('scene-1').style.display = 'none';
+        document.getElementById('scene-bad-01-02').style.display = 'block';
+    } else {
+        // 成功！「出た目」の表示はせず、次の物語へ
+        resultDiv.innerHTML = "<p>夜の中野ブロードウェイの雰囲気に少々臆しながらも、あなたは長く続く薄暗い通路へと辿り着いた。<br><br>長く伸びた廊下の突き当りに、お目当てのKカフェはある。<br><br>早速向かってみよう。</p>";
+        resultDiv.innerHTML += "<button class='common-btn' onclick='changeScene(\"scene-2\")'>＞ 通路の奥へ進む ＜</button>";
+    }
+}
+
+
+
+
+function showObservation(type) {
+    if (type === 'booth') {
+        changeScene('scene-3-booth');
+        return; 
+    }
+
+    // メニューを隠す
+    document.getElementById('observe-menu').style.display = 'none';
+    const res = document.getElementById('observation-result');
+    let html = "";
+    let showDefaultButtons = true; // デフォルトでボタンを出すフラグ
+
+    if (type === 'signboard') {
+        html = "<p>コルクの看板にはいくつものチラシが貼られている。特に気になるチラシはない</p>";
+    } else if (type === 'door') {
+        html = "<p>青い木製の扉には、鈍く光るアンティークのドアノブがついている</p>";
+    } else if (type === 'hallway') {
+        // 廊下の特別処理
+        html = `<p>廊下には古いテープの跡があちこち残っている。と、その中に奇妙な印がある。</p>
+                <button class="common-btn2" onclick="selectHallwayOption(true)">＞ 印を踏んでみる ＜</button>
+                <button class="common-btn2" onclick="selectHallwayOption(false)">＞ 印を踏まない ＜</button>`;
+        showDefaultButtons = false; // 廊下のときは下のボタンを隠す
+    }
+
+    // 他を観察するボタン（廊下のときは出さない）
+    if (showDefaultButtons) {
+        html += `<div style="margin-top:20px; padding-top:10px;">
+                    <button class="common-btn" onclick="resetObservation()">＞ 他の場所を観察する ＜</button>
+                    <button class="common-btn" onclick="changeScene('scene-3')">＞ そろそろ入店する ＜</button>
+                </div>`;
+    }
+    res.innerHTML = html;
+}
+
+// 廊下の結果表示用関数
+function selectHallwayOption(stepped) {
+    const res = document.getElementById('observation-result');
+    if (stepped) {
+        res.innerHTML = "<p>印を踏んでみたが、特に何も起きなかった。<br>（メモ帳の☆をチェックし、★に変えてください）</p>";
+    } else {
+        res.innerHTML = "<p>テープ跡で靴裏がベタつきそうだ。やはり踏まないでおこう。</p>";
+    }
+    // 結果を出した後に「他の場所を観察」ボタンを復活させる
+    res.innerHTML += `<div style="margin-top:20px;">
+                        <button class="common-btn" onclick="resetObservation()">＞ 他の場所を観察する ＜</button>
+                        <button class="common-btn" onclick="changeScene('scene-3')">＞ そろそろ入店する ＜</button>
+                      </div>`;
+}
+
+function resetObservation() {
+    document.getElementById('observe-menu').style.display = 'block';
+    document.getElementById('observation-result').innerHTML = "";
+}
+
+
+
+// 注文用
+function orderItem(itemName) {
+    document.getElementById('menu-container').style.display = 'none';
+    const res = document.getElementById('order-result');
+    let text = "";
+    if (itemName === 'coffee') text = "「おまたせしました。特製ブレンドです」<br>オーナーがカップを置いて微笑んだ。<br><span style='font-size:0.75em; color:#a52a2a; font-weight:bold;'>（メモ帳の〇をチェックし、●に変えてください）</span><br><br>ビスケットはシナモンの香りが漂い、甘さ控えめでとても美味しい。";
+    else if (itemName === 'coke') text = "喉が渇いていたので、氷が入った冷えたコーラは格別だ。<br><br>大きめのジャーキーは硬すぎず、マイルドな塩味でとても食べやすい。";
+    else if (itemName === 'beer') text = "七福神が描かれた缶ビールだ。疲れが飛ぶ。<br><br>盛られたナッツは色々な種類が入っていて、食べ応えがある。";
+    res.innerHTML = `
+        <div style="padding:15px;">
+            <p class="dan2">${text}</p>
+            <p style="font-size:0.8rem; color:#666; margin-top:10px;">※メモ帳のKペイから「700円支払う」を押してください</p>
+            <button class="common-btn" onclick="resetOrder()">＞ 他のメニューを注文する ＜</button>
+            <button class="common-btn" onclick="changeScene('scene-5')">＞ 店内を観察する ＜</button>
+        </div>
+    `;
+}
+function resetOrder() {
+    document.getElementById('order-result').innerHTML = '';
+    document.getElementById('menu-container').style.display = 'block';
+}
+
+function orderExperiment() {
+    // 警告エリアを隠す
+    document.getElementById('warning-area').style.display = 'none';
+    // 結果エリアを表示する
+    document.getElementById('result-area').style.display = 'block';
+}
+
+// 他の客を見る時用
+function cafetimeItem(itemName) {
+    document.getElementById('cafetime-container').style.display = 'none';
+    const res = document.getElementById('cafetime-result');
+    res.innerHTML = '';
+    let text = "";
+    if (itemName === 'guest-owner') text = "オーナーの渡辺さんと目が合った。<br><br>あなたは意を決して<br>「あの、この間の新刊にサインをもらえますか？」と、声をかけた。<br><br>「もちろん！」<br>オーナーはにっこり微笑むと、給仕の手を止めてペンを取りにカウンターへと戻った。<br><br>数刻ののち、あなたは渡辺さんのサインが入った本を手にする事が出来た！<br><span style='font-size:0.75em; color:#a52a2a; font-weight:bold;'>（メモ帳の渡辺さんの本をチェックしてください）</span>";
+    else if (itemName === 'guest-a') text = "カウンターでノートパソコンと睨めっこしている客がいる。<br><br>目が合うとニコリと微笑み<br>「今度カフェで朗読劇を行うんです。良かったらどうぞ」<br>と、あなたにチラシをくれた";
+    else if (itemName === 'guest-b') text = "ソファ席には、眼鏡をかけた客がいて、ニコニコとお酒を呑んでいる。<br><br>テーブルに置かれた酒瓶のラベルから判断するに、どうやら希少な酒の様だ。";
+    else if (itemName === 'guest-c') text = "二人組の男女の客がテーブル席に座っている。<br><br>女性客はあなたと目が合うと<br>「来週、カフェで弾き語りライブを行うので良かったらいらしてくださいね！」<br>と、ポストカードをくれた";
+    else if (itemName === 'guest-d') text = "店内には、自分と同じ様に一人で来ている客が数名いる。<br><br>読書をしたり、スマホを見たり、客同士でゲームやマニアックな話に花を咲かせている。<br><br>見知らぬ者同士がその場でセッションするかの様にお喋りに花を咲かせる図にあなたは驚きを隠せない。";
+    res.innerHTML = `
+        <div style="padding:15px;">
+            <p>${text}</p>
+            <button class="common-btn" onclick="resetCafetime()">＞ 他の客を観察する ＜</button>
+            <button class="common-btn" onclick="changeScene('scene-6')">＞ 観察をやめる ＜</button>
+        </div>
+    `;
+}
+function resetCafetime() {
+    document.getElementById('cafetime-result').innerHTML = '';
+    document.getElementById('cafetime-container').style.display = 'block';
+}
+
+
+
+// 酒盛り1回目用
+function boozeItem(itemName) {
+    document.getElementById('booze-container').style.display = 'none';
+    const res = document.getElementById('booze-result');
+    let text = "";
+    if (itemName === 'shochu') text = "「これ、ボクの故郷の酒なんです」<br><br>オーナーが誇らしげに差し出した瓶には、力強い筆致で銘柄が記されていた。<br>掌に伝わる瓶の重みと、ふわりと立ち昇る香ばしい芋の芳香。<br>これは、土地の物語を呑むような一杯になりそうだ。";
+    else if (itemName === 'nihonshu') text = "「信州のお土産でいただいた物です。呑むとマスカットのような香りがするんです」<br><br>オーナーの言葉に促され、瓶の口元に顔を近づける。<br>甘く澄んだ香りがあなたの鼻をくすぐる。<br>この香りを、是非舌で確かめてみたい。";
+    else if (itemName === 'kanbeer') text = "「クラフト系の、かなり珍しいやつなんだそうです」<br><br>瓶を手に取ると、ラベルのポップなデザインと、キンと冷えたガラスの感触が手に心地よい。<br>栓を抜く前から、期待感で胸が高鳴る。<br>喉の渇きを癒してくれる最高の相棒になるに違いない。";
+    
+    res.innerHTML = `
+        <div style="padding:15px;">
+            <p>${text}</p>
+            <button class="common-btn" onclick="resetBooze()">＞ 他のお酒を見る ＜</button>
+            <button class="common-btn" onclick="changeScene('scene-6-03')">＞ これをもらう ＜</button>
+        </div>
+    `;
+}
+
+
+
+
+
+// 酒盛り2回目用
+function booze2Item(itemName) {
+    // 滅王を選んだときだけ「珈琲チェック」へ進む
+    if (itemName === 'mao2') {
+        document.getElementById('booze2-container').style.display = 'none';
+        const res = document.getElementById('booze2-result');
+        res.innerHTML = `
+            <div style="padding:15px;">
+                <p class="dan2">あなたはふと、自分のメモ帳に目を落とした。</p>
+                <p><strong>「今夜、自分は珈琲を飲んだだろうか？」</strong></p>
+                <p class="dan2"><span style="font-size: 0.9em; color: #a52a2a;">（メモ帳の〇が●になっているか確認してください）</span></p>
+                <button class="common-btn" onclick="checkFinalResult('mao2', true)">＞ ●→珈琲を飲んでいる ＜</button>
+                <button class="common-btn" onclick="checkFinalResult('mao2', false)">＞ 〇→飲んでいない ＜</button>
+            </div>
+        `;
+    } else {
+        // 滅王以外なら、そのまま次のシーン（scene-7）へ直行させる
+        changeScene('scene-7');
+    }
+}
+
+// 汎用リセット関数
+function resetBooze() {
+    document.getElementById('booze-container').style.display = 'block';
+    document.getElementById('booze-result').innerHTML = '';
+    document.getElementById('booze2-container').style.display = 'block';
+    document.getElementById('booze2-result').innerHTML = '';
+}
+
+
+
+function changeScene(sceneId) {
+    // 1. 全部のシーンを隠す
+    document.querySelectorAll('.scene').forEach(div => div.style.display = 'none');
+    
+    // 2. 指定したシーンを出す
+    const target = document.getElementById(sceneId);
+    if(target) {
+        target.style.display = 'block';
+    }
+
+    // 3. 【新機能】ページ移動のたびに「お掃除」を実行！
+    // 酒盛りの結果エリアを強制的に空っぽにします
+    const boozeResult = document.getElementById('booze-result');
+    if (boozeResult) boozeResult.innerHTML = '';
+    
+    const booze2Result = document.getElementById('booze2-result');
+    if (booze2Result) booze2Result.innerHTML = '';
+    
+    // 酒盛りのコンテナが見えていなかったら表示に戻す
+    const boozeContainer = document.getElementById('booze-container');
+    if (boozeContainer) boozeContainer.style.display = 'block';
+    
+    const booze2Container = document.getElementById('booze2-container');
+    if (booze2Container) booze2Container.style.display = 'block';
+    window.scrollTo(0, 0);
+}
+
+function checkFinalResult(itemName, hasCoffee) {
+    if (!hasCoffee) { changeScene('scene-bad-03'); return; }
+if (itemName === 'mao2') {showMaoChallenge();} // ここを runDiceTest() から書き換える
+    else { changeScene('scene-7'); }
+}
+
+
+// 1. まず囁きと「飲む！」ボタンだけを表示する関数
+function showMaoChallenge() {
+    const diceTexts = [
+        "汝、その身に滅びを迎える覚悟はあるか。<br>呑み干すに足る魂を有しているか？",
+        "深淵なる滅王の洗礼を受け入れんとする者よ。<br>その意志が偽りなきものならば杯を掲げよ",
+        "此度は『滅王』を献上致す。<br>その命の重さを以て杯を空にせよ。<br>魂の深淵、図らせてもらおう",
+        "古の血脈たる滅王、汝の喉を潤さん。<br>杯を掲げ、己の器を証明してみせよ",
+        "滅王を嗜むとは、破滅と栄光を天秤に掛けるが如し。<br>一口の果て、吉と出るか凶と出るか。<br>命運は己の賽にのみあり"
+    ];
+    const randomText = diceTexts[Math.floor(Math.random() * diceTexts.length)];
+    const res = document.getElementById('booze2-result');
+
+    res.innerHTML = `
+        <div style="padding:15px; text-align: center;">
+            <p class="dan2">ふいに耳元で、誰かの囁きが聞こえた気がした。</p>
+            <p style="font-size: 0.9em; font-weight: bold; font-style: italic; border: 2px solid #800000; padding: 15px; color: #800000;">
+                ${randomText}
+            </p>
+            <br>
+            <p>運試し！<br>あなたは無事『滅王』を<br>呑み干せるだろうか？</p>
+            <button class="common-btn" onclick="executeDiceRoll()">＞ 『滅王』を呑み干す ＜</button>
+        </div>
+    `;
+}
+
+// 2. ボタンが押されたあとにダイスを回す関数
+function executeDiceRoll() {
+    let dice = (typeof rollDice === 'function') ? rollDice() : Math.floor(Math.random() * 6) + 1;
+    
+    // ダイスの値に基づいて次のシーンへ飛ばす
+    if (dice === 1) {
+        changeScene('scene-bad-03');
+    } else {
+        changeScene('scene-6-04');
+    }
+}
+
+
+
+    // Kペイ部分
+let currentMoney = 5000;
+function changeScene(sceneId) {
+document.querySelectorAll('.scene').forEach(div => div.style.display = 'none');
+document.getElementById(sceneId).style.display = 'block';
+window.scrollTo(0, 0);
+}
+
+function spendMoney() {
+if (currentMoney - 700 < 100) { alert("チャージしてください"); return; }
+currentMoney -= 700;
+document.getElementById('balance-text').innerText = '・Kペイ残高: ' + currentMoney + '円';
+}
+
+function chargeMoney() {
+currentMoney = 5000;
+document.getElementById('balance-text').innerText = '・Kペイ残高: ' + currentMoney + '円';
+}
+
+function toggleItem(element) {
+if (element.innerText === '渡辺さんの本') {
+element.innerText = '渡辺さんのサイン本';
+element.classList.add('signed');
+} else {
+element.innerText = '渡辺さんの本';
+element.classList.remove('signed');
+}
+}
+
+
+
+function toggleFlag(element) {
+  // すべての変換ルールをここにまとめました
+  const map = {
+    '☆': '★', '★': '☆', 
+    '〇': '●', '●': '〇', 
+    '◇': '◆', '◆': '◇', 
+    '□': '■', '■': '□', 
+    '△': '▲', '▲': '△'
+  };
+
+  // 文字を入れ替える
+  if (map[element.innerText]) {
+    element.innerText = map[element.innerText];
+  }
+
+  // 「塗りつぶし系（★, ●, ◆, ■, ▲）」なら赤いクラスを付ける
+  if (['★', '●', '◆', '■', '▲'].includes(element.innerText)) {
+    element.classList.add('flag-memo');
+  } else {
+    // それ以外（枠のみ）ならクラスを外す
+    element.classList.remove('flag-memo');
+  }
+}
+
+
+
+
+function getDiceSVG(val) {
+const faces = {
+1: '<circle cx="50" cy="50" r="10" fill="#333"/>',
+2: '<circle cx="30" cy="30" r="10" fill="#333"/><circle cx="70" cy="70" r="10" fill="#333"/>',
+3: '<circle cx="30" cy="30" r="10" fill="#333"/><circle cx="50" cy="50" r="10" fill="#333"/><circle cx="70" cy="70" r="10" fill="#333"/>',
+4: '<circle cx="30" cy="30" r="10" fill="#333"/><circle cx="70" cy="30" r="10" fill="#333"/><circle cx="30" cy="70" r="10" fill="#333"/><circle cx="70" cy="70" r="10" fill="#333"/>',
+5: '<circle cx="30" cy="30" r="10" fill="#333"/><circle cx="70" cy="30" r="10" fill="#333"/><circle cx="50" cy="50" r="10" fill="#333"/><circle cx="30" cy="70" r="10" fill="#333"/><circle cx="70" cy="70" r="10" fill="#333"/>',
+6: '<circle cx="30" cy="25" r="10" fill="#333"/><circle cx="70" cy="25" r="10" fill="#333"/><circle cx="30" cy="50" r="10" fill="#333"/><circle cx="70" cy="50" r="10" fill="#333"/><circle cx="30" cy="75" r="10" fill="#333"/><circle cx="70" cy="75" r="10" fill="#333"/>'
+};
+return faces[val];
+}
+
+function toggleHelp() {
+const modal = document.getElementById('help-modal');
+const overlay = document.getElementById('overlay');
+if (modal.style.display === 'block') {
+// 閉じる時：透明にしてから消す
+modal.style.opacity = '0';
+setTimeout(() => { 
+modal.style.display = 'none'; 
+overlay.style.display = 'none'; 
+}, 300); // CSSの0.3sと合わせます
+} else {
+// 開く時：まず表示して、すぐに透明度を戻す
+overlay.style.display = 'block';
+modal.style.display = 'block';
+setTimeout(() => { 
+modal.style.opacity = '1'; 
+}, 10); // ほんの少しだけ遅らせることでアニメーションが動きます
+}
+}
+
+// シーン切り替え関数（再確認用）
+function changeScene(sceneId) {
+    // 1. 全部のシーンを隠す
+    document.querySelectorAll('.scene').forEach(div => div.style.display = 'none');
+    
+    // 2. 指定したシーンを出す
+    const target = document.getElementById(sceneId);
+    if(target) {
+        target.style.display = 'block';
+    } else {
+        console.error("シーンが見つかりません: " + sceneId);
+    }
+    window.scrollTo(0, 0);
+}
+
+// ページが読み込まれた時に実行されるおまじない
+window.addEventListener('load', function() {
+    const next = sessionStorage.getItem('nextScene');
+    if (next) {
+        // 命令があればそのシーンに飛ぶ
+        changeScene(next);
+        // 一回使ったら命令を消す
+        sessionStorage.removeItem('nextScene');
+    }
+});
+</script>
+</body>
+</html>
