@@ -3,87 +3,98 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FADING AROMA -ゲームブック：Kカフェに行こう-</title>
+<title>FADING AROMA -ゲームブック：幻のカフェに行こう-</title>
 <style>
-body { background-color: #f4eee2; color: #333; font-family: sans-serif; margin: 0; padding: 20px 15px; padding-bottom: 120px; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
-header { width: 100%; max-width: 400px; margin-bottom: 20px; display: flex; flex-direction: column; /* 縦並びにする */align-items: center; }
+body{background-color: #f4eee2; color: #333; font-family: sans-serif; margin: 0; padding: 20px 15px; padding-bottom: 120px; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; min-height: 100vh;}
+header{width: 100%; max-width: 400px; margin-bottom: 20px; display: flex; flex-direction: column; /* 縦並びにする */align-items: center;}
 
 /* メニューアイコンを横に並べるための箱 */
 .header-menu {width: 100%; display: flex; justify-content: space-between; align-items: center; margin-top: -10px; margin-bottom: 10px;}
 .header-title {font-size: 1rem; color: #666; margin: 0;}
-.header-box {width: 45px; height: 45px; border: 2px solid #333; border-radius: 8px; background: #fff; display: flex; align-items: center; justify-content: center; box-shadow: 2px 2px 0px #333; }
+.header-box {width: 45px; height: 45px; border: 2px solid #333; border-radius: 8px; background: #fff; display: flex; align-items: center; justify-content: center; box-shadow: 2px 2px 0px #333;}
 
-h1{font-size: 0.9rem; margin: 0; display: flex; flex-direction: column; align-items: center; gap: 2px; flex-grow: 1; }
+h1{font-size: 0.9rem; margin: 0; display: flex; flex-direction: column; align-items: center; gap: 2px; flex-grow: 1;}
+p{padding:0; margin:0;}
+p.dan2{margin-bottom:1.5em;}
 
+#help-modal{display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 260px; background: #fff; border: 3px solid #555; padding: 20px; z-index: 2000; text-align: center; border-radius: 12px; box-shadow: 5px 5px 0px #ccc; opacity: 0; transition: opacity 0.3s ease;}
 #app {width: 100%; max-width: 400px; border: 3px solid #555; padding: 25px; background: #fff; box-shadow: 5px 5px 0px #ccc; box-sizing: border-box; position: relative; margin-top: 0;  border-radius: 5px 5px 5px 5px; z-index: 1;}
 
 .clipboard-clip {position: absolute; top: -28px; left: 50%; transform: translateX(-50%); width: 120px; height: 50px; z-index: 10; pointer-events: none;}
 .clipboard-clip .clip-arch{position: absolute; top: 8px; left: 50%; transform: translateX(-50%);}
-.clip-base { z-index: 1; }
-.clip-arch { z-index: 2; }
-
+.clip-base{z-index: 1;}
+.clip-arch{z-index: 2;}
 .clip-base, .clip-arch {position: absolute; top: 0; left: 0; width: 100%; height: 100%;}
+
+.dice-container{position: absolute; top: 5px; right: 30px; text-align: center; z-index: 1000;}
+.die-svg{width: 40px; height: 40px; background: #fff; border: 2px solid #333; border-radius: 8px; box-shadow: 2px 2px 0px #333;}
 
 .scene {display: none; padding-top:0.75em;}
 .memo-area {width: 96%; max-width: 400px; padding: 5px 15px 0 15px; border: 1px solid #FFFFFF; background: #fdfdfd; box-sizing: border-box; font-size: 0.9rem; position: fixed; bottom: 0; left: 0; right: 0; margin: 0 auto; z-index: 500; border-radius: 10px 10px 0 0;}
-.memo-area ul { padding-left: 0; margin: 5px 0; }
-.memo-area li { margin-bottom: 5px; list-style: none; }
-.memo-area h3 { margin: 0 0 10px 0; }
+.memo-area ul{padding-left: 0; margin: 5px 0;}
+.memo-area li{margin-bottom: 5px; list-style: none;}
+.memo-area h3{margin: 0 0 10px 0;}
 
-.btn-wrap { display: flex; gap: 5px; }
-.btn-wrap button { font-size: 0.7rem; padding: 3px 6px; cursor: pointer; background: #e5f7f9; border: 1px solid #00a1c9; }
-
-.dice-container { position: absolute; top: 5px; right: 30px; text-align: center; z-index: 1000; }
-.die-svg { width: 40px; height: 40px; background: #fff; border: 2px solid #333; border-radius: 8px; box-shadow: 2px 2px 0px #333; }
-
-p{padding:0; margin:0;}
-p.dan2{margin-bottom:1.5em;}
+.btn-wrap{display: flex; gap: 5px;}
+.btn-wrap button{font-size: 0.7rem; padding: 3px 6px; cursor: pointer; background: #e5f7f9; border: 1px solid #00a1c9;}
 
 .bad-end-text {font-style: italic; color: #8b0000; font-weight: bold; padding:15px; margin: 10px 0;}
 .bad-end-text2 {font-style: italic; color: #8b0000; font-weight: bold; padding:0; margin: 10px 0;}
-
+.bad-scene {background-color: #1a1a1a; background-image: repeating-linear-gradient(-45deg, #000, #000 4px, #ccaa00 4px, #ccaa00 8px); background-size: 8px 100%; background-repeat: repeat-y; color: #e0e0e0; padding-left: 20px; padding-top: 15px; padding-bottom: 15px; margin: 10px 0; font-style: italic; font-weight: bold; border-left: 8px solid transparent;}
 .end-text {font-style: italic; color: #8b5a2b; font-weight: bold; padding: 15px 15px 0 15px; margin-top:10px;}
 
-.bad-scene {
-  /* 背景の濃い色 */
-  background-color: #1a1a1a;
-  
-  /* 縞々の設定 */
-  background-image: repeating-linear-gradient(
-    -45deg,
-    #000,
-    #000 4px,      /* 黒い部分を4pxに */
-    #ccaa00 4px,   /* 黄色い部分を4pxに（少し落ち着いた黄色にしています） */
-    #ccaa00 8px    /* 4px+4pxで合計8pxのパターンに */
-  );
-  
-  /* 線の幅をここで制御（左側にだけ縞々が出るように） */
-  background-size: 8px 100%;
-  background-repeat: repeat-y;
-  
-  /* テキストの読みやすさを確保 */
-  color: #e0e0e0;
-  padding-left: 20px; /* 左側に縞々分の余白を確保 */
-  padding-top: 15px;
-  padding-bottom: 15px;
-  margin: 10px 0;
-  
-  /* 赤文字だと読みづらいので、ベースは白系にして赤をアクセントにする */
-  font-style: italic;
-  font-weight: bold;
-  border-left: 8px solid transparent; /* 縞々用のスペースを透明な枠として確保 */
-}
+.secret-link{text-decoration: none; color: inherit; cursor: default; display: inline; padding: 0; margin: 0;}
+
+/* マウスを乗せた時だけ赤くして、隠し扉っぽくする */
+.secret-link:hover{color: #8b0000; cursor: default;}
 
 /* ボタン */
-.common-btn {margin-top: 1.5em; padding: 10px; font-size: 16px; width: 100%; cursor: pointer; background: #e8dcc8; border: 1px solid #555; }
-.common-btn2 {margin-top: 1.5em; padding: 10px; font-size: 12px; width: 100%; cursor: pointer; background: #ececec; border: 1px solid #555; }
+.common-btn {margin-top: 1.5em; padding: 10px; font-size: 16px; width: 100%; cursor: pointer; background: #e8dcc8; border: 1px solid #555;}
+.common-btn2 {margin-top: 1.5em; padding: 10px; font-size: 12px; width: 100%; cursor: pointer; background: #ececec; border: 1px solid #555;}
 .common-btn3 {margin-top: 1.5em; padding: 10px; font-size: 16px; width: 100%; cursor: pointer; color:#FFF; background: #555; border: 1px solid #555;}
-.common-btn4 {margin-top: 0.5em; padding: 10px; font-size: 12px; width: 100%; cursor: pointer; border: 1px solid #555; }
+.common-btn4 {margin-top: 0.5em; padding: 10px; font-size: 12px; width: 100%; cursor: pointer; border: 1px solid #555;}
 
-.flag-area { display: flex; gap: 15px; font-size: 1.2rem; cursor: pointer; }
-.signed { color: #a52a2a; font-weight: bold; }
+.btn-black {margin-top: 1.5em; padding: 10px; font-size: 16px; width: 100%; cursor: pointer; background: #000; color: #FFF; border: 2px solid #555; font-weight: bold;}
+.btn-white {margin-top: 1.5em; padding: 10px; font-size: 16px; width: 100%; cursor: pointer; background: #FFF; color: #555; border: 1px solid #555;}
 
-#help-modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 260px; background: #fff; border: 3px solid #555; padding: 20px; z-index: 2000; text-align: center; border-radius: 12px; box-shadow: 5px 5px 0px #ccc; opacity: 0; transition: opacity 0.3s ease; }
+/* －－－－－－－－－－－－－－　第7章用　－－－－－－－－－－－－－－－ */
+
+/* ボタン自体の装飾をリセット */
+.digit-btn{background: none; border: none; padding: 0; cursor: pointer; transition: transform 0.2s, filter 0.2s;}
+.blink {animation: blink 1s step-end infinite;}
+@keyframes blink { 50% { opacity: 0; }}
+.time-button-container{display: flex; justify-content: center; margin: 20px 0 0 0; pointer-events: none;}
+.digital-color {fill: #8fbc8f; text-shadow: 0 0 5px #32cd32; /* 滲むような影 */}
+
+#choices-container{opacity: 0; transition: opacity 0.5s ease-in; pointer-events: none; /* クリックも無効化 */}
+#choices-container.is-visible{opacity: 1; pointer-events: auto;}
+
+/* スマホ */
+.phone-wrapper {display: flex; justify-content: center; align-items: center; margin: 20px 0; width: 100%;}
+.shaking-phone{cursor: pointer; animation: shake-rhythm 2s infinite ease-in-out; display: block;}
+#phone-screen {animation: screen-glow-rhythm 2s infinite ease-in-out; /* 画面の光るアニメーション */}
+@keyframes shake-rhythm {
+0%, 15% { transform: translate(0, 0);}
+20%, 30%, 40% { transform: translate(-2px, 0);}
+25%, 35%, 45% { transform: translate(2px, 0);}
+50%, 60% { transform: translate(0, 0);}
+65%, 75%, 85% { transform: translate(-2px, 0);}
+70%, 80%, 90% { transform: translate(2px, 0);}
+95%, 100% { transform: translate(0, 0);}
+}
+
+@keyframes screen-glow-rhythm {
+/* 震えと同期して、fillの色を黒(#111)から明るい色へ変化させる */
+0%, 15%, 50%, 60%, 95%, 100% { fill: #111;}
+20%, 30%, 40%, 25%, 35%, 45%, 65%, 75%, 85%, 70%, 80%, 90% { fill: #7fff00;} /* ここで青白く光らせる */
+}
+
+/* －－－－－－－－－－－－－－　モーダル用　－－－－－－－－－－－－－－－ */
+
+.modal{display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); z-index: 1000;}
+.modal-content {background: #fdfdfd; padding: 2em; border: 1px solid #555; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);  width: 80%; max-width: 400px; text-align: center;}
+
+/* －－－－－－－－－－－－－－　カップ用　－－－－－－－－－－－－－－－ */
 
 /* 湯気の基本設定 */
 .steam {transform-origin: bottom center;}
@@ -91,33 +102,118 @@ p.dan2{margin-bottom:1.5em;}
 .steam-right {animation: rise 2.2s infinite ease-in-out 0.8s;}/* 右の湯気（開始時間をずらし、周期を少し変える） */
 
 @keyframes rise {
-0% { transform: translateY(10px); opacity: 0; }/* 最初は完全に透明 */
-30% { opacity: 1; }/* カップの中から現れる時にふんわり見える */
-70% { opacity: 1; }/* 見えている状態をキープ */
-100% { transform: translateY(-20px) translateX(-3px); opacity: 0; /* 上に消える */}
+0%{transform: translateY(10px); opacity: 0; }/* 最初は完全に透明 */
+30%{opacity: 1; }/* カップの中から現れる時にふんわり見える */
+70%{opacity: 1; }/* 見えている状態をキープ */
+100%{transform: translateY(-20px) translateX(-3px); opacity: 0; /* 上に消える */}
 }
 .cup-move {margin-top: 20px; vertical-align: middle;}/* ここを調整して、左右の箱と高さを合わせる */
 
-/* 赤い星にするためのクラス */
-.flag-memo{color: #a52a2a; /* 渡辺さんのサインと同じ色 */ font-weight: bold;}
+/* －－－－－－－－－－－－－－　メモ帳CSS　－－－－－－－－－－－－－－－ */
 
-/* しおり用 */
+.flag-memo{color: #a52a2a; /* Wさんのサインと同じ色 */ font-weight: bold;}
+.flag-area{display: flex; gap: 15px; font-size: 1.2rem; cursor: pointer;}
+.signed{color: #a52a2a; font-weight: bold;}
+
 #shiori-container {position: absolute; top: -11px; left: 10px; flex-direction: row; z-index: 10;}
 .shiori {width: 10px; height: 10px; background: #ccc; transition: height 0.3s, background 0.3s; border-radius: 2px 2px 0 0;}
-/* しおりの色 */
-.shiori:nth-child(1) { background: #ef9a9a; } /* 薄い赤 */
-.shiori:nth-child(2) { background: #ffcdd2; } /* 薄いピンク */
-.shiori:nth-child(3) { background: #ffe0b2; } /* 薄いオレンジ */
-.shiori:nth-child(4) { background: #fff9c4; } /* 薄い黄色 */
-.shiori:nth-child(5) { background: #c8e6c9; } /* 薄い緑 */
-.shiori:nth-child(6) { background: #b2ebf2; } /* 薄い青緑 */
-.shiori:nth-child(7) { background: #b3e5fc; } /* 水色 */
-.shiori:nth-child(8) { background: #d1c4e9; } /* 紫 */
-.shiori:nth-child(9) { background: #e8dcc8; } /* 茶色 */
+
+.shiori:nth-child(1){background: #ef9a9a; } /* 薄い赤 */
+.shiori:nth-child(2){background: #ffcdd2; } /* 薄いピンク */
+.shiori:nth-child(3){background: #ffe0b2; } /* 薄いオレンジ */
+.shiori:nth-child(4){background: #fff9c4; } /* 薄い黄色 */
+.shiori:nth-child(5){background: #c8e6c9; } /* 薄い緑 */
+.shiori:nth-child(6){background: #b3e5fc; } /* 水色 */
+.shiori:nth-child(7){background: #d1c4e9; } /* 紫 */
+.shiori:nth-child(last){background: #e1bee7; } /* 紫 */
+
+/* －－－－－－－－－－－－－－　迷宮モード用CSS　－－－－－－－－－－－－－－－ */
+/* ダークモード用のカラーセット */
+.dark-mode{background-color: #1a1a1a !important; /* 背景をダークグレーに */ color: #e0e0e0 !important;/* 文字を薄いグレーに */}
+
+/* 枠線や箱もダークモードに合わせる */
+.dark-mode .header-box,.dark-mode .scene{border-color: #555 !important; background-color: #2a2a2a !important;}
+.dungeon-mode{filter: grayscale(100%) invert(100%); background-color: #1a1a1a !important; /* 反転するので背景を黒っぽく */ color: #ffffff !important;/* 文字は白に */}
+.monochrome-mode{filter: grayscale(100%); background-color: #dcdcdc !important; /* 背景も白黒に合わせる */}
+.dark-mode .shiori{filter: brightness(0.8); /* 少しだけ暗くすると黒背景に馴染みます */}
+
+/* －－－－－－－－－－－－－－　迷宮モード用CSS　－－－－－－－－－－－－－－－ */
+
+/* scene-7-03が表示されているとき、中の全部を強制的にモノクロにする */
+#scene-7-02, 
+#scene-7-02 *, 
+#scene-7-02 .digital-color {
+    filter: grayscale(100%) !important;
+    -webkit-filter: grayscale(100%) !important;
+    fill: #808080 !important; /* 時計の色も強制的に灰色に書き換える */
+    color: #808080 !important; /* 文字も強制的に灰色に */
+}
+
+/* モノクロモードの時、背景色も白黒に上書きする */
+.page-grayscale, .page-grayscale body {
+    background-color: #dcdcdc !important; /* 背景を灰色にする */
+    filter: grayscale(100%) !important;
+}
+
+/* bodyにクラスが付いた時のルール */
+body.page-grayscale {
+    background-color: #dcdcdc !important;
+    filter: grayscale(100%) !important;
+}
+
+/* 1. バッドエンド用のモノクロ強制スタイル */
+body.monochrome-mode {
+    background-color: #dcdcdc !important; /* 全体の背景を灰色に */
+    filter: grayscale(100%) !important;
+}
+
+/* 2. 時計などのSVGに対しても念のため強制指定 */
+body.monochrome-mode svg,
+body.monochrome-mode .digital-color {
+    filter: grayscale(100%) !important;
+    fill: #808080 !important;
+}
+
+/* モノクロモード中だけ時計の文字をくっきり見せる */
+body.monochrome-mode .digital-color {
+    fill: #ffffff !important; /* 文字色を白に */
+    text-shadow: 0 0 5px #000000 !important; /* 黒い影をつけて視認性を確保 */
+}
+
+/* 1. モノクロモードの強制上書き */
+body.monochrome-mode {
+    background-color: #dcdcdc !important; /* 背景を灰色に */
+}
+
+/* 2. 背景も含めて全体をモノクロ化（これが重要！） */
+body.monochrome-mode, 
+body.monochrome-mode * {
+    filter: grayscale(100%) !important;
+}
+
+/* 3. カラーに戻したいシーン（バッドエンドなど） */
+body.monochrome-mode #scene-bad-04,
+body.monochrome-mode #scene-bad-04 * {
+    filter: none !important;
+}
+
+/* 4. モノクロのまま維持したいシーン（時が止まったエンド） */
+/* IDを実際のシーンに合わせてね */
+body.monochrome-mode #scene-bad-05,
+body.monochrome-mode #scene-bad-05 * {
+    filter: grayscale(100%) !important;
+}
+
+/* 5. 時計の文字だけは白くして守る */
+body.monochrome-mode .digital-color {
+    filter: none !important;
+    fill: #ffffff !important;
+    text-shadow: 0 0 5px #000000 !important;
+}
 </style>
 </head>
-<body>
 
+<body>
 <header>
 <div class="header-menu">
 <!-- サイコロ -->
@@ -138,12 +234,19 @@ p.dan2{margin-bottom:1.5em;}
 	</div>
 
 <!-- 説明書 -->
-	<div class="header-box" onclick="toggleHelp()" style="font-weight:bold; font-size:1.2rem;">…</div>
+	<div class="header-box" onclick="toggleHelp()" style="font-weight:bold; font-size:1.2rem;">？</div>
 </div>
-<h1 class="header-title">【ゲームBOOK】Kカフェに行こう</h1>
+<h1 class="header-title" style="display: block; text-align: center;">【ゲームB<span class="secret-link" onclick="sessionStorage.setItem('nextScene', 'scene-8'); location.reload();">OO</span>K】<span id="title-text">幻のカフェに行こう</span></h1>
 </header>
+<div style="display:none;">中野ブロードウェイにある某カフェを舞台にしたゲームブックです</div>
 
-
+<!-- モーダル本体 -->
+<div id="modal-label" class="modal">
+	<div class="modal-content">
+		<p id="modal-text"></p>
+		<button onclick="closeModal()">……閉じる</button>
+	</div>
+</div>
 
 <!-- ここから 本文 -->
 <!-- 説明書の中身 -->
@@ -178,7 +281,7 @@ p.dan2{margin-bottom:1.5em;}
 		<div id="scene-1-content">
 			<p class="dan2">あなたは中野ブロードウェイにあるという開かずのカフェへ行くべく、4階へとやってきた。</p>
 			<p>薄暗く長く伸びる廊下、長年シャッターが閉まった店。不気味な看板。</p>
-			<p class="dan2">Kカフェは一体どこにあるのだろう？</p>
+			<p class="dan2">カフェは一体どこにあるのだろう？</p>
 			<p>あなたはキョロキョロと辺りを見渡した。</p>
 			<button class="common-btn" onclick="tryCafeEntrance()">＞ サイコロを振って運試し ＜</button>
 		</div>
@@ -202,7 +305,7 @@ p.dan2{margin-bottom:1.5em;}
 
 <!-- 第2幕：店の入り口 -->
 	<div id="scene-2" class="scene" style="display:none;">
-		<p>あなたは今、Kカフェの入り口に立っている。</p>
+		<p>あなたは今、カフェの入り口に立っている。</p>
 		<p class="dan2">このまま扉を開ければ、カフェに入る事が出来そうだ。</p>
 		<p>あなたはこのままもう少し入り口を観察してもいいし、カフェに入店してもいい。</p>
 		<button class="common-btn" onclick="changeScene('scene-3')">＞ 扉を開けて入店する ＜</button>
@@ -226,7 +329,7 @@ p.dan2{margin-bottom:1.5em;}
 	<div id="scene-3" class="scene">
 		<p class="dan2">扉を開けて店内に入ると、オーナーがあなたに気づいて「こんばんわ」と声をかけてくれた。</p>
 
-		<p class="dan2">ここが、Kカフェか。</p>
+		<p class="dan2">ここがあの、幻のカフェか。</p>
 
 		<p class="dan2">暖かみのあるオレンジ色の灯りが店内をぼんやりと照らし、鼻をくすぐる珈琲の芳醇な香りが、全身を優しく包み込む。</p>
 		<p class="dan2">ずっと画面越しに見ていたあの景色が今、目の前にあるという事実。否応なしに鼓動が高鳴る。</p>
@@ -237,7 +340,7 @@ p.dan2{margin-bottom:1.5em;}
 	</div>
 
 	<div id="scene-3-booth" class="scene" style="display:none;">
-		<p class="dan2">あなたはオーナーの隙を見て、配信ブースに入った。</p>
+		<p class="dan2">あなたはオーナーの隙を見て、さりげなく配信ブースに入った。</p>
 		<p>画面越しに見ていた配信ブースに入れた事に、あなたは興奮を覚える。</p>
 		<button class="common-btn" onclick="changeScene('scene-3-booth-detail')">＞ もっと観察する ＜</button>
 		<button class="common-btn" onclick="changeScene('scene-3'); document.getElementById('seat-menu').style.display = 'block'; document.getElementById('booth-menu').style.display = 'block';">＞ 店内に戻る ＜</button>
@@ -253,7 +356,7 @@ p.dan2{margin-bottom:1.5em;}
 	<div id="scene-3-booth-detail2" class="scene" style="display:none;">
 		<p class="dan2">あなたは配信ブースの奥にナゾの扉を見つけた。</p>
 		<p>黒いその扉には、冷たい輝きを放つ銀色のノブがついている。</p>
-		<button class="common-btn" onclick="changeScene('scene-bad-02')">＞ 黒い扉を開けて中に入る ＜</button>
+		<button class="btn-black" onclick="changeScene('scene-bad-02')">＞ 黒い扉を開けて中に入る ＜</button>
 		<button class="common-btn" onclick="changeScene('scene-3'); document.getElementById('seat-menu').style.display = 'block'; document.getElementById('booth-menu').style.display = 'block';">＞ 店内に戻る ＜</button>
 	</div>
 
@@ -261,7 +364,7 @@ p.dan2{margin-bottom:1.5em;}
 		<p>扉を開けた瞬間、強烈な吸引力があなたを襲った！</p>
 		<p class="dan2">身体が光に包まれ……</p>
 		<p class="dan2">気がつくと、あなたはまた中野ブロードウェイの入り口に立っていた。</p>
-		<button class="common-btn3" onclick="location.reload()">＞ もう一度Kカフェを探す ＜</button>
+		<button class="common-btn3" onclick="location.reload()">＞ もう一度カフェを探す ＜</button>
 	</div>
 
 
@@ -318,7 +421,7 @@ p.dan2{margin-bottom:1.5em;}
 	<div id="cafetime-01" class="scene" style="display:none;">
 		<div id="cafetime-container">
 			<p>カフェの店内には数名のお客がいる。</p>
-			<p class="dan2">オーナーは給仕しながら、合間合間で珈琲を淹れている。</p>
+			<p class="dan2">オーナーは静かに給仕をしながら、合間合間で珈琲を淹れている。</p>
 			<p>さて、どうしようか？</p>
 
 			<button class="common-btn4" onclick="cafetimeItem('guest-a')">カウンター席の客を見る</button>
@@ -332,12 +435,12 @@ p.dan2{margin-bottom:1.5em;}
 	</div>
 
 	<div id="scene-end-01" class="scene end-text" style="display:none;">
-		<p class="dan2">湯が沸く音。豆を挽く音。さざめきの様な客同士のお喋り。<br>それらをBGMに、あなたはKカフェで至福のひと時を心行くまでのんびり過ごした。</p>
+		<p class="dan2">湯が沸く音。豆を挽く音。さざめきの様な客同士のお喋り。<br>それらをBGMに、あなたはカフェで至福のひと時を心行くまでのんびり過ごした。</p>
 		<p class="dan2">満ち足りた気持ちを胸に、あなたは荷物をまとめるとそっと席を立ち、オーナーに会釈をして扉へ向かった。</p>
 		<p class="dan2">「ありがとうございました。またお越しください」<br>とオーナーが声をかけてくれた。</p>
-		<p class="dan2">名残惜しい気持ちと共にあなたはKカフェをあとにし、帰路へとついた</p>
-		<p align="center">＜エンディング＞<br>Kカフェからの帰還　その1</p>
-		<button class="common-btn3" onclick="location.reload()">＞ もう一度Kカフェへ行く ＜</button>
+		<p class="dan2">名残惜しい気持ちと共にあなたはカフェをあとにし、帰路へとついた</p>
+		<p align="center">＜エンディング＞<br>幻のカフェ　その1</p>
+		<button class="common-btn3" onclick="location.reload()">＞ もう一度カフェへ行く ＜</button>
 	</div>
 
 
@@ -357,7 +460,7 @@ p.dan2{margin-bottom:1.5em;}
 
 	<div id="scene-6-01" class="scene" style="display:none;">
 		<p>あなたは腹を決め、今日は明け方までカフェで過ごす事にした。</p>
-		<p class="dan2">長年訪れたかったKカフェだ。時間が許す限り堪能したい。</p>
+		<p class="dan2">長年訪れたかったカフェだ。時間が許す限り堪能したい。</p>
 
 		<p>数名の客が帰ったのち、深夜のカフェにはあなたともう1人の客のみとなった。</p>
 		<p class="dan2">あなたは新しい飲み物を注文すべく、オーナーに声をかけようとした。</p>
@@ -371,11 +474,10 @@ p.dan2{margin-bottom:1.5em;}
 
 	<div id="scene-6-02" class="scene" style="display:none;">
 		<div id="booze-container">
-			<p>深夜のKカフェはいつもの雰囲気から一転し、まるで隠れ家のバーへとその姿を変えた。</p>
+			<p>深夜のカフェはいつもの雰囲気から一転し、まるで隠れ家のバーへとその姿を変えた。</p>
 			<p class="dan2">テーブルにはあっという間に美味しそうなつまみが並び、グラスやチェイサーが置かれた。</p>
 
-			「お酒、いけるクチですか？」</p>
-			<p class="dan2">オーナーはあなたにそう声をかけると、酒瓶をテーブルに並べ始めた。</p>
+			<p class="dan2">「お酒、いけるクチですか？」<br>オーナーはあなたにそう声をかけると、酒瓶をテーブルに並べ始めた。</p>
 
 			<p>「これ、皆さんからのお土産とかなんで、お代は結構です。一緒に呑みましょう」</p>
 			<p>オーナーはそういうと楽しげに微笑み、あなたにグラスを渡した。</p>
@@ -393,7 +495,7 @@ p.dan2{margin-bottom:1.5em;}
 	<div id="scene-6-03" class="scene" style="display:none;">
 		<div id="booze2-container">
 			<p class="dan2">「もしかして、いけるクチですか？」</p>
-			<p class="dan2">あなたがグラスを空にすると、気を良くしたのか、客がバッグから重そうな酒瓶を取り出してオーナーに渡した。</p>
+			<p class="dan2">あなたがグラスを空にすると、それに気を良くした眼鏡の客が自分の鞄から重そうな酒瓶を取り出し、オーナーに手渡した。</p>
 			<p>オーナーは朗らかな笑顔と共に、その瓶をテーブルに置いた。</p>
 			<p>ごとりという音と共に置かれた一升瓶。そのラベルには『滅王』という墨文字が書かれている。</p>
 			<p class="dan2">間接照明の薄明かりの下で、その瓶は誇らしげな輝きを放っている。</p>
@@ -417,31 +519,35 @@ p.dan2{margin-bottom:1.5em;}
 		<p>やがて店内の灯りが少しずつ朝の光へと溶け、夜明けが近づいてきた。</p>
 		<p class="dan2">最後の一口を飲み干すと、あなたは「そろそろ帰ります」とオーナーに声をかける。</p>
 
-		<p>「ありがとうございました。またいらしてくださいね」</p>
+		<p>「ありがとうございました」</p>
 		<p class="dan2">オーナーが向けてくれたその笑顔は、かつてTV画面や配信で見つめていた物そのままで、あなたの胸に子供時代の懐かしさが溢れた。</p>
 
 		<p>……再びこのカフェを訪れた日、その時は迷わずご相伴にあずかろう。</p>
 		<p class="dan2">あなたはそう決意するとカフェの扉を開け、宵闇が残る中野ブロードウェイへと足を踏み出した。</p>
 
-		<p align="center">＜エンディング＞<br>Kカフェからの帰還　その2</p>
-		<button class="common-btn3" onclick="location.reload()">＞ もう一度Kカフェへ行く ＜</button>
+		<p align="center">＜エンディング＞<br>幻のカフェ　その2</p>
+		<button class="common-btn3" onclick="location.reload()">＞ もう一度カフェへ行く ＜</button>
 	</div>
+
+
 
 	<div id="scene-6-04" class="scene" style="display:none;">
 			<p class="dan2">あなたは『滅王』を飲み干す事に成功した！</p>
 			<p>喉から胃にかけて熱いマグマが流れる様な、そんな感覚を覚える。</p>
 			<p>こんなに美味しい酒は初めてだ！あなたは顔をほころばせる。</p>
-			<button class="common-btn" onclick="changeScene('scene-7')">＞ シーン7へ ＜</button>
+			<button class="common-btn" onclick="changeScene('scene-7')">＞ もう少し呑む ＜</button>
 	</div>
+
+
 
 	<div id="scene-bad-03" class="scene bad-end-text bad-scene" style="display:none;">
 		<p>あなたは『滅王』を飲み干した！</p>
 		<p>喉から胃にかけて熱いマグマが流れる様な、そんな感覚を覚える。</p>
 		<p class="dan2">こんなに美味しい酒は初めてだ！あなたは顔をほころばせる。</p>
 
-		<p>ニコニコ微笑むオーナー達にすすめられるがまま、二杯、三杯、四杯と滅王を呑むあなた。</p>
+		<p class="dan2">ニコニコ微笑むオーナー達にすすめられるがまま、二杯、三杯、四杯と滅王を呑むあなた。</p>
 		<p>すると、突然強烈な眠気があなたを襲った！</p>
-		<p>大きなあくびと共に店内を見渡すと、心地よさそうな大きいソファが目に入った。</p>
+		<p class="dan2">大きなあくびと共に店内を見渡すと、心地よさそうな大きいソファが目に入った。</p>
 		<p class="dan2">なんて気持ち良さそうなソファなのだろう。<br>このまま身体を横たえたら、きっと気持ち良い眠りにつけそうだ…</p>
 		<p class="dan2">…　…　…</p>
 		<p class="dan2">…　…　…　…　…　…</p>
@@ -454,23 +560,316 @@ p.dan2{margin-bottom:1.5em;}
 
 		<p>ある朝、あなたが気がかりな夢から目ざめたとき、自分がガラス瓶の中で冷たい光を放つ缶バッヂに変ってしまっているのに気づいた…！</p>
 
-		<button class="common-btn3" onclick="location.reload()">＞ もう一度Kカフェへ行く ＜</button>
+		<button class="common-btn3" onclick="location.reload()">＞ もう一度カフェへ行く ＜</button>
 	</div>
 
-<!-- 第7幕：寝る。 -->
-	<div id="scene-7" class="scene">
-		<p>第7幕：寝る？</p>
-		<button onclick="changeScene('scene-8')">次へ</button>
+
+
+<!-- 第7幕：酒盛り -->
+	<div id="scene-7" class="scene" style="display:none;">
+		<p class="dan2">「そういえば、とっておきがあるんですよ」</p>
+		<p class="dan2">オーナーは茶色の瓶を抱えて戻ってきた。何でも南米産の希少な酒だという。<br>芳醇で深煎りの珈琲に似た香りが鼻腔をくすぐり、グラスの中の氷が飴色に染まる。</p>
+		<p class="dan2">憧れの人物が注ぐ美酒。真夜中の高揚感。あなたは夢見心地でグラスを口元へ運ぶ――</p>
+
+		<p>ふと、現在の時刻が気になり、あなたは時計に目をやった</p>
+		<div class="time-button-container">
+			<button class="digit-btn">
+				<svg width="120" height="40" viewBox="0 0 120 40">
+					<rect width="150" height="40" fill="#111" />
+					<text x="10" y="32" font-family="monospace" font-size="35" class="digital-color" letter-spacing="2">04</text>
+					<text x="72" y="32" font-family="monospace" font-size="35" class="digital-color" letter-spacing="2">22</text>
+					<text x="52" y="32" font-family="monospace" font-size="35" class="digital-color colon blink">:</text>
+				</svg>
+			</button>
+		</div>
+		<button class="common-btn" onclick="changeScene('scene-7-02')">＞ まだこんな時間か ＜</button>
+		<button class="common-btn" onclick="changeScene('scene-7-03')">＞ もうこんな時間か ＜</button>
 	</div>
 
-<!-- 第8幕：退店。 -->
-	<div id="scene-8" class="scene"><p>第8幕：退店。</p>
+	<div id="scene-7-02" class="scene" style="display:none;">
+		<p class="dan2">「ソウいえば、とっテオきがあるンデですよ」</p>
+		<p class="dan2">オーナーは紫色の瓶を抱えて戻ってきた。何でも北米産の希少なワインだという。<br>グラスがワインで満たされる。</p>
+		<p class="dan2">憧れの人物が注ぐ美酒。真夜中の高揚感。あなたは夢見心地でグラスを再び口元へ運ぶ――</p>
+
+		<p>ふと、現在の時刻が気になり、あなたは時計に目をやった</p>
+		<div class="time-button-container">
+			<button class="digit-btn">
+				<svg id="clock-svg" width="120" height="40" viewBox="0 0 120 40">
+					<rect width="150" height="40" fill="#111" />
+					<text x="10" y="32" font-family="monospace" font-size="35" class="digital-color" letter-spacing="2">04</text>
+					<text x="72" y="32" font-family="monospace" font-size="35" class="digital-color" letter-spacing="2">44</text>
+					<text x="52" y="32" font-family="monospace" font-size="35" class="digital-color colon">:</text>
+				</svg>
+			</button>
+		</div>
+		<button class="common-btn2" onclick="changeScene('scene-bad-04')">＞ まだこんな時間か ＜</button>
+		<button class="common-btn2" onclick="changeScene('scene-bad-04')">＞ まだこんな時間か ＜</button>
+		<button class="common-btn2" onclick="changeScene('scene-bad-04')">＞ まだこんな時間か ＜</button>
+		<button class="common-btn2" onclick="changeScene('scene-bad-04')">＞ まだこんな時間か ＜</button>
 	</div>
+
+	<div id="scene-bad-04" class="scene bad-end-text bad-scene" style="display:none;">
+		<p>オーナーは何度も何度も瓶を抱え、あなたの前へと戻って来る。</p>
+		<p>それは茶色だったり、紫だったり、赤、黄に、緑、青…</p>
+		<p class="dan2">あなたは、もはやそれが何なのかを考える事をやめ、グラスを空け、また注がれる酒を呑む。</p>
+
+		<p>視界の端では、常連客があなたを見てニコニコと微笑んでいる。</p>
+		<p class="dan2">良く見ればその姿は色と光を失っており、まるで大理石の彫像に見えた。</p>
+
+		<p class="dan2">…　…　…　…　…　…</p>
+
+		<p>幾度も注がれたグラスはとうに砕け散り、オーナーの注ぐ謎色の液体は、あなたの掌へと直接注がれている。</p>
+		<p>あなたはひたすら喉を鳴らし、それを呑み干す。それを呑み干す。呑み干す…</p>
+		<p class="dan2">もう、何も考えられない…</p>
+
+		<div class="time-button-container">
+			<button class="digit-btn">
+				<svg id="clock-svg" width="120" height="40" viewBox="0 0 120 40">
+					<rect width="150" height="40" fill="#111" />
+					<text x="10" y="32" font-family="monospace" font-size="35" class="digital-color" letter-spacing="2">88</text>
+					<text x="72" y="32" font-family="monospace" font-size="35" class="digital-color" letter-spacing="2">88</text>
+					<text x="52" y="32" font-family="monospace" font-size="35" class="digital-color colon">:</text>
+				</svg>
+			</button>
+		</div>
+
+		<button class="common-btn3" onclick="location.reload()">＞ もう一度カフェを探す ＜</button>
+	</div>
+
+
+
+	<div id="scene-7-03" class="scene" style="display:none;">
+		<p class="dan2">心地良い酩酊と微睡の境で、不意に無機質な振動音が店内に響き渡った。</p>
+		<div class="phone-wrapper">
+			<div id="phone-container" class="shaking-phone" onclick="stopAndReveal()">
+				<svg id="phone-svg" class="shaking-phone" width="60" height="120" viewBox="0 0 100 200">
+					<rect x="10" y="10" width="80" height="180" rx="10" fill="#333" />
+					<rect id="phone-screen" x="20" y="30" width="60" height="120" rx="5" fill="#111" />
+					<circle cx="50" cy="170" r="8" fill="#222" stroke="#444" stroke-width="2"/>
+				</svg>
+			</div>
+		</div>
+
+		<div id="choices-container">
+			<p>画面をタップし、あなたはスマホを静かにさせた。深夜だというのに騒がせてしまって申し訳ない気持ちで溢れる。</p>
+			<p class="dan2">二人に小さく会釈をして、貴方はそっと画面を確認した。</p>
+
+			<p class="dan2">それは、あなたの大切な人からの着信であった。こんな真夜中に。緊急か、あるいはアプリの誤作動か。</p>
+			<p>悩むあなたの掌で、スマホはまた激しく身を震わせ始めた。</p>
+
+			<button class="common-btn" onclick="changeScene('scene-7-04')">＞ 電話に出る ＜</button>
+			<button class="common-btn" onclick="changeScene('scene-7-05')">＞ ミュートしてスマホをしまう ＜</button>
+		</div>
+	</div>
+
+
+	<div id="scene-7-04" class="scene end-text" style="display:none;">
+			<p class="dan2">「すみません、ちょっと」</p>
+			<p class="dan2">あなたは大切な人からの電話に出る為、未だ震え続けるスマホを手にカフェを出た。</p>
+
+			<p class="dan2">「早く、早くそこから、早く、戻って」</p>
+			<p class="dan2">耳に当てたスマホからは、しきりにあなたの大切な人の声が聞こえ続けている。</p>
+
+			<p>大切な人の声に急かされる様にしてあなたは廊下を疾走し、階段を駆け下りていく。</p>
+			<p class="dan2">空調が止まり蒸した廊下の空気はあなたの全身をくまなく撫で、カフェで纏ったアロマの残滓を容赦なく引きはがす。</p>
+
+			<p class="dan2">やがて中野ブロードウェイのエントランスへと戻り、そこから真っすぐ伸びる中野駅へ向かってあなたは駆けだす。</p>
+
+			<p>アーケードを駅へ向けて疾走するあなたの目に、色が戻り始める。</p>
+			<p>朝焼けと共に駅に向かう人々に交わる。やがてカフェはどんどんと遠ざかっていった。</p>
+			<p class="dan2">もはや珈琲のアロマはあなたの身体から失われ、新しく始まった朝の香りにあなたは包まれている。</p>
+
+			<p class="dan2">ふと、気づく。自分は、深夜の緊急電話に応じる形で急遽店を出てしまったが、果たして大丈夫だったのだろうか？</p>
+			<p class="dan2">己の無礼な態度に一抹の不安を覚えながらたあなたの耳に、オーナーの声がかすかに聞こえた様な気がした。</p>
+
+			<p class="dan2" align="center"><span style="color:#a52a2a;">「ま た お こ し く だ さ い」</span></p>
+
+			<p align="center">＜エンディング＞<br>幻のカフェ　その3</p>
+			<button class="common-btn3" onclick="location.reload()">＞ もう一度カフェへ行く ＜</button>
+	</div>
+
+	<div id="scene-7-05" class="scene" style="display:none;">
+			<p>こんな時間に電話なんて。あいつまた酔っぱらったか、寝ぼけてスマホを誤操作したな？</p>
+			<p class="dan2">あなたはオーナー達に無礼を詫び、スマホをバッグの奥深くへとねじ込む。</p>
+
+			<p class="dan2">あと僅かで夜が明ける。<br>このカフェを退店する時間が来てしまうという一抹の寂しさがあなたの胸をよぎる。</p>
+
+			<p class="dan2">「そろそろ朝ですね」<br>オーナーはそういうと、空になった酒瓶を持って静かに立ち上がった。</p>
+
+			<p>と、酒瓶からラベルが床へと舞い落ちた。<br>オーナーと客は全く気づいていない様だ。</p>
+			<p>あなたは拾ったラベルを素早くバッグへと押し込むと、姿勢を正した</p>
+
+			<button class="common-btn" onclick="changeScene('scene-last')">＞ 酒のラベルを手に入れた ＜</button>
+	</div>
+
+
+
+<!-- 最終幕 -->
+	<div id="scene-last" class="scene" style="display:none;">
+		<p class="dan2">今宵、憧れの人のカフェで忘れがたい経験をさせてもらったあなた。</p>
+		<p class="dan2">さて、今日のあなたはカフェで何を見て、何をしただろうか？<br>全てを思い返して欲しい。</p>
+		<p class="dan2">まずは手持ちの本を確認しよう。<br>今のあなたにとって、その本はただの本か、それとも特別な本だろうか？</p>
+		<p class="dan2">さて、あなたは…　…　…</p>
+
+		<button class="common-btn" onclick="changeScene('scene-last1')">＞ サイン本を持っていない ＜</button>
+		<button class="common-btn" onclick="changeScene('scene-lastbook')">＞ サイン本を持っている ＜</button>
+		<p><span style="font-size: 0.9em; color: #a52a2a;">（メモ帳の「オーナーの本」が「オーナーのサイン本」になっているか確認してください）</span></p>
+	</div>
+
+	<div id="scene-last1" class="scene end-text" style="display:none;">
+		<p class="dan2">「そろそろ帰りましょうか」</p>
+		<p class="dan2">オーナーがカフェの片付けを始める中、常連客が立ち上がり、あなたに声をかけた。<br>閉ざされていたカフェの扉をオーナーが手ずから開き、あなた達を帰路へと誘う。</p>
+
+		<p class="dan2">「またいらしてくださいね」</p>
+		<p class="dan2">オーナーの静かな見送りを受け、あなたは客の男と共に帰路へと着く。</p>
+
+		<p class="dan2">（どうしてあの時、声をかけられなかったんだろう……）</p>
+		<p class="dan2">懐にしまい込んだままの本の重みが、やけにずっしりと肩に食い込む。</p>
+
+		<p class="dan2">次こそは、勇気を出してサインを貰おう。</p>
+		<p class="dan2">朝の空気の中あなたは拳を握り締め、再びこのカフェへ戻る事を強く誓った。</p>
+
+		<p align="center">＜グッドエンディング＞<br>勇気を出して次こそは</p>
+		<button class="common-btn3" onclick="changeScene('scene-last88')">＞ クリア特典へ ＜</button>
+	</div>
+
+
+
+	<div id="scene-lastbook" class="scene" style="display:none;">
+		<p class="dan2">バッグにしまったサイン本の存在を、布地越しにそっと確かめる。<br>これは長年憧れのオーナーに勇気を出して声をかけ、その結果得られた大切な宝物だ。</p>
+		<p>次に自分の行動を振り返ろう。<br>今宵、あなたは何をしただろうか？</p>
+
+		<button class="common-btn" onclick="changeScene('scene-last2')">＞ ☆→廊下の印を踏んでいない ＜</button>
+		<button class="common-btn" onclick="changeScene('scene-laststar')">＞ ★→廊下の印を踏んでいる ＜</button>
+		<p><span style="font-size: 0.9em; color: #a52a2a;">（メモ帳の☆が★になっているか確認してください）</span></p>
+	</div>
+
+
+
+	<div id="scene-last2" class="scene end-text" style="display:none;">
+		<p class="dan2">朝が来るまでの間、憧れのオーナーと同じ熱量を持つ常連客と語り明かした時間は、夢の様に贅沢で最高の一時だった。</p>
+		<p class="dan2">だがいつの間にか窓の外は白み、グラスの氷もすっかり溶けきっている。</p>
+
+		<p class="dan2">「そろそろ帰りましょうか」</p>
+
+		<p class="dan2">オーナーが静かにカフェの片付けを始める中、常連客が慣れた手つきで立ち上がり、あなたに声をかけた。</p>
+		<p class="dan2">閉ざされていたカフェの扉をオーナーが手ずから開き、あなた達を帰路へと誘う。</p>
+
+		<p class="dan2">「ごちそうさまでした。また、来ます」</p>
+		<p class="dan2">別れ際、あなたは名残惜しさを振り切る様に背筋を伸ばし、オーナーへおずおずと手を差し出した。</p>
+		<p>その手をオーナーは下からそっと両手で包み込んだ。</p>
+		<p class="dan2">ハッと息を飲む。凍てついたガードレールに素手で触れたかの様な、驚く程硬く、冷たい掌だった。</p>
+
+		<p class="dan2">「またいらしてくださいね」</p>
+		<p class="dan2">オーナーの静かな見送りを受け、あなたは客の男と共に帰路へと着いた。</p>
+
+		<p align="center">＜グッドエンディング＞<br>共連れの帰路</p>
+		<button class="common-btn3" onclick="changeScene('scene-last88')">＞ クリア特典へ ＜</button>
+	</div>
+
+
+
+	<div id="scene-laststar" class="scene end-text" style="display:none;">
+		<p class="dan2">「そろそろ帰りましょうか」</p>
+		<p class="dan2">互いに酒を酌み交わした常連客が、優しくあなたに声をかけた。</p>
+		<p class="dan2">閉ざされていたカフェの扉をオーナーが手ずから開き、あなた達を帰路へと誘う。</p>
+
+		<p class="dan2">「僕、ちょっと、厠に行ってから帰りますね」<br>常連客はそういうと足早にどこかへと走って行った。</p>
+		<p class="dan2">オーナーはカフェの扉を閉めるとあなたの前を歩き始めた。どうやらオーナーは自らあなたを出口へとエスコートしてくれる様だ。</p>
+
+		<p class="dan2">初めて訪れた建物が見せる宵闇の姿に、あなたは息を飲む。</p>
+		<p class="dan2">廊下の明かりで奇妙に長く伸びるオーナーと自分の影。</p>
+		<p class="dan2">全ての店がシャッターを下ろして微動だにしない光景は、まるで瞼を閉じて眠っている大きな生き物に思えた。</p>
+
+		<p class="dan2">朝光及ばず静まり返った中野ブロードウェイ。<br>オーナーは慣れた足取りであなたを導き、階段を下りて一階へと誘う。</p>
+		<p class="dan2">何ら怖れる事はない。あなたの目の前を歩くカフェのオーナーこそ、この夜の案内人そのものなのだから。</p>
+
+		<p class="dan2">「また、来ます」</p>
+		<p class="dan2">別れ際、あなたは名残惜しさを振り切る様に背筋を伸ばし、オーナーへおずおずと手を差し出した。</p>
+		<p>その手をオーナーは上からそっと両手で包み込んだ。</p>
+		<p class="dan2">ハッと息を飲む。それはまるで午後の陽光を浴びた毛布の様に、驚く程ふっくらと温かい掌だった。</p>
+
+		<p class="dan2">「またいらしてくださいね」</p>
+		<p class="dan2">オーナーの静かな見送りを受け、あなたは中野駅へと向かい一歩歩みを進めた。</p>
+
+		<p class="dan2">（そうだ、まだ今夜のお礼をちゃんと言えてない）</p>
+		<p class="dan2">自分の非礼に気づいたあなたは、背後にいるオーナーに声をかけようと急ぎ振り返った。</p>
+		<p class="dan2">しかし、さっきまでそこにいたオーナーの姿はどこにもなかった。</p>
+
+		<p align="center">＜トゥルーエンド＞<br>ぬくもりだけを残して</p>
+		<button class="common-btn3" onclick="changeScene('scene-last88')">＞ クリア特典へ ＜</button>
+	</div>
+
+
+
+<!-- ラベル -->
+	<div id="scene-last88" class="scene" style="display:none;">
+			<p class="dan2">幻のカフェから離脱し、帰路に着くあなたのバッグの中には今、一枚のラベルがある筈だ。<br>そのラベルを取り出して見て欲しい。</p>
+
+			<p>あなたの手にしているラベルは、はたしてどちらだろうか？</p>
+			<p>直感で選び取って欲しい。</p>
+
+			<button class="btn-black" onclick="changeScene('scene-last90')">＞ 滅王 ＜</button>
+			<button class="btn-white"  onclick="changeScene('scene-last91')">＞ Remnant Cask ＜</button>
+	</div>
+
+	<div id="scene-last90" class="scene" style="display:none;">
+			<p>まるで墨がしみ込んでいるかの様に、重厚で黒い和紙のラベルだ。</p>
+			<p class="dan2">そこには「滅王」という達筆な文字が書かれている。</p>
+
+			<p>あなたはラベルの裏面を見た。</p>
+			<p class="dan2">そこには「<span style="color:#8b0000; font-style:italic;">無限∞を探せ</span>」と、走り書きが記されていた。</p>
+
+			<div style="margin-bottom:20px; color:#8b0000;">
+				<p align="center"><span style="font-weight:bold;">＜！クリアおめでとうございます！＞</span></p>
+				<p class="dan2" align="center"><span style="font-size:125%; font-weight:bold;">【滅王の迷宮】</span>が<br>アンロックされました！</p>
+				<p><span style="font-size:0.75em; font-weight:bold;">※ゲームブック内のどこかにある「無限∞」を見つけると、エクストラシナリオ≪滅王の迷宮≫を遊ぶ事が出来ます！</span></p>
+			</div>
+
+			<p align="center">…　…　…それでは…　…　…</p>
+
+			<button class="common-btn3" onclick="location.reload()">＞ もう一度カフェへ行く ＜</button>
+	</div>
+
+	<div id="scene-last91" class="scene" style="display:none;">
+			<p>まるで白む朝光の様に、どこまでも白いラベルだ。</p>
+			<p class="dan2">そこには「レムナント・カスク（Remnant Cask）」というシャープなアルファベットが書かれている。</p>
+
+			<p>あなたはラベルの裏面を見た。</p>
+			<p class="dan2">そこには「<span style="color:#8b0000; font-style:italic;">アロマ、再びの巡りを</span>」と、走り書きが記されていた。</p>
+
+			<div style="margin-bottom:20px; color:#8b0000;">
+				<p align="center"><span style="font-weight:bold;">＜！クリアおめでとうございます！＞</span></p>
+				<p class="dan2" align="center"><span style="font-size:125%; font-weight:bold;">【しおり】</span>が<br>アンロックされました！</p>
+				<p><span style="font-size:0.75em; font-weight:bold;">※ゲームブック内のどこかにある「しおり」を見つけると、特定のシーンから再びゲームブックをお遊びいただけます！</span></p>
+			</div>
+
+			<p align="center">…　…　…それでは…　…　…</p>
+
+			<button class="common-btn3" onclick="location.reload()">＞ もう一度カフェへ行く ＜</button>
+	</div>
+
+<!-------------------------------------------------------- 第8幕：滅王の迷宮（おまけシナリオ） -->
+
+<!--
+			<div id="modal-label" class="modal">
+				<div class="modal-content">
+					<p id="modal-text" style="font-size: 1.2em; margin-bottom: 20px;"></p>
+					<button class="common-btn4" onclick="closeModal()">ラベルを握りしめる</button>
+				</div>
+			</div>
+-->
+
+	<div id="scene-8" class="scene dungeon-mode"><p>第8幕：滅王の迷宮（おまけシナリオ）。</p>
+		<p>……景色が反転した。</p>
+		<p>色を失った中野ブロードウェイ。<br>ここが滅王の迷宮か。</p>
+	</div>
+
 </div>
 
 
 
-<!-- ここから メモ帳 -->
+<!-------------------------------------------------------- ここから メモ帳欄 -->
 <div class="memo-area">
 	<div id="shiori-container" style="display:flex; justify-content:center; gap:3px; margin-bottom:10px;">
 		<div class="shiori" data-scene="scene-1" onclick="sessionStorage.setItem('nextScene', 'scene-1'); location.reload();"></div>
@@ -480,7 +879,7 @@ p.dan2{margin-bottom:1.5em;}
 		<div class="shiori" data-scene="scene-5" onclick="sessionStorage.setItem('nextScene', 'scene-5'); location.reload();"></div>
 		<div class="shiori" data-scene="scene-6" onclick="sessionStorage.setItem('nextScene', 'scene-6'); location.reload();"></div>
 		<div class="shiori" data-scene="scene-7" onclick="sessionStorage.setItem('nextScene', 'scene-7'); location.reload();"></div>
-		<div class="shiori" data-scene="scene-8" onclick="sessionStorage.setItem('nextScene', 'scene-8'); location.reload();"></div>
+		<div class="shiori" data-scene="scene-last" onclick="sessionStorage.setItem('nextScene', 'scene-last'); location.reload();"></div>
 	</div>
 
 
@@ -496,7 +895,7 @@ p.dan2{margin-bottom:1.5em;}
 		</li>
 
 		<li style="display: flex; align-items: center; justify-content: space-between; margin-top:10px;">
-			<span>・<span onclick="toggleItem(this)" style="cursor:pointer; display:inline-block;">渡辺さんの本</span></span>
+			<span>・<span onclick="toggleItem(this)" style="cursor:pointer; display:inline-block;">オーナーの本</span></span>
 
 			<div class="flag-area">
 				<span onclick="toggleFlag(this)">☆</span>
@@ -510,8 +909,81 @@ p.dan2{margin-bottom:1.5em;}
 </div>
 
 
-<!-- ここから javascript-->
+<!-------------------------------------------------------- ここから javascript-->
 <script>
+function changeScene(sceneId) {
+    // 【1. シーン移動と表示の処理】
+    document.querySelectorAll('.scene').forEach(div => div.style.display = 'none');
+    
+    const target = document.getElementById(sceneId);
+    if (target) {
+        target.style.display = 'block';
+    } else {
+        console.error("シーンが見つかりません: " + sceneId);
+    }
+
+    // 【2. タイトルとダークモードの切り替え】
+    const title = document.getElementById('title-text');
+    if (title) {
+        if (sceneId === 'scene-8') {
+            title.innerText = '幻のカフェに戻ろう';
+            document.body.classList.add('dark-mode');
+        } else {
+            title.innerText = '幻のカフェに行こう';
+            document.body.classList.remove('dark-mode');
+        }
+    }
+
+    // 【3. コロンの点滅制御】
+    const colon = document.querySelector('.colon');
+    if (colon) {
+        // sceneId が 'scene-7' の時だけ点滅させる
+        if (sceneId === 'scene-7') {
+            colon.classList.add('blink');
+        } else {
+            colon.classList.remove('blink');
+        }
+    }
+
+    // 【4. その他の処理（酒盛りなど）】
+    const boozeResult = document.getElementById('booze-result');
+    if (boozeResult) boozeResult.innerHTML = '';
+    const booze2Result = document.getElementById('booze2-result');
+    if (booze2Result) booze2Result.innerHTML = '';
+    const boozeContainer = document.getElementById('booze-container');
+    if (boozeContainer) boozeContainer.style.display = 'block';
+    const booze2Container = document.getElementById('booze2-container');
+    if (booze2Container) booze2Container.style.display = 'block';
+
+    // 【5. 時計の演出切り替え】
+    const clockSvg = document.getElementById('clock-svg');
+    if (clockSvg) {
+        clockSvg.classList.remove('clock-frozen', 'clock-blackout');
+        if (sceneId === 'scene-7-frozen') { 
+            clockSvg.classList.add('clock-frozen');
+        } else if (sceneId === 'scene-7-blackout') {
+            clockSvg.classList.add('clock-blackout');
+        }
+    }
+
+// 複数のシーンをモノクロにする場合
+if (sceneId === 'scene-7-02' || sceneId === 'scene-bad-04' || sceneId === 'scene-bad-06') {
+    document.body.classList.add('monochrome-mode');
+} else {
+    document.body.classList.remove('monochrome-mode');
+}
+    window.scrollTo(0, 0);
+}
+
+// --- その他の機能（これらは残してOKです） ---
+window.addEventListener('load', function() {
+    const next = sessionStorage.getItem('nextScene');
+    if (next) {
+        changeScene(next);
+        sessionStorage.removeItem('nextScene');
+    }
+});
+
 // 読み込み直後に一度だけ実行する
 window.onload = function() {
     console.log("テスト環境をリセットしました");
@@ -548,13 +1020,10 @@ function tryCafeEntrance() {
         document.getElementById('scene-bad-01-02').style.display = 'block';
     } else {
         // 成功！「出た目」の表示はせず、次の物語へ
-        resultDiv.innerHTML = "<p>夜の中野ブロードウェイの雰囲気に少々臆しながらも、あなたは長く続く薄暗い通路へと辿り着いた。<br><br>長く伸びた廊下の突き当りに、お目当てのKカフェはある。<br><br>早速向かってみよう。</p>";
+        resultDiv.innerHTML = "<p>夜の中野ブロードウェイの雰囲気に少々臆しながらも、あなたは長く続く薄暗い通路へと辿り着いた。<br><br>長く伸びた廊下の突き当りに、お目当てのカフェはある。<br><br>早速向かってみよう。</p>";
         resultDiv.innerHTML += "<button class='common-btn' onclick='changeScene(\"scene-2\")'>＞ 通路の奥へ進む ＜</button>";
     }
 }
-
-
-
 
 function showObservation(type) {
     if (type === 'booth') {
@@ -610,8 +1079,6 @@ function resetObservation() {
     document.getElementById('observation-result').innerHTML = "";
 }
 
-
-
 // 注文用
 function orderItem(itemName) {
     document.getElementById('menu-container').style.display = 'none';
@@ -647,11 +1114,11 @@ function cafetimeItem(itemName) {
     const res = document.getElementById('cafetime-result');
     res.innerHTML = '';
     let text = "";
-    if (itemName === 'guest-owner') text = "オーナーの渡辺さんと目が合った。<br><br>あなたは意を決して<br>「あの、この間の新刊にサインをもらえますか？」と、声をかけた。<br><br>「もちろん！」<br>オーナーはにっこり微笑むと、給仕の手を止めてペンを取りにカウンターへと戻った。<br><br>数刻ののち、あなたは渡辺さんのサインが入った本を手にする事が出来た！<br><span style='font-size:0.75em; color:#a52a2a; font-weight:bold;'>（メモ帳の渡辺さんの本をチェックしてください）</span>";
+    if (itemName === 'guest-owner') text = "オーナーのWさんと目が合った。<br><br>あなたは意を決して<br>「あの、この間の新刊にサインをもらえますか？」と、声をかけた。<br><br>「もちろん！」<br>オーナーはにっこり微笑むと、給仕の手を止めてペンを取りにカウンターへと戻った。<br><br>数刻ののち、あなたはオーナーのサインが入り本を手にする事が出来た！<br><span style='font-size:0.75em; color:#a52a2a; font-weight:bold;'>（メモ帳のオーナーの本をチェックしてください）</span>";
     else if (itemName === 'guest-a') text = "カウンターでノートパソコンと睨めっこしている客がいる。<br><br>目が合うとニコリと微笑み<br>「今度カフェで朗読劇を行うんです。良かったらどうぞ」<br>と、あなたにチラシをくれた";
-    else if (itemName === 'guest-b') text = "ソファ席には、眼鏡をかけた客がいて、ニコニコとお酒を呑んでいる。<br><br>テーブルに置かれた酒瓶のラベルから判断するに、どうやら希少な酒の様だ。";
-    else if (itemName === 'guest-c') text = "二人組の男女の客がテーブル席に座っている。<br><br>女性客はあなたと目が合うと<br>「来週、カフェで弾き語りライブを行うので良かったらいらしてくださいね！」<br>と、ポストカードをくれた";
-    else if (itemName === 'guest-d') text = "店内には、自分と同じ様に一人で来ている客が数名いる。<br><br>読書をしたり、スマホを見たり、客同士でゲームやマニアックな話に花を咲かせている。<br><br>見知らぬ者同士がその場でセッションするかの様にお喋りに花を咲かせる図にあなたは驚きを隠せない。";
+    else if (itemName === 'guest-b') text = "ソファ席には眼鏡をかけた客がいて、一人ニコニコと酒を呑んでいる。<br><br>テーブルに置かれた酒瓶のラベルから判断するに、どうやら希少な酒の様だ。";
+    else if (itemName === 'guest-c') text = "二人組の男女の客がテーブル席に座っている。<br><br><span style='color:#8b0000;'>赤い眼鏡をかけた女性客</span>はあなたと目が合うと<br>「来週このカフェで弾き語りライブを行うので、良かったらいらしてくださいね！」<br>と、ポストカードをくれた";
+    else if (itemName === 'guest-d') text = "店内には、自分と同じ様に一人で来ている客が数名いる。<br><br>読書をしたり、スマホを見たり、客同士でゲームやマニアックな話に花を咲かせている。<br><br>見知らぬ者同士がその場でセッションするかの様にお喋りに花を咲かせる図に、あなたは驚きを隠せない。";
     res.innerHTML = `
         <div style="padding:15px;">
             <p>${text}</p>
@@ -664,8 +1131,6 @@ function resetCafetime() {
     document.getElementById('cafetime-result').innerHTML = '';
     document.getElementById('cafetime-container').style.display = 'block';
 }
-
-
 
 // 酒盛り1回目用
 function boozeItem(itemName) {
@@ -685,10 +1150,6 @@ function boozeItem(itemName) {
     `;
 }
 
-
-
-
-
 // 酒盛り2回目用
 function booze2Item(itemName) {
     // 滅王を選んだときだけ「珈琲チェック」へ進む
@@ -699,7 +1160,7 @@ function booze2Item(itemName) {
             <div style="padding:15px;">
                 <p class="dan2">あなたはふと、自分のメモ帳に目を落とした。</p>
                 <p><strong>「今夜、自分は珈琲を飲んだだろうか？」</strong></p>
-                <p class="dan2"><span style="font-size: 0.9em; color: #a52a2a;">（メモ帳の〇が●になっているか確認してください）</span></p>
+                <p><span style="font-size: 0.9em; color: #a52a2a;">（メモ帳の〇が●になっているか確認してください）</span></p>
                 <button class="common-btn" onclick="checkFinalResult('mao2', true)">＞ ●→珈琲を飲んでいる ＜</button>
                 <button class="common-btn" onclick="checkFinalResult('mao2', false)">＞ 〇→飲んでいない ＜</button>
             </div>
@@ -718,50 +1179,20 @@ function resetBooze() {
     document.getElementById('booze2-result').innerHTML = '';
 }
 
-
-
-function changeScene(sceneId) {
-    // 1. 全部のシーンを隠す
-    document.querySelectorAll('.scene').forEach(div => div.style.display = 'none');
-    
-    // 2. 指定したシーンを出す
-    const target = document.getElementById(sceneId);
-    if(target) {
-        target.style.display = 'block';
-    }
-
-    // 3. 【新機能】ページ移動のたびに「お掃除」を実行！
-    // 酒盛りの結果エリアを強制的に空っぽにします
-    const boozeResult = document.getElementById('booze-result');
-    if (boozeResult) boozeResult.innerHTML = '';
-    
-    const booze2Result = document.getElementById('booze2-result');
-    if (booze2Result) booze2Result.innerHTML = '';
-    
-    // 酒盛りのコンテナが見えていなかったら表示に戻す
-    const boozeContainer = document.getElementById('booze-container');
-    if (boozeContainer) boozeContainer.style.display = 'block';
-    
-    const booze2Container = document.getElementById('booze2-container');
-    if (booze2Container) booze2Container.style.display = 'block';
-    window.scrollTo(0, 0);
-}
-
 function checkFinalResult(itemName, hasCoffee) {
-    if (!hasCoffee) { changeScene('scene-bad-03'); return; }
+    if (!hasCoffee){changeScene('scene-bad-03'); return; }
 if (itemName === 'mao2') {showMaoChallenge();} // ここを runDiceTest() から書き換える
-    else { changeScene('scene-7'); }
+    else{changeScene('scene-7'); }
 }
-
 
 // 1. まず囁きと「飲む！」ボタンだけを表示する関数
 function showMaoChallenge() {
     const diceTexts = [
-        "汝、その身に滅びを迎える覚悟はあるか。<br>呑み干すに足る魂を有しているか？",
+        "汝、その身に滅びを迎える覚悟はあるか。<br>呑み干すに足る魂を<br>有しているか？",
         "深淵なる滅王の洗礼を受け入れんとする者よ。<br>その意志が偽りなきものならば杯を掲げよ",
-        "此度は『滅王』を献上致す。<br>その命の重さを以て杯を空にせよ。<br>魂の深淵、図らせてもらおう",
-        "古の血脈たる滅王、汝の喉を潤さん。<br>杯を掲げ、己の器を証明してみせよ",
-        "滅王を嗜むとは、破滅と栄光を天秤に掛けるが如し。<br>一口の果て、吉と出るか凶と出るか。<br>命運は己の賽にのみあり"
+        "此度は『滅王』を献上致す。<br>その命の重さを以て<br>杯を空にせよ。<br>魂の深淵、図らせてもらおう",
+        "古の血脈たる滅王、<br>汝の喉を潤さん。<br>杯を掲げ、<br>己の器を証明してみせよ",
+        "滅王を嗜むとは、破滅と栄光を天秤に掛けるが如し。<br>吉と出るか凶と出るか。<br>命運は己の賽にのみあり"
     ];
     const randomText = diceTexts[Math.floor(Math.random() * diceTexts.length)];
     const res = document.getElementById('booze2-result');
@@ -791,18 +1222,11 @@ function executeDiceRoll() {
     }
 }
 
-
-
     // Kペイ部分
 let currentMoney = 5000;
-function changeScene(sceneId) {
-document.querySelectorAll('.scene').forEach(div => div.style.display = 'none');
-document.getElementById(sceneId).style.display = 'block';
-window.scrollTo(0, 0);
-}
 
 function spendMoney() {
-if (currentMoney - 700 < 100) { alert("チャージしてください"); return; }
+if (currentMoney - 700 < 100){alert("チャージしてください"); return; }
 currentMoney -= 700;
 document.getElementById('balance-text').innerText = '・Kペイ残高: ' + currentMoney + '円';
 }
@@ -813,16 +1237,14 @@ document.getElementById('balance-text').innerText = '・Kペイ残高: ' + curre
 }
 
 function toggleItem(element) {
-if (element.innerText === '渡辺さんの本') {
-element.innerText = '渡辺さんのサイン本';
+if (element.innerText === 'オーナーの本') {
+element.innerText = 'オーナーのサイン本';
 element.classList.add('signed');
 } else {
-element.innerText = '渡辺さんの本';
+element.innerText = 'オーナーの本';
 element.classList.remove('signed');
 }
 }
-
-
 
 function toggleFlag(element) {
   // すべての変換ルールをここにまとめました
@@ -848,9 +1270,6 @@ function toggleFlag(element) {
   }
 }
 
-
-
-
 function getDiceSVG(val) {
 const faces = {
 1: '<circle cx="50" cy="50" r="10" fill="#333"/>',
@@ -869,7 +1288,7 @@ const overlay = document.getElementById('overlay');
 if (modal.style.display === 'block') {
 // 閉じる時：透明にしてから消す
 modal.style.opacity = '0';
-setTimeout(() => { 
+setTimeout(() =>{
 modal.style.display = 'none'; 
 overlay.style.display = 'none'; 
 }, 300); // CSSの0.3sと合わせます
@@ -877,37 +1296,70 @@ overlay.style.display = 'none';
 // 開く時：まず表示して、すぐに透明度を戻す
 overlay.style.display = 'block';
 modal.style.display = 'block';
-setTimeout(() => { 
+setTimeout(() =>{
 modal.style.opacity = '1'; 
 }, 10); // ほんの少しだけ遅らせることでアニメーションが動きます
 }
 }
 
-// シーン切り替え関数（再確認用）
-function changeScene(sceneId) {
-    // 1. 全部のシーンを隠す
-    document.querySelectorAll('.scene').forEach(div => div.style.display = 'none');
-    
-    // 2. 指定したシーンを出す
-    const target = document.getElementById(sceneId);
-    if(target) {
-        target.style.display = 'block';
-    } else {
-        console.error("シーンが見つかりません: " + sceneId);
+// --- 7章用 ---
+function stopAndReveal() {
+    // 1. 外側の container からクラスを外す
+    const phoneContainer = document.getElementById('phone-container');
+    if (phoneContainer) {
+        phoneContainer.classList.remove('shaking-phone');
+        phoneContainer.style.cursor = 'default';
+        phoneContainer.onclick = null; // 二度押し防止
     }
-    window.scrollTo(0, 0);
+    
+    // 2. 内側の svg からもクラスを外す（念の為）
+    const phoneSvg = document.getElementById('phone-svg');
+    if (phoneSvg) {
+        phoneSvg.classList.remove('shaking-phone');
+        phoneSvg.style.animation = 'none';
+    }
+    
+    // 3. ★ここを追加：スマホの画面（screen）の色を強制的に黒にする（灯りを消す）
+    const phoneScreen = document.getElementById('phone-screen');
+    if (phoneScreen) {
+        // 現在のアニメーションを止める
+        phoneScreen.style.animation = 'none'; 
+        // 色を完全に消灯した状態（#000 等）にする
+        phoneScreen.setAttribute('fill', '#000'); 
+    }
+
+    // 4. 選択肢を表示する
+    const choices = document.getElementById('choices-container');
+    if (choices) {
+        choices.classList.add('is-visible');
+    }
 }
 
-// ページが読み込まれた時に実行されるおまじない
-window.addEventListener('load', function() {
-    const next = sessionStorage.getItem('nextScene');
-    if (next) {
-        // 命令があればそのシーンに飛ぶ
-        changeScene(next);
-        // 一回使ったら命令を消す
-        sessionStorage.removeItem('nextScene');
+// 時計を凍らせる時
+document.getElementById('clock-svg').classList.add('clock-frozen');
+// 時計を真っ黒にする時
+document.getElementById('clock-svg').classList.add('clock-blackout');
+
+function openModal(type) {
+    const modal = document.getElementById("modal-label");
+    const text = document.getElementById("modal-text");
+    
+    // 選んだ方に応じてメッセージを変える
+    if(type === 'metsuou') {
+        text.innerHTML = "「滅王」<br><br>漆黒のラベルには、この世界の終わりを告げる文字が刻まれていた。";
+    } else {
+        text.innerHTML = "「残滓」<br><br>白く色あせたラベルには、消えゆく夢の残り香が宿っていた。";
     }
-});
+    
+    modal.style.display = "block";
+}
+
+function closeModal() {
+    document.getElementById("modal-label").style.display = "none";
+    // ここで次の酒盛りシーンへ飛ばす、などの処理へ
+}
+
+
 </script>
 </body>
 </html>
