@@ -127,17 +127,17 @@ p.dan2{margin-bottom:1.5em;}
 .shiori:nth-child(7){background: #d1c4e9; } /* 紫 */
 .shiori:nth-child(last){background: #e1bee7; } /* 紫 */
 
-/* －－－－－－－－－－－－－－　迷宮モード用CSS　－－－－－－－－－－－－－－－ */
+/* －－－－－－－－－－－－－－ 迷宮モード用CSS sta －－－－－－－－－－－－－－－ */
 /* ダークモード用のカラーセット */
 .dark-mode{background-color: #1a1a1a !important; /* 背景をダークグレーに */ color: #e0e0e0 !important;/* 文字を薄いグレーに */}
+/* 迷宮モード：シーン全体（背景やカードのベース）は白を死守 */
+.dungeon-mode, .dungeon-mode.scene, .scene.dungeon-mode {background-color: #ffffff !important;}
+/* 迷宮モードの中の文字を「黒」にする */
+.dungeon-mode p, .dungeon-mode span, .dungeon-mode div {color: #000000 !important;}
+/* 「元の世界へ戻る」ボタンだけを黒地に白文字（または反転）にする */
+.dungeon-mode .common-btn3 {background-color: #222222 !important; color: #ffffff !important; border-color: #222222 !important;}
 
-/* 枠線や箱もダークモードに合わせる */
-.dark-mode .header-box,.dark-mode .scene{border-color: #555 !important; background-color: #2a2a2a !important;}
-.dungeon-mode{filter: grayscale(100%) invert(100%); background-color: #1a1a1a !important; /* 反転するので背景を黒っぽく */ color: #ffffff !important;/* 文字は白に */}
-.monochrome-mode{filter: grayscale(100%); background-color: #dcdcdc !important; /* 背景も白黒に合わせる */}
-.dark-mode .shiori{filter: brightness(0.8); /* 少しだけ暗くすると黒背景に馴染みます */}
-
-/* －－－－－－－－－－－－－－　迷宮モード用CSS　－－－－－－－－－－－－－－－ */
+/* －－－－－－－－－－－－－－ 迷宮モード用CSS end－－－－－－－－－－－－－－－ */
 
 /* scene-7-03が表示されているとき、中の全部を強制的にモノクロにする */
 #scene-7-02, 
@@ -238,7 +238,6 @@ body.monochrome-mode .digital-color {
 </div>
 <h1 class="header-title" style="display: block; text-align: center;">【ゲームB<span class="secret-link" onclick="sessionStorage.setItem('nextScene', 'scene-8'); location.reload();">OO</span>K】<span id="title-text">幻のカフェに行こう</span></h1>
 </header>
-<div style="display:none;">中野ブロードウェイにある某カフェを舞台にしたゲームブックです</div>
 
 <!-- モーダル本体 -->
 <div id="modal-label" class="modal">
@@ -253,7 +252,7 @@ body.monochrome-mode .digital-color {
 <div id="help-modal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); width:260px; background:#fff; border:3px solid #555; padding:20px; z-index:2000; text-align:center; border-radius:12px; box-shadow:5px 5px 0px #ccc;">
 	<div style="font-size:0.85rem; line-height:1.6;">
 		<p class="dan2" align="center"><strong>【遊び方】</strong></p>
-		<p class="dan2" align="left">これは物語を読み、提示される選択肢を選んで進む「ゲームブック」と呼ばれる物です。<br>画面下の「メモ帳」を活用しながら物語の結末を目指しましょう。</p>
+		<p class="dan2" align="left">これは物語を読み、提示される選択肢を選んで進む「ゲームブック」と呼ばれる物です。<br>画面下の「メモ帳」を活用しながら物語のエンディグを目指しましょう。</p>
 		<p class="dan2" align="left">物語の途中で「メモ帳」内の操作指示があった場合、該当箇所をタップ／クリックしてください。</p>
 	</div>
 	<button onclick="toggleHelp()" style="padding:8px 20px; cursor:pointer; margin-top:10px;">閉じる</button>
@@ -386,7 +385,7 @@ body.monochrome-mode .digital-color {
 
 	<div id="scene-bad-03-01" class="scene" style="display:none;">
 		<div id="warning-area">
-			<p class="dan2"><span class="bad-end-text2">「※お腹の強さに自信がある方のみ！」</span><br>メニューの端に、手書きの注意書きが添えられていた。</p>
+			<p class="dan2"><br><span class="bad-end-text2">「※お腹の強さに自信がある方のみ！」</span><br>メニューの端に、手書きの注意書きが添えられていた。</p>
 			<p class="dan2">「あの、これ…」あなたがメニューを指さすと、オーナーは口元に微かな笑みを浮かべた。</p>
 			<p class="dan2">「それ、実験的メニューなんです。発酵珈琲豆と自家製キノコの。常連さんには密かな人気なんですよ」</p>
 
@@ -611,7 +610,7 @@ body.monochrome-mode .digital-color {
 	<div id="scene-bad-04" class="scene bad-end-text bad-scene" style="display:none;">
 		<p>オーナーは何度も何度も瓶を抱え、あなたの前へと戻って来る。</p>
 		<p>それは茶色だったり、紫だったり、赤、黄に、緑、青…</p>
-		<p class="dan2">あなたは、もはやそれが何なのかを考える事をやめ、グラスを空け、また注がれる酒を呑む。</p>
+		<p class="dan2">あなたは、もはやそれが何なのか考える事をやめ、グラスを空け、また注がれる酒を呑む。</p>
 
 		<p>視界の端では、常連客があなたを見てニコニコと微笑んでいる。</p>
 		<p class="dan2">良く見ればその姿は色と光を失っており、まるで大理石の彫像に見えた。</p>
@@ -713,7 +712,7 @@ body.monochrome-mode .digital-color {
 
 		<button class="common-btn" onclick="changeScene('scene-last1')">＞ サイン本を持っていない ＜</button>
 		<button class="common-btn" onclick="changeScene('scene-lastbook')">＞ サイン本を持っている ＜</button>
-		<p><span style="font-size: 0.9em; color: #a52a2a;">（メモ帳の「オーナーの本」が「オーナーのサイン本」になっているか確認してください）</span></p>
+		<p style="margin-top:10px;"><span style="font-size: 0.9em; color: #a52a2a;">（メモ帳の「オーナーの本」が「オーナーのサイン本」になっているか確認してください）</span></p>
 	</div>
 
 	<div id="scene-last1" class="scene end-text" style="display:none;">
@@ -729,7 +728,7 @@ body.monochrome-mode .digital-color {
 		<p class="dan2">次こそは、勇気を出してサインを貰おう。</p>
 		<p class="dan2">朝の空気の中あなたは拳を握り締め、再びこのカフェへ戻る事を強く誓った。</p>
 
-		<p align="center">＜グッドエンディング＞<br>勇気を出して次こそは</p>
+		<p align="center">＜ビターエンディング＞<br>勇気を出して次こそは</p>
 		<button class="common-btn3" onclick="changeScene('scene-last88')">＞ クリア特典へ ＜</button>
 	</div>
 
@@ -741,7 +740,7 @@ body.monochrome-mode .digital-color {
 
 		<button class="common-btn" onclick="changeScene('scene-last2')">＞ ☆→廊下の印を踏んでいない ＜</button>
 		<button class="common-btn" onclick="changeScene('scene-laststar')">＞ ★→廊下の印を踏んでいる ＜</button>
-		<p><span style="font-size: 0.9em; color: #a52a2a;">（メモ帳の☆が★になっているか確認してください）</span></p>
+		<p style="margin-top:10px;"><span style="font-size: 0.9em; color: #a52a2a;">（メモ帳の☆が★になっているか確認してください）</span></p>
 	</div>
 
 
@@ -789,14 +788,14 @@ body.monochrome-mode .digital-color {
 		<p>その手をオーナーは上からそっと両手で包み込んだ。</p>
 		<p class="dan2">ハッと息を飲む。それはまるで午後の陽光を浴びた毛布の様に、驚く程ふっくらと温かい掌だった。</p>
 
-		<p class="dan2">「またいらしてくださいね」</p>
+		<p class="dan2">「ありがとう。是非またいらしてください」</p>
 		<p class="dan2">オーナーの静かな見送りを受け、あなたは中野駅へと向かい一歩歩みを進めた。</p>
 
 		<p class="dan2">（そうだ、まだ今夜のお礼をちゃんと言えてない）</p>
 		<p class="dan2">自分の非礼に気づいたあなたは、背後にいるオーナーに声をかけようと急ぎ振り返った。</p>
 		<p class="dan2">しかし、さっきまでそこにいたオーナーの姿はどこにもなかった。</p>
 
-		<p align="center">＜トゥルーエンド＞<br>ぬくもりだけを残して</p>
+		<p align="center">＜トゥルーエンディング＞<br>ぬくもりだけを残して</p>
 		<button class="common-btn3" onclick="changeScene('scene-last88')">＞ クリア特典へ ＜</button>
 	</div>
 
@@ -821,7 +820,7 @@ body.monochrome-mode .digital-color {
 			<p class="dan2">そこには「<span style="color:#8b0000; font-style:italic;">無限∞を探せ</span>」と、走り書きが記されていた。</p>
 
 			<div style="margin-bottom:20px; color:#8b0000;">
-				<p align="center"><span style="font-weight:bold;">＜！クリアおめでとうございます！＞</span></p>
+				<p align="center"><span style="font-weight:bold;">＜！おめでとうございます！＞</span></p>
 				<p class="dan2" align="center"><span style="font-size:125%; font-weight:bold;">【滅王の迷宮】</span>が<br>アンロックされました！</p>
 				<p><span style="font-size:0.75em; font-weight:bold;">※ゲームブック内のどこかにある「無限∞」を見つけると、エクストラシナリオ≪滅王の迷宮≫を遊ぶ事が出来ます！</span></p>
 			</div>
@@ -839,7 +838,7 @@ body.monochrome-mode .digital-color {
 			<p class="dan2">そこには「<span style="color:#8b0000; font-style:italic;">アロマ、再びの巡りを</span>」と、走り書きが記されていた。</p>
 
 			<div style="margin-bottom:20px; color:#8b0000;">
-				<p align="center"><span style="font-weight:bold;">＜！クリアおめでとうございます！＞</span></p>
+				<p align="center"><span style="font-weight:bold;">＜！おめでとうございます！＞</span></p>
 				<p class="dan2" align="center"><span style="font-size:125%; font-weight:bold;">【しおり】</span>が<br>アンロックされました！</p>
 				<p><span style="font-size:0.75em; font-weight:bold;">※ゲームブック内のどこかにある「しおり」を見つけると、特定のシーンから再びゲームブックをお遊びいただけます！</span></p>
 			</div>
@@ -860,9 +859,20 @@ body.monochrome-mode .digital-color {
 			</div>
 -->
 
-	<div id="scene-8" class="scene dungeon-mode"><p>第8幕：滅王の迷宮（おまけシナリオ）。</p>
-		<p>……景色が反転した。</p>
-		<p>色を失った中野ブロードウェイ。<br>ここが滅王の迷宮か。</p>
+	<div id="scene-8" class="scene dungeon-mode">
+		<p class="dan2">第8幕：滅王の迷宮（エクストラシナリオ）。</p>
+
+		<p>カフェでの楽しい酒宴を抜け、トイレへ向かったあなた。</p>
+		<p class="dan2">用を済ませ、カフェへ戻ろうと扉を開けた瞬間、あなたは世界が一変した事に気がついた。</p>
+
+		<p>深夜0時を過ぎて空調が止まった館内は、もわっとした熱気が漂っていた筈なのに、今は冷え冷えとした物へ変わっている</p>
+		<p class="dan2">そして何より、廊下の照明が全て落ち、所々で蛍の様にぼんやりと光る非常灯りのみが頼りなさげにその存在を主張している。</p>
+
+		<p class="dan2">どうやらあなたは、色を失った中野ブロードウェイ4階に迷い込んでしまった様だ。</p>
+
+		<p align="center"><span style="font-weight:bold;">＜近日アップデート！こうご期待！＞</span></p>
+
+		<button class="common-btn3" onclick="location.reload()">＞ 元の世界へ戻る ＜</button>
 	</div>
 
 </div>
@@ -1063,12 +1073,12 @@ function showObservation(type) {
 function selectHallwayOption(stepped) {
     const res = document.getElementById('observation-result');
     if (stepped) {
-        res.innerHTML = "<p>印を踏んでみたが、特に何も起きなかった。<br>（メモ帳の☆をチェックし、★に変えてください）</p>";
+        res.innerHTML = "<p>印を踏んでみたが、特に何も起きなかった。<br><span style='font-size:0.75em; color:#a52a2a; font-weight:bold;'>（メモ帳の☆をチェックし、★に変えてください）</span></p>";
     } else {
         res.innerHTML = "<p>テープ跡で靴裏がベタつきそうだ。やはり踏まないでおこう。</p>";
     }
     // 結果を出した後に「他の場所を観察」ボタンを復活させる
-    res.innerHTML += `<div style="margin-top:20px;">
+    res.innerHTML += `<div>
                         <button class="common-btn" onclick="resetObservation()">＞ 他の場所を観察する ＜</button>
                         <button class="common-btn" onclick="changeScene('scene-3')">＞ そろそろ入店する ＜</button>
                       </div>`;
@@ -1114,7 +1124,7 @@ function cafetimeItem(itemName) {
     const res = document.getElementById('cafetime-result');
     res.innerHTML = '';
     let text = "";
-    if (itemName === 'guest-owner') text = "オーナーのWさんと目が合った。<br><br>あなたは意を決して<br>「あの、この間の新刊にサインをもらえますか？」と、声をかけた。<br><br>「もちろん！」<br>オーナーはにっこり微笑むと、給仕の手を止めてペンを取りにカウンターへと戻った。<br><br>数刻ののち、あなたはオーナーのサインが入り本を手にする事が出来た！<br><span style='font-size:0.75em; color:#a52a2a; font-weight:bold;'>（メモ帳のオーナーの本をチェックしてください）</span>";
+    if (itemName === 'guest-owner') text = "オーナーのWさんと目が合った。<br><br>あなたは意を決して<br>「あの、この間の新刊にサインをもらえますか？」と、声をかけた。<br><br>「もちろん！」<br>オーナーはにっこり微笑むと、給仕の手を止めてペンを取りにカウンターへと戻った。<br><br>数刻ののち、あなたはオーナーのサイン入り本を手にする事が出来た！<br><span style='font-size:0.75em; color:#a52a2a; font-weight:bold;'>（メモ帳のオーナーの本をチェックしてください）</span>";
     else if (itemName === 'guest-a') text = "カウンターでノートパソコンと睨めっこしている客がいる。<br><br>目が合うとニコリと微笑み<br>「今度カフェで朗読劇を行うんです。良かったらどうぞ」<br>と、あなたにチラシをくれた";
     else if (itemName === 'guest-b') text = "ソファ席には眼鏡をかけた客がいて、一人ニコニコと酒を呑んでいる。<br><br>テーブルに置かれた酒瓶のラベルから判断するに、どうやら希少な酒の様だ。";
     else if (itemName === 'guest-c') text = "二人組の男女の客がテーブル席に座っている。<br><br><span style='color:#8b0000;'>赤い眼鏡をかけた女性客</span>はあなたと目が合うと<br>「来週このカフェで弾き語りライブを行うので、良かったらいらしてくださいね！」<br>と、ポストカードをくれた";
