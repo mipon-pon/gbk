@@ -860,13 +860,19 @@ body.monochrome-mode .digital-color {
 			</div>
 -->
 
-	<div id="scene-8" class="scene dungeon-mode">
-		<p>カフェでの楽しい酒宴を抜け、トイレへ向かったあなた。</p>
-		<p class="dan2">用を済ませ、カフェへ戻ろうと扉を開けた瞬間、あなたは世界が一変した事に気がついた。</p>
-
-		<p class="dan2">どうやらあなたは、色を失った中野ブロードウェイ4階に迷い込んでしまった様だ。</p>
+	<div id="scene-8" class="scene">
+		<p class="dan2">カフェでの楽しい酒宴を抜け、トイレへ向かったあなた。</p>
+		<p class="dan2">用を済ませ、カフェへ戻ろうと扉を開けた瞬間、世界は一変し…　…　…<span class="secret-link" onclick="changeScene('scene-9');">？</span></p>
 
 		<p align="center"><span style="font-weight:bold;">＜近日アップデート！こうご期待！＞</span></p>
+
+		<button class="common-btn3" onclick="location.reload()">＞ 元の世界へ戻る ＜</button>
+	</div>
+
+
+	<div id="scene-9" class="scene dungeon-mode">
+
+		<p class="dan2">どうやらあなたは、色を失った中野ブロードウェイ4階に迷い込んでしまった様だ。</p>
 
 		<button class="common-btn3" onclick="location.reload()">＞ 元の世界へ戻る ＜</button>
 	</div>
@@ -936,11 +942,11 @@ function changeScene(sceneId) {
     // 【2. タイトルとダークモードの切り替え】
     const title = document.getElementById('title-text');
     if (title) {
-        if (sceneId === 'scene-8') {
-            title.innerText = '幻のカフェに戻ろう';
+        if (sceneId === 'scene-9') {
+            title.innerHTML = '幻のカフェに<span class="secret-link" onclick="changeScene(\'scene-8\');" style="cursor: pointer;">戻ろう</span>';
             document.body.classList.add('dark-mode');
         } else {
-            title.innerText = '幻のカフェに行こう';
+            title.innerHTML = '幻のカフェに行こう';
             document.body.classList.remove('dark-mode');
         }
     }
