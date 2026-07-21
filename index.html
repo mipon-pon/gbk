@@ -31,7 +31,7 @@ p.dan2{margin-bottom:1.5em;}
 .die-svg{width: 40px; height: 40px; background: #fff; border: 2px solid #333; border-radius: 8px; box-shadow: 2px 2px 0px #333;}
 
 .scene {display: none; padding-top:0.75em;}
-.memo-area {width: 96%; max-width: 400px; padding: 5px 15px 0 15px; border: 1px solid #FFFFFF; background: #fdfdfd; box-sizing: border-box; font-size: 0.9rem; position: fixed; bottom: 0; left: 0; right: 0; margin: 0 auto; z-index: 500; border-radius: 10px 10px 0 0;}
+.memo-area {width: 96%; max-width: 400px; padding: 5px 15px 0 15px; border: 1px solid #FFFFFF; background: #fdfdfd; box-sizing: border-box; font-size: 0.9rem; position: fixed; bottom: 0; left: 0; right: 0; margin: 0 auto; z-index: 500; border-radius: 10px 10px 0 0; color: #333333}
 .memo-area ul{padding-left: 0; margin: 5px 0;}
 .memo-area li{margin-bottom: 5px; list-style: none;}
 .memo-area h3{margin: 0 0 10px 0;}
@@ -210,6 +210,14 @@ body.monochrome-mode .digital-color {
     filter: none !important;
     fill: #ffffff !important;
     text-shadow: 0 0 5px #000000 !important;
+}
+
+/* モノクロモードのとき、メモエリアとその中の要素を絶対に保護する（一番下に置く） */
+body.monochrome-mode .memo-area,
+body.monochrome-mode .memo-area *,
+body.monochrome-mode div.memo-area,
+body.monochrome-mode div.memo-area * {
+    filter: none !important;
 }
 </style>
 </head>
