@@ -113,7 +113,7 @@ p.dan2{margin-bottom:1.5em;}
 /* －－－－－－－－－－－－－－　メモ帳CSS　－－－－－－－－－－－－－－－ */
 
 .flag-memo{color: #a52a2a; /* Wさんのサインと同じ色 */ font-weight: bold;}
-.flag-area{display: flex; gap: 15px; font-size: 1.2rem; cursor: pointer;}
+.flag-area{display: flex; gap: 7px; font-size: 1.2rem; cursor: pointer;}
 .signed{color: #a52a2a; font-weight: bold;}
 
 #shiori-container {position: absolute; top: -11px; left: 10px; flex-direction: row; z-index: 10;}
@@ -910,9 +910,10 @@ body.monochrome-mode .digital-color {
 			<div class="flag-area">
 				<span onclick="toggleFlag(this)">☆</span>
 				<span onclick="toggleFlag(this)">〇</span>
+				<span onclick="toggleFlag(this)">△</span>
 				<span onclick="toggleFlag(this)">◇</span>
 				<span onclick="toggleFlag(this)">□</span>
-				<span onclick="toggleFlag(this)">△</span>
+				<span onclick="toggleFlag(this)">Ａ</span>
 			</div>
 		</li>
 	</ul>
@@ -1263,7 +1264,8 @@ function toggleFlag(element) {
     '〇': '●', '●': '〇', 
     '◇': '◆', '◆': '◇', 
     '□': '■', '■': '□', 
-    '△': '▲', '▲': '△'
+    '△': '▲', '▲': '△',
+    'Ａ': '∀', '∀': 'Ａ'
   };
 
   // 文字を入れ替える
@@ -1271,11 +1273,11 @@ function toggleFlag(element) {
     element.innerText = map[element.innerText];
   }
 
-  // 「塗りつぶし系（★, ●, ◆, ■, ▲）」なら赤いクラスを付ける
-  if (['★', '●', '◆', '■', '▲'].includes(element.innerText)) {
+  // 「塗りつぶし系（★, ●, ◆, ■, ▲, ∀）」なら赤いクラスを付ける
+  if (['★', '●', '◆', '■', '▲', '∀'].includes(element.innerText)) {
     element.classList.add('flag-memo');
   } else {
-    // それ以外（枠のみ）ならクラスを外す
+    // それ以外（枠のみ・Aなど）ならクラスを外す
     element.classList.remove('flag-memo');
   }
 }
