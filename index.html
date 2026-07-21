@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FADING AROMA -ゲームブック：幻のカフェに行こう-</title>
 <style>
+html{overflow-y: scroll; /* どの画面でも常にスクロールバー用の領域を確保する */}
 body{background-color: #f4eee2; color: #333; font-family: sans-serif; margin: 0; padding: 20px 15px; padding-bottom: 120px; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; min-height: 100vh;}
 header{width: 100%; max-width: 400px; margin-bottom: 20px; display: flex; flex-direction: column; /* 縦並びにする */align-items: center;}
 
@@ -860,13 +861,8 @@ body.monochrome-mode .digital-color {
 -->
 
 	<div id="scene-8" class="scene dungeon-mode">
-		<p class="dan2">第8幕：滅王の迷宮（エクストラシナリオ）。</p>
-
 		<p>カフェでの楽しい酒宴を抜け、トイレへ向かったあなた。</p>
 		<p class="dan2">用を済ませ、カフェへ戻ろうと扉を開けた瞬間、あなたは世界が一変した事に気がついた。</p>
-
-		<p>深夜0時を過ぎて空調が止まった館内は、もわっとした熱気が漂っていた筈なのに、今は冷え冷えとした物へ変わっている</p>
-		<p class="dan2">そして何より、廊下の照明が全て落ち、所々で蛍の様にぼんやりと光る非常灯りのみが頼りなさげにその存在を主張している。</p>
 
 		<p class="dan2">どうやらあなたは、色を失った中野ブロードウェイ4階に迷い込んでしまった様だ。</p>
 
@@ -874,9 +870,13 @@ body.monochrome-mode .digital-color {
 
 		<button class="common-btn3" onclick="location.reload()">＞ 元の世界へ戻る ＜</button>
 	</div>
-
 </div>
 
+
+<!--
+		<p>深夜0時を過ぎて空調が止まった館内は、もわっとした熱気が漂っていた筈なのに、今は冷え冷えとした物へ変わっている</p>
+		<p class="dan2">そして何より、廊下の照明が全て落ち、所々で蛍の様にぼんやりと光る非常灯りのみが頼りなさげにその存在を主張している。</p>
+-->
 
 
 <!-------------------------------------------------------- ここから メモ帳欄 -->
