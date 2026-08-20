@@ -234,6 +234,20 @@ body.monochrome-mode div.memo-area,
 body.monochrome-mode div.memo-area * {
     filter: none !important;
 }
+
+.header-box {
+display: flex;
+justify-content: center; /* 左右の中央に配置 */
+align-items: center;     /* 上下の中央に配置 */
+position: relative; /* 基準位置にする */
+}
+
+.header-box svg {
+position: relative;
+top: 2px; /* 下に2pxずらす（数値はズレ具合に合わせて調整してね！） */
+left: 2px; /* 右に2pxずらす場合 */
+}
+
 </style>
 </head>
 
@@ -245,31 +259,34 @@ body.monochrome-mode div.memo-area * {
 <!-- サイコロ -->
 <!-- サイコロ -->
 	<div class="header-box">
-		<svg id="dice-svg" width="32" height="32" viewBox="0 0 120 120">
-		<!-- 斜めを向いたダイスの外枠（立体ボックス） -->
-		<g fill="none" stroke="#ccc" stroke-width="6" stroke-linejoin="round" stroke-linecap="round">
-		<!-- 立方体の外枠 -->
-		<path d="M60 10 L105 35 L105 85 L60 110 L15 85 L15 35 Z" fill="#fafafa"/>
-		<path d="M60 10 L60 60 L105 85" />
-		<path d="M60 60 L15 85" />
-		</g>
-		<!-- それぞれの面に不自然にならないよう、合計の数が偏らないように配置 -->
-		<g fill="#ccc">
-		<!-- 上の面 (2つ) -->
-		<circle cx="48" cy="35" r="5"/>
-		<circle cx="72" cy="45" r="5"/>
+<svg id="dice-svg" width="32" height="32" viewBox="0 0 120 120">
+			<!-- このトランスレートで、中身全体を指定したピクセル分だけ移動させます -->
+			<g transform="translate(-10, -10)">
+				<!-- 斜めを向いたダイスの外枠（立体ボックス） -->
+				<g fill="none" stroke="#ccc" stroke-width="6" stroke-linejoin="round" stroke-linecap="round">
+				<!-- 立方体の外枠 -->
+				<path d="M60 10 L105 35 L105 85 L60 110 L15 85 L15 35 Z" fill="#fafafa"/>
+				<path d="M60 10 L60 60 L105 85" />
+				<path d="M60 60 L15 85" />
+				</g>
+				<!-- それぞれの面に不自然にならないよう、合計の数が偏らないように配置 -->
+				<g fill="#ccc">
+				<!-- 上の面 (2つ) -->
+				<circle cx="48" cy="35" r="5"/>
+				<circle cx="72" cy="45" r="5"/>
 
-		<!-- 左の面 (1つ) -->
-		<circle cx="37" cy="68" r="5"/>
+				<!-- 左の面 (1つ) -->
+				<circle cx="37" cy="68" r="5"/>
 
-		<!-- 右の面 (3つ風に散らす) -->
-		<circle cx="80" cy="55" r="4"/>
-		<circle cx="92" cy="72" r="4"/>
+				<!-- 右の面 (3つ風に散らす) -->
+				<circle cx="80" cy="55" r="4"/>
+				<circle cx="92" cy="72" r="4"/>
 
-		<!-- 下の面 / 中央付近の立体感を出すための目 -->
-		<circle cx="50" cy="82" r="5"/>
-		<circle cx="65" cy="92" r="5"/>
-		</g>
+				<!-- 下の面 / 中央付近の立体感を出すための目 -->
+				<circle cx="50" cy="82" r="5"/>
+				<circle cx="65" cy="92" r="5"/>
+				</g>
+			</g>
 		</svg>
 		<span id="dice-text" style="display:none;"></span>
 	</div>
@@ -378,7 +395,7 @@ body.monochrome-mode div.memo-area * {
 
 <!-- 第3幕：入店 -->
 	<div id="scene-3" class="scene">
-		<p class="dan2">扉を開けて店内に入ると、オーナーがあなたに気づいて「こんばんわ」と声をかけてくれた。</p>
+		<p class="dan2">扉を開けて店内に入ると、オーナーがあなたに気づいて『こんばんわ』と声をかけてくれた。</p>
 
 		<p class="dan2">ここがあの、幻のカフェか。</p>
 
@@ -438,7 +455,7 @@ body.monochrome-mode div.memo-area * {
 	<div id="scene-bad-03-01" class="scene" style="display:none;">
 		<div id="warning-area">
 			<p class="dan2"><br><span class="bad-end-text2">「※お腹の強さに自信がある方のみ！」</span><br>メニューの端に、手書きの注意書きが添えられていた。</p>
-			<p class="dan2">「あの、これ…」あなたがメニューを指さすと、オーナーは口元に微かな笑みを浮かべた。</p>
+			<p class="dan2">「あの、これ…」あなたがメニューを指さすと、オーナーはまるで子供がイタズラを思いついたような、含みのある笑みを浮かべた。</p>
 			<p class="dan2">「それ、実験的メニューなんです。発酵珈琲豆と自家製キノコの。常連さんには密かな人気なんですよ」</p>
 
 			<p class="dan2">オーナーがさらりと口にしたその言葉に、あなたの眉はピクリと動いた。</p>
@@ -472,7 +489,7 @@ body.monochrome-mode div.memo-area * {
 	<div id="cafetime-01" class="scene" style="display:none;">
 		<div id="cafetime-container">
 			<p>カフェの店内には数名の客がいる。</p>
-			<p class="dan2">オーナーは静かに給仕をしながら、合間合間で珈琲を淹れている。</p>
+			<p class="dan2">オーナーは静かに給仕をしながら、合間合間で一杯づつ丁寧に珈琲を淹れている。</p>
 			<p>さて、どうしようか？</p>
 
 			<button class="common-btn4" onclick="cafetimeItem('guest-a')">カウンター席の客を見る</button>
@@ -486,8 +503,8 @@ body.monochrome-mode div.memo-area * {
 	</div>
 
 	<div id="scene-end-01" class="scene end-text" style="display:none;">
-		<p class="dan2">湯が沸く音。豆を挽く音。さざめきの様な客同士のお喋り。<br>それらをBGMに、あなたはカフェで至福のひと時を心行くまでのんびり過ごした。</p>
-		<p class="dan2">満ち足りた気持ちを胸に、あなたは荷物をまとめるとそっと席を立ち、オーナーに会釈をして扉へ向かった。</p>
+		<p class="dan2">湯が沸く音。豆を挽く音。さざめきの様な客同士の談笑。<br>それらをBGMに、あなたはカフェで至福のひと時を心行くまでのんびりと過ごした。</p>
+		<p class="dan2">満ち足りた気持ちを胸に、あなたは荷物をまとめるとそっと席を立ち、オーナーに会釈をして扉へと向かう。</p>
 		<p class="dan2">「ありがとうございました。またお越しください」<br>とオーナーが声をかけてくれた。</p>
 		<p class="dan2">名残惜しい気持ちと共にあなたはカフェをあとにし、帰路へとついた</p>
 		<p align="center">＜エンディング＞<br>幻のカフェ　その1</p>
@@ -530,10 +547,10 @@ body.monochrome-mode div.memo-area * {
 
 			<p class="dan2">「お酒、いけるクチですか？」<br>オーナーはあなたにそう声をかけると、酒瓶をテーブルに並べ始めた。</p>
 
-			<p>「これ、皆さんからのお土産とかなんで、お代は結構です。一緒に呑みましょう」</p>
-			<p>オーナーはそういうと楽しげに微笑み、あなたにグラスを渡した。</p>
+			<p>「これ、皆さんからのお土産とかなんで、お代は結構です。一緒に呑みましょう！」</p>
+			<p>オーナーはそういうと楽しげに微笑み、あなたへグラスを差し出した。</p>
 
-			<p>さて、どれを呑もう。</p>
+			<p>さて、どれを呑もうか。</p>
 			<button class="common-btn2" onclick="boozeItem('shochu')">焼酎にする</button>
 			<button class="common-btn2" onclick="boozeItem('nihonshu')">日本酒にする</button>
 			<button class="common-btn2" onclick="boozeItem('kanbeer')">ビールにする</button>
@@ -564,16 +581,16 @@ body.monochrome-mode div.memo-area * {
 
 	<div id="scene-end-02" class="scene end-text" style="display:none;">
 		<p class="dan2">あなたは静かに首を横に振った。</p>
-		<p>客は「それは失礼」と残念そうに微笑み、グラスへと向き直った。</p>
-		<p class="dan2">深い静寂。オーナーが豆を挽く音が心地良く耳に届く。</p>
+		<p>客は「それは失礼」と残念そうに微笑み、己のグラスへと向き直った。</p>
+		<p class="dan2">深い静寂。オーナーが豆を挽く音だけが心地良く耳に届く。</p>
 
 		<p>やがて店内の灯りが少しずつ朝の光へと溶け、夜明けが近づいてきた。</p>
 		<p class="dan2">最後の一口を飲み干すと、あなたは「そろそろ帰ります」とオーナーに声をかける。</p>
 
 		<p>「ありがとうございました」</p>
-		<p class="dan2">オーナーが向けてくれたその笑顔は、かつてTV画面や配信で見つめていた物そのままで、あなたの胸に子供時代の懐かしさが溢れた。</p>
+		<p class="dan2">オーナーが向けてくれたその笑顔は、かつてTV画面や配信で見つめていた物と変わらずそのままで、あなたの胸に子供時代の懐かしさが溢れる。</p>
 
-		<p>……再びこのカフェを訪れた日、その時は迷わずご相伴にあずかろう。</p>
+		<p>……再びこのカフェを訪れた日。その時は迷わずご相伴にあずかろう。</p>
 		<p class="dan2">あなたはそう決意するとカフェの扉を開け、宵闇が残る中野ブロードウェイへと足を踏み出した。</p>
 
 		<p align="center">＜エンディング＞<br>幻のカフェ　その2</p>
@@ -596,7 +613,7 @@ body.monochrome-mode div.memo-area * {
 		<p>喉から胃にかけて熱いマグマが流れる様な、そんな感覚を覚える。</p>
 		<p class="dan2">こんなに美味しい酒は初めてだ！あなたは顔をほころばせる。</p>
 
-		<p class="dan2">ニコニコ微笑むオーナー達にすすめられるがまま、二杯、三杯、四杯と滅王を呑むあなた。</p>
+		<p class="dan2">ニコニコ微笑むオーナー達にすすめられるがまま、二杯、三杯、四杯と『滅王』を呑むあなた。</p>
 		<p>すると、突然強烈な眠気があなたを襲った！</p>
 		<p class="dan2">大きなあくびと共に店内を見渡すと、心地よさそうな大きいソファが目に入った。</p>
 		<p class="dan2">なんて気持ち良さそうなソファなのだろう。<br>このまま身体を横たえたら、きっと気持ち良い眠りにつけそうだ…</p>
@@ -619,10 +636,10 @@ body.monochrome-mode div.memo-area * {
 <!-- 第7幕：酒盛り -->
 	<div id="scene-7" class="scene" style="display:none;">
 		<p class="dan2">「そういえば、とっておきがあるんですよ」</p>
-		<p class="dan2">オーナーは茶色の瓶を抱えて戻ってきた。何でも南米産の希少な酒だという。<br>芳醇で深煎りの珈琲に似た香りが鼻腔をくすぐり、グラスの中の氷が飴色に染まる。</p>
+		<p class="dan2">オーナーは店の奥から茶色の瓶を抱えて戻ってきた。何でも南米産の希少な酒だという。<br>芳醇で深煎りの珈琲に似た香りが鼻腔をくすぐり、グラスの中の氷が飴色に染まる。</p>
 		<p class="dan2">憧れの人物が注ぐ美酒。真夜中の高揚感。あなたは夢見心地でグラスを口元へ運ぶ――</p>
 
-		<p>ふと、現在の時刻が気になり、あなたは時計に目をやった</p>
+		<p>ふと現在の時刻が気になり、あなたは時計に目をやった。</p>
 		<div class="time-button-container">
 			<button class="digit-btn">
 				<svg width="120" height="40" viewBox="0 0 120 40">
@@ -639,7 +656,7 @@ body.monochrome-mode div.memo-area * {
 
 	<div id="scene-7-02" class="scene" style="display:none;">
 		<p class="dan2">「ソウいえば、とっテオきがあるンデですよ」</p>
-		<p class="dan2">オーナーは紫色の瓶を抱えて戻ってきた。何でも北米産の希少なワインだという。<br>グラスがワインで満たされる。</p>
+		<p class="dan2">オーナーは店の奥から紫色の瓶を抱えて戻ってきた。何でも北米産の希少なワインだという。<br>グラスがワインで満たされる。</p>
 		<p class="dan2">憧れの人物が注ぐ美酒。真夜中の高揚感。あなたは夢見心地でグラスを再び口元へ運ぶ――</p>
 
 		<p>ふと、現在の時刻が気になり、あなたは時計に目をやった</p>
@@ -702,11 +719,11 @@ body.monochrome-mode div.memo-area * {
 		</div>
 
 		<div id="choices-container">
-			<p>画面をタップし、あなたはスマホを静かにさせた。深夜だというのに騒がせてしまって申し訳ない気持ちで溢れる。</p>
+			<p>画面をタップし、あなたはスマホを静かにさせた。深夜だというのに騒がせてしまって申し訳ない気持ちでいっぱいになる。</p>
 			<p class="dan2">二人に小さく会釈をして、貴方はそっと画面を確認した。</p>
 
-			<p class="dan2">それは、あなたの大切な人からの着信であった。こんな真夜中に。緊急か、あるいはアプリの誤作動か。</p>
-			<p>悩むあなたの掌で、スマホはまた激しく身を震わせ始めた。</p>
+			<p class="dan2">それは、あなたの大切な人からの着信であった。こんな真夜中だというのに。緊急か、あるいはアプリの誤作動か？</p>
+			<p>悩むあなたの手の中で、スマホはまた激しく身を震わせ始めた。</p>
 
 			<button class="common-btn" onclick="changeScene('scene-7-04')">＞ 電話に出る ＜</button>
 			<button class="common-btn" onclick="changeScene('scene-7-05')">＞ ミュートしてスマホをしまう ＜</button>
@@ -718,20 +735,19 @@ body.monochrome-mode div.memo-area * {
 			<p class="dan2">「すみません、ちょっと」</p>
 			<p class="dan2">あなたは大切な人からの電話に出る為、未だ震え続けるスマホを手にカフェを出た。</p>
 
+			<p class="dan2">耳に当てたスマホからは、しきりにあなたの大切な人の不安げな声が聞こえ続けている。</p>
 			<p class="dan2">「早く、早くそこから、早く、戻って」</p>
-			<p class="dan2">耳に当てたスマホからは、しきりにあなたの大切な人の声が聞こえ続けている。</p>
 
 			<p>大切な人の声に急かされる様にしてあなたは廊下を疾走し、階段を駆け下りていく。</p>
-			<p class="dan2">空調が止まり蒸した廊下の空気はあなたの全身をくまなく撫で、カフェで纏ったアロマの残滓を容赦なく引きはがす。</p>
+			<p class="dan2">空調が止まって蒸した廊下の空気はあなたの全身をくまなく撫で、カフェで纏ったアロマの残滓を容赦なく引きはがす。</p>
 
 			<p class="dan2">やがて中野ブロードウェイのエントランスへと戻り、そこから真っすぐ伸びる中野駅へ向かってあなたは駆けだす。</p>
 
 			<p>アーケードを駅へ向けて疾走するあなたの目に、色が戻り始める。</p>
-			<p>朝焼けと共に駅に向かう人々に交わる。やがてカフェはどんどんと遠ざかっていった。</p>
-			<p class="dan2">もはや珈琲のアロマはあなたの身体から失われ、新しく始まった朝の香りにあなたは包まれている。</p>
+			<p class="dan2">朝焼けと共に駅に向かう人々に交わると珈琲のアロマはもはやあなたの身体から失われ、新しく始まった朝の香りがあなたを包む。</p>
 
 			<p class="dan2">ふと、気づく。自分は、深夜の緊急電話に応じる形で急遽店を出てしまったが、果たして大丈夫だったのだろうか？</p>
-			<p class="dan2">己の無礼な態度に一抹の不安を覚えながらたあなたの耳に、オーナーの声がかすかに聞こえた様な気がした。</p>
+			<p class="dan2">己の無礼な態度に一抹の不安を覚えるあなたの耳に、オーナーの声がかすかに聞こえた様な気がした。</p>
 
 			<p class="dan2" align="center"><span style="color:#a52a2a;">「ま た お こ し く だ さ い」</span></p>
 
@@ -743,7 +759,7 @@ body.monochrome-mode div.memo-area * {
 			<p>こんな時間に電話なんて。あいつまた酔っぱらったか、寝ぼけてスマホを誤操作したな？</p>
 			<p class="dan2">あなたはオーナー達に無礼を詫び、スマホをバッグの奥深くへとねじ込む。</p>
 
-			<p class="dan2">あと僅かで夜が明ける。<br>このカフェを退店する時間が来てしまうという一抹の寂しさがあなたの胸をよぎる。</p>
+			<p class="dan2">あと僅かで夜が明ける。<br>このカフェを退店する時間が来てしまうという一抹の寂しさが、あなたの胸をよぎる。</p>
 
 			<p class="dan2">「そろそろ朝ですね」<br>オーナーはそういうと、空になった酒瓶を持って静かに立ち上がった。</p>
 
@@ -759,7 +775,7 @@ body.monochrome-mode div.memo-area * {
 	<div id="scene-last" class="scene" style="display:none;">
 		<p class="dan2">今宵、憧れの人のカフェで忘れがたい経験をさせてもらったあなた。</p>
 		<p class="dan2">さて、今日のあなたはカフェで何を見て、何をしただろうか？<br>全てを思い返して欲しい。</p>
-		<p class="dan2">まずは手持ちの本を確認しよう。<br>今のあなたにとって、その本はただの本か、それとも特別な本だろうか？</p>
+		<p class="dan2">まずは、手持ちの本を確認しよう。<br>今のあなたにとって、その本はただの本か、それとも特別な本だろうか？</p>
 		<p class="dan2">さて、あなたは…　…　…</p>
 
 		<button class="common-btn" onclick="changeScene('scene-last1')">＞ サイン本を持っていない ＜</button>
@@ -778,7 +794,7 @@ body.monochrome-mode div.memo-area * {
 		<p class="dan2">懐にしまい込んだままの本の重みが、やけにずっしりと肩に食い込む。</p>
 
 		<p class="dan2">次こそは、勇気を出してサインを貰おう。</p>
-		<p class="dan2">朝の空気の中あなたは拳を握り締め、再びこのカフェへ戻る事を強く誓った。</p>
+		<p class="dan2">朝の空気の中、あなたは拳を握り締め、再びこのカフェへ戻る事を強く誓った。</p>
 
 		<p align="center">＜ビターエンディング＞<br>勇気を出して次こそは</p>
 		<button class="common-btn3" onclick="changeScene('scene-last88')">＞ クリア特典へ ＜</button>
@@ -809,7 +825,7 @@ body.monochrome-mode div.memo-area * {
 		<p class="dan2">「ごちそうさまでした。また、来ます」</p>
 		<p class="dan2">別れ際、あなたは名残惜しさを振り切る様に背筋を伸ばし、オーナーへおずおずと手を差し出した。</p>
 		<p>その手をオーナーは下からそっと両手で包み込んだ。</p>
-		<p class="dan2">ハッと息を飲む。凍てついたガードレールに素手で触れたかの様な、驚く程硬く、冷たい掌だった。</p>
+		<p class="dan2">ハッと息を飲む。冬の凍てついたガードレールに素手で触れたかの様な、驚く程硬く、冷たい掌だった。</p>
 
 		<p class="dan2">「またいらしてくださいね」</p>
 		<p class="dan2">オーナーの静かな見送りを受け、あなたは客と共に帰路へと着いた。</p>
@@ -1154,7 +1170,7 @@ function orderItem(itemName) {
     let text = "";
     if (itemName === 'coffee') text = "「おまたせしました。特製ブレンドです」<br>オーナーがカップを置いて微笑んだ。<br><span style='font-size:0.75em; color:#a52a2a; font-weight:bold;'>（メモ帳の〇をチェックし、●に変えてください）</span><br><br>ビスケットはシナモンの香りが漂い、甘さ控えめでとても美味しい。";
     else if (itemName === 'coke') text = "喉が渇いていたので、氷が入った冷えたコーラは格別だ。<br><br>大きめのジャーキーは硬すぎず、マイルドな味でとても食べやすい。";
-    else if (itemName === 'beer') text = "七福神が描かれた缶ビールだ。疲れが飛ぶ。<br><br>盛られたナッツは色々な種類が入っていて、食べごたえがある。";
+    else if (itemName === 'beer') text = "表面に七福神が描かれた缶ビールだ。疲れが飛ぶ。<br><br>盛られたナッツは色々な種類が入っていて、食べごたえがある。";
     res.innerHTML = `
         <div style="padding:15px;">
             <p class="dan2">${text}</p>
@@ -1186,7 +1202,7 @@ function cafetimeItem(itemName) {
     else if (itemName === 'guest-a') text = "カウンターでノートパソコンと睨めっこしている客がいる。<br><br>目が合うとニコリと微笑み<br>「今度カフェで朗読劇を行うんです。良かったらどうぞ」<br>と、あなたにチラシをくれた。";
     else if (itemName === 'guest-b') text = "ソファ席には眼鏡をかけた客がいて、一人ニコニコと酒を呑んでいる。<br><br>テーブルに置かれた酒瓶のラベルから判断するに、どうやら希少な酒の様だ。";
     else if (itemName === 'guest-c') text = "二人組の男女の客がテーブル席に座っている。<br><br><span style='color:#8b0000;'>赤い眼鏡をかけた女性客</span>はあなたと目が合うと<br>「来週このカフェで弾き語りライブを行うので、良かったらいらしてくださいね！」<br>と、ポストカードをくれた。";
-    else if (itemName === 'guest-d') text = "店内には、自分と同じ様に一人で来ている客が数名いる。<br><br>読書をしたり、スマホを見たり、客同士でゲームやマニアックな話に花を咲かせている。<br><br>見知らぬ者同士がその場でセッションするかの様にお喋りに花を咲かせる図に、あなたは驚きを隠せない。";
+    else if (itemName === 'guest-d') text = "店内には、自分と同じ様に一人で来ている客が数名いる。<br><br>読書をしたり、スマホを見たり、客同士でゲームやマニアックな話に花を咲かせている。<br><br>見知らぬ者同士がセッションするかの様に談笑に花を咲かせる図に、あなたは驚きを隠せない。";
     res.innerHTML = `
         <div style="padding:15px;">
             <p>${text}</p>
@@ -1206,8 +1222,8 @@ function boozeItem(itemName) {
     const res = document.getElementById('booze-result');
     let text = "";
     if (itemName === 'shochu') text = "「これ、ボクの故郷の酒なんです」<br><br>オーナーが誇らしげに差し出した瓶には、力強い筆致で銘柄が記されていた。<br>掌に伝わる瓶の重みと、ふわりと立ち昇る香ばしい芋の芳香。<br>これは、土地の物語を呑むような一杯になりそうだ。";
-    else if (itemName === 'nihonshu') text = "「信州のお土産でいただいた物です。呑むとマスカットのような香りがするんです」<br><br>オーナーの言葉に促され、瓶の口元に顔を近づける。<br>甘く澄んだ香りがあなたの鼻をくすぐる。<br>この香りを、是非舌で確かめてみたい。";
-    else if (itemName === 'kanbeer') text = "「クラフト系の、かなり珍しいやつなんだそうです」<br><br>瓶を手に取ると、ラベルのポップなデザインと、キンと冷えたガラスの感触が手に心地良い。<br>栓を抜く前から、期待感で胸が高鳴る。<br>喉の渇きを癒してくれる最高の相棒になるに違いない。";
+    else if (itemName === 'nihonshu') text = "「信州のお土産でいただいた物です。呑むとマスカットのような香りがするんです」<br><br>オーナーの言葉に促され、瓶の口元に顔を近づける。<br>甘く澄んだ香りがあなたの鼻をくすぐる。<br>この香りを、是非舌でも確かめてみたい。";
+    else if (itemName === 'kanbeer') text = "「クラフト系の、かなり珍しいやつなんだそうです」<br><br>手に取ると、ラベルのポップなデザインと、冷えたガラス瓶の感触が手に心地良い。<br>栓を抜く前から、期待感で胸が高鳴る。<br>これは喉の渇きを癒してくれる最高の相棒になるに違いない。";
     
     res.innerHTML = `
         <div style="padding:15px;">
