@@ -29,11 +29,7 @@ p{padding:0; margin:0;}
 p.dan2{margin-bottom:1.5em;}
 
 #help-modal{display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 260px; background: #fff; border: 3px solid #555; padding: 20px; z-index: 2000; text-align: center; border-radius: 12px; box-shadow: 5px 5px 0px #ccc; opacity: 0; transition: opacity 0.3s ease;}
-#normal-help-icon {
-    display: flex;           /* 中身を中央揃えにする */
-    align-items: center;     /* 縦方向の真ん中をキープ */
-    justify-content: center; /* 横方向の真ん中をキープ */
-}
+#normal-help-icon {display: flex; align-items: center; justify-content: center;}
 
 #app {width: 100%; max-width: 400px; border: 3px solid #555; padding: 25px; background: #fff; box-shadow: 5px 5px 0px #ccc; box-sizing: border-box; position: relative; margin-top: 0;  border-radius: 5px 5px 5px 5px; z-index: 1;}
 
@@ -46,9 +42,7 @@ p.dan2{margin-bottom:1.5em;}
 .dice-container{position: absolute; top: 5px; right: 30px; text-align: center; z-index: 1000;}
 .die-svg{width: 40px; height: 40px; background: #fff; border: 2px solid #333; border-radius: 8px; box-shadow: 2px 2px 0px #333;}
 
-/* ヘッダーのダイスを初期状態でうっすらさせるスタイル */
 #dice-svg {opacity: 0.6; /* ふんわりとうっすらさせる */ transition: opacity 0.3s ease;}
-/* サイコロを振った後ははっきり表示させる用 */
 #dice-svg.active-dice { opacity: 1.0;}
 
 .scene {display: none; padding-top:0.75em;}
@@ -68,10 +62,11 @@ p.dan2{margin-bottom:1.5em;}
 .secret-link{text-decoration: none; color: inherit; cursor: default; display: inline; padding: 0; margin: 0;}
 
 /* マウスを乗せた時だけ赤くして、隠し扉っぽくする */
-.secret-link:hover{color: #8b0000; cursor: default;}
+.secret-link:hover{color: #8b0000; cursor: pointer;}
 
 /* ボタン */
 .common-btn {margin-top: 1.5em; padding: 10px; font-size: 16px; width: 100%; cursor: pointer; background: #e8dcc8; border: 1px solid #555;}
+.common-btn-d {margin-top: 1.5em; padding: 10px; font-size: 16px; width: 100%; cursor: pointer; border: 1px solid #555;}
 .common-btn2 {margin-top: 1.5em; padding: 10px; font-size: 12px; width: 100%; cursor: pointer; background: #ececec; border: 1px solid #555;}
 .common-btn3 {margin-top: 1.5em; padding: 10px; font-size: 16px; width: 100%; cursor: pointer; color:#FFF; background: #555; border: 1px solid #555;}
 .common-btn4 {margin-top: 0.5em; padding: 10px; font-size: 12px; width: 100%; cursor: pointer; border: 1px solid #555;}
@@ -159,84 +154,43 @@ p.dan2{margin-bottom:1.5em;}
 .shiori:nth-child(9){background: #e1bee7; } /* 紫（※最後のlastはnth-child(9)などに直すと確実！） */
 
 /* scene-7-03が表示されているとき、中の全部を強制的にモノクロにする */
-#scene-7-02, 
-#scene-7-02 *, 
-#scene-7-02 .digital-color {
-    filter: grayscale(100%) !important;
-    -webkit-filter: grayscale(100%) !important;
-    fill: #808080 !important; /* 時計の色も強制的に灰色に書き換える */
-    color: #808080 !important; /* 文字も強制的に灰色に */
-}
+#scene-7-02, #scene-7-02 *, #scene-7-02 .digital-color {filter: grayscale(100%) !important; -webkit-filter: grayscale(100%) !important; fill: #808080 !important; color: #808080 !important;}
 
 /* モノクロモードの時、背景色も白黒に上書きする */
-.page-grayscale, .page-grayscale body {
-    background-color: #dcdcdc !important; /* 背景を灰色にする */
-    filter: grayscale(100%) !important;
-}
+.page-grayscale, .page-grayscale body {background-color: #dcdcdc !important; /* 背景を灰色にする */ filter: grayscale(100%) !important;}
 
 /* bodyにクラスが付いた時のルール */
-body.page-grayscale {
-    background-color: #dcdcdc !important;
-    filter: grayscale(100%) !important;
-}
+body.page-grayscale {background-color: #dcdcdc !important; filter: grayscale(100%) !important;}
 
 /* 1. バッドエンド用のモノクロ強制スタイル */
-body.monochrome-mode {
-    background-color: #dcdcdc !important; /* 全体の背景を灰色に */
-    filter: grayscale(100%) !important;
-}
+body.monochrome-mode {background-color: #dcdcdc !important; /* 全体の背景を灰色に */ filter: grayscale(100%) !important;}
 
 /* 2. 時計などのSVGに対しても念のため強制指定 */
-body.monochrome-mode svg,
-body.monochrome-mode .digital-color {
-    filter: grayscale(100%) !important;
-    fill: #808080 !important;
-}
+body.monochrome-mode svg,body.monochrome-mode .digital-color {filter: grayscale(100%) !important; fill: #808080 !important;}
 
 /* モノクロモード中だけ時計の文字をくっきり見せる */
-body.monochrome-mode .digital-color {
-    fill: #ffffff !important; /* 文字色を白に */
-    text-shadow: 0 0 5px #000000 !important; /* 黒い影をつけて視認性を確保 */
-}
+body.monochrome-mode .digital-color {fill: #ffffff !important; /* 文字色を白に */ text-shadow: 0 0 5px #000000 !important; /* 黒い影をつけて視認性を確保 */}
 
 /* 1. モノクロモードの強制上書き */
-body.monochrome-mode {
-    background-color: #dcdcdc !important; /* 背景を灰色に */
-}
+body.monochrome-mode {background-color: #dcdcdc !important; /* 背景を灰色に */}
 
 /* 2. 背景も含めて全体をモノクロ化（これが重要！） */
-body.monochrome-mode, 
-body.monochrome-mode * {
-    filter: grayscale(100%) !important;
-}
+body.monochrome-mode, body.monochrome-mode * {filter: grayscale(100%) !important;}
 
 /* 3. カラーに戻したいシーン（バッドエンドなど） */
-body.monochrome-mode #scene-bad-04,
-body.monochrome-mode #scene-bad-04 * {
-    filter: none !important;
-}
+body.monochrome-mode #scene-bad-04,body.monochrome-mode #scene-bad-04 * {filter: none !important;}
 
 /* 4. モノクロのまま維持したいシーン（時が止まったエンド） */
-/* IDを実際のシーンに合わせてね */
-body.monochrome-mode #scene-bad-05,
-body.monochrome-mode #scene-bad-05 * {
-    filter: grayscale(100%) !important;
-}
+body.monochrome-mode #scene-bad-05,body.monochrome-mode #scene-bad-05 * {filter: grayscale(100%) !important;}
 
 /* 5. 時計の文字だけは白くして守る */
-body.monochrome-mode .digital-color {
-    filter: none !important;
-    fill: #ffffff !important;
-    text-shadow: 0 0 5px #000000 !important;
-}
+body.monochrome-mode .digital-color {filter: none !important; fill: #ffffff !important; text-shadow: 0 0 5px #000000 !important;}
 
 /* モノクロモードのとき、メモエリアとその中の要素を絶対に保護する（一番下に置く） */
 body.monochrome-mode .memo-area,
 body.monochrome-mode .memo-area *,
 body.monochrome-mode div.memo-area,
-body.monochrome-mode div.memo-area * {
-    filter: none !important;
-}
+body.monochrome-mode div.memo-area * {filter: none !important;}
 
 /* －－－－－－－－－－－－－－ 迷宮モード用CSS sta －－－－－－－－－－－－－－－ */
 
@@ -249,256 +203,73 @@ body.monochrome-mode div.memo-area * {
 /* 「元の世界へ戻る」ボタンだけを黒地に白文字（または反転）にする */
 .dungeon-mode .common-btn3 {background-color: #222222 !important; color: #ffffff !important; border-color: #222222 !important;}
 
-.dungeon-mode .text-red {
-    color: #8b0000 !important;
-}
+.dungeon-mode .text-red {color: #8b0000 !important;}
+.dungeon-mode .text-i{font-style: italic; color:#444444 !important;}
 
-#heart-help-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+#heart-help-icon {display: flex; align-items: center; justify-content: center;}
 
-/* この中の数字を変えると、文字「♥ 1」だけがピクセル単位で動きます！ */
-.heart-inner {
-    color: #333;
-    font-size: 1.2rem;   /* ここでお好みの大きさに調整できます */
-    font-weight: bold;
-    display: inline-block;
-    transform: translate(4px, 8px); /* (右へ, 下へ) の調整 */
-}
+.heart-inner {color: #333; font-size: 1.2rem; font-weight: bold; display: inline-block; transform: translate(4px, 8px);}
+#moon-sun-icon {display: flex; align-items: center; justify-content: center; width: 26px; height: 26px;}
+.moon-sun-inner {display: flex; align-items: center; justify-content: center;}
 
-#moon-sun-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 26px;
-    height: 26px;
-}
+#zombie-event-modal > div, #zombie-battle-modal > div, #safe-event-modal > div {background: #1e1e1e !important; color: #f0f0f0 !important; border: 2px solid #555555 !important; box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.8) !important; border-radius: 0px !important;}
+#zombie-event-modal, #zombie-battle-modal, #safe-event-modal, #zombie-event-modal *, #zombie-battle-modal *, #safe-event-modal * {color: #f0f0f0 !important;}
+#zombie-battle-modal button, #zombie-event-modal button, #safe-event-modal button {background: #111111 !important; color: #ffffff !important; border: 1px solid #777777 !important; border-radius: 0px !important; padding: 10px 15px !important; font-weight: bold; cursor: pointer;
+}#zombie-battle-modal button:hover, #zombie-event-modal button:hover, #safe-event-modal button:hover {background: #ffffff !important; color: #111111 !important;}
+#zombie-event-modal, #zombie-battle-modal, #safe-event-modal, #zombie-event-modal *, #zombie-battle-modal *, #safe-event-modal * {color: #FFFFFF !important;}
 
-.moon-sun-inner {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+#global-dungeon-overlay {position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: #000000; opacity: 0; pointer-events: none; z-index: 9999;}
 
-/* 1. モーダルの背景を落ち着いたダークグレー（または黒）にする */
-#zombie-event-modal > div, #zombie-battle-modal > div, #safe-event-modal > div {
-    background: #1e1e1e !important; /* または #121212 のような黒に近い色 */
-    color: #f0f0f0 !important;
-    border: 2px solid #555555 !important;
-    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.8) !important;
-    border-radius: 0px !important;
-}
-
-/* 2. モーダル内の文字色をすべて見やすい白・ライトグレーにする */
-#zombie-event-modal, #zombie-battle-modal, #safe-event-modal, 
-#zombie-event-modal *, #zombie-battle-modal *, #safe-event-modal * {
-    color: #f0f0f0 !important;
-}
-
-/* 3. ボタンは「黒ベースに白い枠線」にしてクールに引き締める */
-#zombie-battle-modal button, #zombie-event-modal button, #safe-event-modal button {
-    background: #111111 !important;
-    color: #ffffff !important;
-    border: 1px solid #777777 !important;
-    border-radius: 0px !important;
-    padding: 10px 15px !important;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-/* ボタンにマウスを乗せたときは白地に黒字へ反転する逆パターン */
-#zombie-battle-modal button:hover, #zombie-event-modal button:hover, #safe-event-modal button:hover {
-    background: #ffffff !important;
-    color: #111111 !important;
-}
-
-/* モーダル内の文字色をすべてハッキリした黒にする */
-#zombie-event-modal, #zombie-battle-modal, #safe-event-modal, 
-#zombie-event-modal *, #zombie-battle-modal *, #safe-event-modal * {
-    color: #FFFFFF !important;
-}
-
-#global-dungeon-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: #000000;
-    opacity: 0; /* 最初は透明 */
-    pointer-events: none; /* これでボタンが押せるようになる */
-    z-index: 9999; /* 一番手前に表示 */
-}
-
-/* －－－－－－－　ゾンビ警備員バトル用　－－－－－－
-/* ゾンビ背景イラスト用のクラス */
-.zombie-bg-layer {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('zombiekeibi.gif');
-    background-size: cover;
-    background-position: center;
-    
-    /* 演出のキモ：完全にモノクロにして、コントラストを調整 */
-    filter: grayscale(100%) contrast(120%); 
-    
-    /* 最初は透明にしておく（アニメーション用） */
-    opacity: 0; 
-    transition: opacity 1.8s ease-in-out; /* じわーーっと浮き出る時間 */
-    
-    z-index: 0; /* テキストやボタンより後ろに配置 */
-    pointer-events: none; /* クリックの邪魔をしないようにする */
-}
-
-/* 浮き出た状態のクラス */
-.zombie-bg-layer.fade-in {
-    opacity: 0.15; /* 15%ほどの薄さ。文字がしっかり読めて不気味に気配がする絶妙なライン！ */
-}
-
+/* －－－－－－－　ゾンビ警備員バトル用　－－－－－－ */
+.zombie-bg-layer {position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('zombiekeibi.gif'); background-size: cover; background-position: center; filter: grayscale(100%) contrast(120%); opacity: 0; transition: opacity 1.8s ease-in-out; z-index: 0; pointer-events: none;}
+.zombie-bg-layer.fade-in {opacity: 0.15;}
 /* モーダルの背景 */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    /* display: flex; は削除！ */
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
-
-/* モーダルの中身 */
-.modal-content {
-    background: #222;
-    color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    text-align: center;
-    max-width: 300px;
-    width: 90%;
-    border: 2px solid #555;
-}
-
-/* 1. ゾンビ警備員の画像カットイン */
-.zombie-cutin {
-    width: 150px;
-    height: auto;
-    margin-bottom: 15px;
-    border: 2px solid #ff4444;
-}
+.modal-overlay {position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); justify-content: center; align-items: center; z-index: 1000;}
+.modal-content {background: #222; color: #fff; padding: 20px; border-radius: 8px; text-align: center; max-width: 300px; width: 90%; border: 2px solid #555;}
+.zombie-cutin {width: 150px; height: auto; margin-bottom: 15px; border: 2px solid #ff4444;}
 
 /* ダイス表示部分の並び */
-.dice-container {
-    display: flex;
-    justify-content: space-around;
-    margin: 15px 0;
-}
-
-.dice-slot {
-    font-size: 1.5rem;
-    margin-top: 5px;
-}
-
+.dice-container {display: flex; justify-content: space-around; margin: 15px 0;}
+.dice-slot {font-size: 1.5rem; margin-top: 5px;}
 @keyframes slowReveal {
-    0% {
-        opacity: 1; /* 最初は真っ白（不透明） */
-    }
-    100% {
-        opacity: 0; /* 完全に消えて画像が現れる */
-    }
+0% {opacity: 1;} 
+100% { opacity: 0;}
 }
-
-.zombie-wrapper {
-    position: relative;
-    display: block;
-    max-width: 90%;
-    width: 90%;
-    margin: 15px auto;
-    border-radius: 6px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-}
-
-.zombie-fadeIn-img {
-    display: block;
-    width: 100%;
-    height: auto;
-}
+.zombie-wrapper {position: relative; display: block; max-width: 90%; width: 90%; margin: 15px auto; border-radius: 6px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.3);}
+.zombie-fadeIn-img {display: block; width: 100%; height: auto;}
 
 /* 白い膜がじわーっと消えるレイヤー */
-.zombie-white-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #ffffff; /* 真っ白な状態からスタート */
-    opacity: 1;
-    animation: slowReveal 2.0s ease-out forwards; /* 2.0秒かけてじわーっと消す（秒数は好みで調整してね） */
-    pointer-events: none; /* 膜が邪魔してクリックできないのを防ぐ */
-}
+.zombie-white-overlay {position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: #ffffff; opacity: 1; animation: slowReveal 2.0s ease-out forwards; pointer-events: none; }
 
 /* ぐちゃりぐちゃりのテキストコンテナ */
-/* 親の dungeon-mode を指定に含めることで、相手のセレクタに勝つ！ */
-
-#creepy-sound-area.creepy-loop-container {
-    font-size: 1.1rem; 
-    color: red !important; 
-    font-style: italic; 
-    letter-spacing: 2px; 
-    margin: 15px 0; 
-    min-height: 1.5em;
-}
-
-#creepy-sound-area .typing-char {
-    color: #ff1a1a !important; 
-}
+#creepy-sound-area.creepy-loop-container {font-size: 1.1rem; color: red !important; font-style: italic; letter-spacing: 2px; margin: 15px 0; min-height: 1.5em;}
+#creepy-sound-area .typing-char {color: #ff1a1a !important;}
 
 @keyframes charFade {
-    0% { opacity: 0; transform: translateY(3px); filter: blur(2px); }
-    100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+0% { opacity: 0; transform: translateY(3px); filter: blur(2px); }
+100% { opacity: 1; transform: translateY(0); filter: blur(0); }
 }
 
 /* ホワイトアウト用の全画面フラッシュ */
-#whiteout-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: #ffffff;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.4s ease-in;
-    z-index: 9999;
-}
-#whiteout-overlay.flash {
-    opacity: 1;
-}
+#whiteout-overlay {position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: #ffffff; opacity: 0; pointer-events: none; transition: opacity 0.4s ease-in; z-index: 9999;}
+#whiteout-overlay.flash {opacity: 1;}
+
+/* ホワイトアウト用の全画面フラッシュ */
+#whiteout-overlay2 {position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: #ffffff; opacity: 0; pointer-events: none; transition: opacity 0.4s ease-in; z-index: 9999;}
+#whiteout-overlay2.flash {opacity: 1;}
+
 
 @keyframes zombieShake {
-    0% { transform: translate(0, 0) rotate(0deg); }
-    20% { transform: translate(-4px, 2px) rotate(-3deg); }
-    40% { transform: translate(4px, -2px) rotate(3deg); }
-    60% { transform: translate(-3px, -1px) rotate(-2deg); }
-    80% { transform: translate(3px, 1px) rotate(2deg); }
-    100% { transform: translate(0, 0) rotate(0deg); }
+0% { transform: translate(0, 0) rotate(0deg); }
+20% { transform: translate(-4px, 2px) rotate(-3deg); }
+40% { transform: translate(4px, -2px) rotate(3deg); }
+60% { transform: translate(-3px, -1px) rotate(-2deg); }
+80% { transform: translate(3px, 1px) rotate(2deg); }
+100% { transform: translate(0, 0) rotate(0deg); }
 }
+.shake-effect {animation: zombieShake 0.4s ease-in-out;}
 
-.shake-effect {
-    animation: zombieShake 0.4s ease-in-out;
-}
-
-#gameover-modal .dan2{
-    color: #FFF !important;
-}
+#gameover-modal .dan2{color: #FFF !important;}
 
 @keyframes intenseShake {
   0% { transform: translate(0, 0) rotate(0deg); filter: brightness(1); }
@@ -508,48 +279,51 @@ body.monochrome-mode div.memo-area * {
   80% { transform: translate(6px, 6px) rotate(2deg); filter: brightness(1); }
   100% { transform: translate(0, 0) rotate(0deg); filter: brightness(1); }
 }
-
-.intense-shake-effect {
-  animation: intenseShake 0.4s ease-in-out;
-}
+.intense-shake-effect {  animation: intenseShake 0.4s ease-in-out;}
 
 @keyframes fadeInDoor {
-    0% {
-        opacity: 0;
-        transform: scale(0.9);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
+0% {opacity: 0; transform: scale(0.9);}
+100% {opacity: 1; transform: scale(1);}
 }
-
-#escape-door-area {
-    animation: fadeInDoor 1.2s ease-out forwards;
-}
+#escape-door-area {animation: fadeInDoor 1.2s ease-out forwards;}
 
 /* ゾンビがフリーズしたときの完璧な静止位置 */
-.zombie-frozen-pose .head-twitch {
-    animation: none !important;
-    /* ここをマイナス方向や微調整した数値に変える！ */
-    transform: translate(0px, 25px) !important; 
-}
-
-select {
-    max-height: 50vh; /* 画面の高さの半分までに抑える */
-    font-size: 16px;   /* ※超重要：iOSで自動ズームを防ぐため＆視認性のため */
-}
-
+.zombie-frozen-pose .head-twitch {animation: none !important; transform: translate(0px, 25px) !important; }
+select {max-height: 50vh; /* 画面の高さの半分までに抑える */ font-size: 16px;/* ※超重要：iOSで自動ズームを防ぐため＆視認性のため */}
 /* スマホでもセレクトボックスが長くなりすぎないように制限してスクロールさせる */
-.throw-select {
-    max-height: 40vh; /* 画面の高さの40%を超えたら中でスクロールさせる */
-    overflow-y: auto;
-}
-
+.throw-select {max-height: 40vh; /* 画面の高さの40%を超えたら中でスクロールさせる */ overflow-y: auto;}
 
 /* －－－－－－－－－－－－－－ 迷宮モード用CSS end－－－－－－－－－－－－－－－ */
+
+/* ==========================================
+   あとがきリンクのスタイル
+   ========================================== */
+.atogaki {display: inline-block; color: #444444; text-decoration: underline; text-underline-offset: 4px; cursor: pointer; transition: color 0.2s ease, opacity 0.2s ease;}
+/* PCでホバーしたとき、スマホでタップした（アクティブな）ときの色変化 */
+.atogaki:hover,.atogaki:active {color: #b5835a; /* エキストラシナリオの雰囲気に合う上品なブラウン/ゴールド系 */ opacity: 0.8;}
+
+/* ==========================================
+あとがき用モーダルウィンドウのスタイル
+========================================== */
+/* モーダルの外側（背景の黒半透明＆外クリックで閉じるエリア） */
+#atogaki-modal {display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgba(0, 0, 0, 0.7); z-index: 10000; justify-content: center; align-items: center; padding:10px 20px; box-sizing: border-box;}
+
+/* モーダルの中身ボックス（アイボリー調） */
+.atogaki-modal-content { background-color: #fcfaf2; color: #3a3532; width: 90%; max-width: 600px; max-height: 60vh; border-radius: 6px; box-sizing: border-box; display: flex; flex-direction: column; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4); border: 1px solid #e3dec9;}
+
+/* モーダル内のヘッダー（タイトルや閉じるボタン用） */
+.atogaki-modal-header {padding: 15px 20px; font-weight: bold; font-size: 1.1rem; border-bottom: 1px solid #eae5d2; display: flex; justify-content: space-between; align-items: center;}
+/* スクロールして読める本文エリア */
+.atogaki-modal-body {padding: 20px; overflow-y: auto; font-size: 0.95rem; line-height: 1.25; white-space: pre-wrap; flex-grow: 1;}
+
+/* 閉じるボタン */
+.atogaki-close-btn{background-color: #4a4542; color: #fff; border: none; padding: 8px 20px; border-radius: 4px; cursor: pointer; font-size: 0.9rem; transition: background-color 0.2s;}
+.atogaki-close-btn:hover {background-color: #2c2826;}
+.atogaki-modal-footer {padding: 15px 20px; border-top: 1px solid #eae5d2; text-align: center;}
 </style>
 </head>
+
+
 
 <body>
 <header>
@@ -1117,7 +891,7 @@ select {
 		<p class="dan2">朝の空気の中、あなたは拳を握り締め、再びこのカフェへ戻る事を強く誓った。</p>
 
 		<p align="center">＜ビターエンディング＞<br>勇気を出して次こそは</p>
-		<button class="common-btn3" onclick="changeScene('scene-last88')">＞ クリア特典へ ＜</button>
+		<button class="common-btn" onclick="changeScene('scene-last88')">＞ クリア特典へ ＜</button>
 	</div>
 
 
@@ -1151,7 +925,7 @@ select {
 		<p class="dan2">オーナーの静かな見送りを受け、あなたは客と共に帰路へと着いた。</p>
 
 		<p align="center">＜グッドエンディング＞<br>共連れの帰路</p>
-		<button class="common-btn3" onclick="changeScene('scene-last88')">＞ クリア特典へ ＜</button>
+		<button class="common-btn" onclick="changeScene('scene-last88')">＞ クリア特典へ ＜</button>
 	</div>
 
 
@@ -1184,7 +958,7 @@ select {
 		<p class="dan2">しかし、さっきまでそこにいたオーナーの姿はどこにもなかった。</p>
 
 		<p align="center">＜トゥルーエンディング＞<br>ぬくもりだけを残して</p>
-		<button class="common-btn3" onclick="changeScene('scene-last88')">＞ クリア特典へ ＜</button>
+		<button class="common-btn" onclick="changeScene('scene-last88')">＞ クリア特典へ ＜</button>
 	</div>
 
 
@@ -1215,7 +989,7 @@ select {
 
 			<p align="center">…　…　…それでは…　…　…</p>
 
-			<button class="common-btn3" onclick="location.reload()">＞ もう一度カフェへ行く ＜</button>
+			<button class="common-btn" onclick="location.reload()">＞ もう一度カフェへ行く ＜</button>
 	</div>
 
 	<div id="scene-last91" class="scene" style="display:none;">
@@ -1233,7 +1007,7 @@ select {
 
 			<p align="center">…　…　…それでは…　…　…</p>
 
-			<button class="common-btn3" onclick="location.reload()">＞ もう一度カフェへ行く ＜</button>
+			<button class="common-btn" onclick="location.reload()">＞ もう一度カフェへ行く ＜</button>
 	</div>
 
 <!-------------------------------------------------------- 第10幕：滅王の迷宮（おまけシナリオ） -->
@@ -1287,7 +1061,7 @@ select {
 
 	<div id="scene-11-3" class="scene dungeon-mode">
 			<p class="dan2">淀んだ空気が停滞した暗い通路だ。</p>
-			<p class="dan2">自分の足音だけがやけに大きく冷たく反響している。</p>
+			<p class="dan2">電源が落ちた沢山の自動販売機が、巨大な黒壁のように佇んでいる。</p>
 
 			<button class="common-btn5" onclick="openObservation('door-a03')" style="border-style:dashed;">🔍 観察する 🔍</button>
 			<button class="common-btn4" onclick="tryEncounter('scene-11-4')">北へ進む</button>
@@ -1334,9 +1108,50 @@ select {
 	</div>
 
 	<div id="scene-11-8" class="scene dungeon-mode">
-			<p class="dan2">赤く塗られた金属製の扉がある通路だ。</p>
-			<p class="dan2">電源が落ちた沢山の自動販売機が、巨大な黒壁のように佇んでいる。</p>
+			<svg viewBox="0 0 110 175" width="110" height="175" style="display: block; margin: 0 auto;">
+				<defs>
+				<!-- ロッカー本体のグラデーション（スチールグレー系） -->
+				<linearGradient id="locker-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+				<stop offset="0%" stop-color="#999999"/>
+				<stop offset="50%" stop-color="#7a7a7a"/>
+				<stop offset="100%" stop-color="#5c5c5c"/>
+				</linearGradient>
+				<!-- 枠用のグラデーション -->
+				<linearGradient id="locker-frame" x1="0%" y1="0%" x2="0%" y2="100%">
+				<stop offset="0%" stop-color="#666666"/>
+				<stop offset="100%" stop-color="#3b3b3b"/>
+				</linearGradient>
+				</defs>
+				<!-- 外枠 -->
+				<rect x="10" y="10" width="90" height="155" fill="#444444" stroke="#2b2b2b" stroke-width="1"/>
+				<!-- ロッカー扉本体 -->
+				<rect x="14" y="14" width="82" height="147" fill="url(#locker-grad)" stroke="#3b3b3b" stroke-width="1.5"/>
 
+				<!-- 上部の通気口スリット（横並びの細いスリット群） -->
+				<g fill="#424242">
+				<rect x="25" y="25" width="20" height="3" rx="1"/>
+				<rect x="25" y="31" width="20" height="3" rx="1"/>
+				<rect x="25" y="37" width="20" height="3" rx="1"/>
+				<rect x="25" y="43" width="20" height="3" rx="1"/>
+				</g>
+
+				<!-- 名札差し / カードホルダー -->
+				<rect x="62" y="24" width="24" height="16" fill="none" stroke="#4d4d4d" stroke-width="1.5"/>
+				<rect x="64" y="27" width="20" height="10" fill="#d9d9d9" opacity="0.6"/>
+
+				<!-- ロッカーの縦のプレスライン（中央のプレス表現などはお好みで、今回はスッキリめに） -->
+
+				<!-- 鍵穴とレバー式取っ手 -->
+				<!-- 鍵穴周辺のプレート -->
+				<rect x="72" y="80" width="10" height="26" fill="#666" stroke="#333" stroke-width="1" rx="1"/>
+				<!-- 鍵穴 -->
+				<circle cx="77" cy="88" r="2" fill="#222"/>
+				<!-- レバーの取っ手（横に突き出たタイプ） -->
+				<path d="M68 95 h10 v4 h-10 z" fill="#888" stroke="#333" stroke-width="1"/>
+			</svg>
+
+			<p>沢山のロッカーが並べられた狭い通路だ。</p>
+			<p class="dan2">どれも凄まじい力で殴りつけられたのか、ぐしゃぐしゃに破壊されている。</p>
 			<button class="common-btn5" onclick="openLockerCheckModal()" style="border-style:dashed;">🔍 観察する 🔍</button>
 			<button class="common-btn4" onclick="tryEncounter('scene-11-7')">北へ進む</button>
 			<button class="common-btn4" onclick="tryEncounter('scene-11-1')">西へ進む</button>
@@ -1363,9 +1178,9 @@ select {
 
 			<button class="common-btn4" onclick="changeScene('scene-11-9-sp1')">メモ帳の□が□のままだ</button>
 			<button class="common-btn4" onclick="changeScene('scene-11-9-sp2')">メモ帳の□が■になっている</button>
-			<button class="common-btn4" onclick="changeScene('scene-11-9-sp3')">メモ帳の†が‡になっている</button>
+			<button class="common-btn4" onclick="changeScene('scene-11-9-sp3')">メモ帳の◎が†になっている</button>
 			<button class="common-btn4" onclick="changeScene('scene-11-9-sp4')">左 上 の☽が☀になっている</button>
-			<p style="margin-top:10px;" align="center"><span class="text-red" style="font-size:0.75rem; color:#8b0000;">（メモ帳を確認してください）</span></p>
+			<p style="margin-top:10px;" align="center"><span class="text-red" style="font-size:0.75rem; color:#8b0000; font-weught:bold;">（メモ帳を確認してください）</span></p>
 	</div>
 
 	<div id="scene-11-9-sp1" class="scene dungeon-mode">
@@ -1396,13 +1211,16 @@ select {
 
 			<p class="dan2">ぶつぶついいながら捜索を続けるが、お目当ての物が無いと判ると警備員はパッと手を止めた。</p>
 
-			<p>「あなた。鍵。探してきてくださイ。確かロッカーに入ってる筈デす。緑の鍵でス。」</p>
-			<p class="dan2"><span class="text-red" style="font-size:0.75rem; color:#8b0000;">（メモ帳の□をチェックし、■に変えてください）</span></p>
+			<p>「あなた。鍵。探してきてくださイ。確かロッカーに入ってる筈でス。緑の鍵でス。」</p>
+			<p><span class="text-red" style="font-size:0.75rem; color:#8b0000; font-weught:bold;">（メモ帳の□をチェックし、■に変えてください）</span></p>
+			<button class="common-btn-d" onclick="changeScene('scene-11-9-sp1-3')">＞ 緑のスペアキーを探しに行く ＜</button>
+	</div>
 
-			<p class="dan2">「そうだ。これあげまス。使い捨てなんですが"アレ"を追い払えますヨ」</p>
+	<div id="scene-11-9-sp1-3" class="scene dungeon-mode">
+			<p class="dan2">「あ、そうだ。これあげまス。使い捨てなんですが"アレ"を追い払えますヨ」</p>
 
 			<p>あなたはさえない警備員から『Zヨケール』を受け取った！</p>
-			<p class="dan2"><span class="text-red" style="font-size:0.75rem; color:#8b0000;">（メモ帳の◇をチェックし、◆に変えてください）</span></p>
+			<p class="dan2"><span class="text-red" style="font-size:0.75rem; color:#8b0000; font-weught:bold;">（メモ帳の◇をチェックし、◆に変えてください）</span></p>
 
 			<p class="dan2">あなたはさえない警備員に探すように言われた『緑のスペアキー』を探すことにする。</p>
 
@@ -1444,7 +1262,7 @@ select {
 			<p class="dan2">「<span style="font-size:0.85rem; font-style: italic">プライマリの同期バスからパリティエラーをバイパスしてスレーブ側のトランシーバーを強制リトリートするんでス。つまりこう…キュッとやってパッと切り替える感じのアレっス。もたもたしてるとバックトレースが飽和しまス。あ、計装制御室は緑のドアで緑のランプを点灯させて欲しいっス。</span>」</p>
 
 			<p>聞き返してみたものの、彼の言葉は相変わらず意味不明だった。<br>今は緑のドアの計装制御室に行くより他はなさそうだ。</p>
-			<p class="dan2"><span class="text-red" style="font-size:0.75rem; color:#8b0000;">（メモ帳の∃をチェックし、∀に変えてください）</span></p>
+			<p class="dan2"><span class="text-red" style="font-size:0.75rem; color:#8b0000; font-weught:bold;">（メモ帳の∃をチェックし、∀に変えてください）</span></p>
 
 			<p class="dan2">さあ『計装制御室』を探しにいこう。</p>
 
@@ -1459,7 +1277,7 @@ select {
 
 			<p class="dan2">「グッドラックっス」</p>
 			<p>さえない警備員はあなたと目が合うとひらひらと手を振り、文庫本へと視線を戻した。</p>
-			<p class="dan2"><span class="text-red" style="font-size:0.75rem; color:#8b0000;">（メモ帳の∃をチェックし、∀に変えてください）</span></p>
+			<p class="dan2"><span class="text-red" style="font-size:0.75rem; color:#8b0000; font-weught:bold;">（メモ帳の∃をチェックし、∀に変えてください）</span></p>
 
 			<p class="dan2">さあ『計装制御室』を探しにいこう。</p>
 
@@ -1475,14 +1293,18 @@ select {
 
 			<p>足元の通路の真ん中にあるマンホールから鈍い動作音が響き、カチリとロックが外れる。</p>
 			<p class="dan2">マンホールが開くと同時に下水の臭いに良く似たイヤな空気が一気に溢れ、周囲に四散した。</p>
+			<p>「緊急用の非常用通路でス。ここを降りれバカフェに戻れますヨ」</p>
+			<button class="common-btn-d" onclick="changeScene('scene-11-9-sp4-2')">＞ 非常用通路が現れた ＜</button>
+	</div>
 
-			<p class="dan2">「ここを降りテ、明るい方に向かっテ進んでいけバ、カフェに戻れますヨ」</p>
+	<div id="scene-11-9-sp4-2" class="scene dungeon-mode">
+			<p class="dan2">「降りたラ、明るい方に向かっテ進んでいけばいいっス」</p>
 			<p class="dan2">相変わらずひょうひょうとした物言いで、さえない警備員はあなたに声をかける。</p>
 
-			<p class="dan2">「どうします？降りたら蓋閉じるんで、もう戻れないっすヨ」</p>
+			<p class="dan2">「どうしまス？ 降りたら蓋閉じるんデ、もう戻れないっすヨ」</p>
 			<p class="dan2">さえない警備員は分厚い眼鏡越しにあなたをじっと見ている。</p>
 
-			<button class="common-btn4" onclick="changeScene('scene-13')">非常用通路へ</button>
+			<button class="common-btn4" onclick="changeScene('scene-13')">非常用通路へ向かう</button>
 			<button class="common-btn4" onclick="changeScene('scene-11-9')">四辻へ戻る</button>
 	</div>
 
@@ -1490,18 +1312,18 @@ select {
 
 <!--　Ｂだよ　-->
 	<div id="scene-12-1" class="scene dungeon-mode">
-			<p class="dan2">無機質な通路だ。</p>
-			<p class="dan2">天井の配管からは時折水滴が落ち、床を濡らしている。</p>
+			<p class="dan2 text-i">無機質な通路だ。</p>
+			<p class="dan2 text-i">床を濡らしているのは、天井の配管から落ちる水滴だ。</p>
 
 			<button class="common-btn4" onclick="changeScene('scene-12-9')">北へ進む</button>
 			<button class="common-btn4" onclick="changeScene('scene-12-8')">東へ進む</button>
 			<button class="common-btn4" onclick="changeScene('scene-12-2')">西へ進む</button>
-			<button class="common-btn4" onclick="changeScene('scene-11-0')">南へ進む</button>
+			<button class="common-btn4" onclick="triggerWhiteoutAndMove('scene-11-0')">南へ進む</button>
 	</div>
 
 	<div id="scene-12-2" class="scene dungeon-mode">
-			<p class="dan2">殺風景な風景が続いている。</p>
-			<p class="dan2">剥がれかけた壁紙と、剥き出しのコンクリートが虚無を形作っている。</p>
+			<p class="dan2 text-i">殺風景な風景が続いている。</p>
+			<p class="dan2 text-i">剥き出しのコンクリートと、剥がれかけた壁紙が虚無を形作っている。</p>
 
 			<button class="common-btn5" onclick="openObservation('door-b02')" style="border-style:dashed;">🔍 観察する 🔍</button>
 			<button class="common-btn4" onclick="tryEncounter('scene-12-3')">北へ進む</button>
@@ -1509,8 +1331,8 @@ select {
 	</div>
 
 	<div id="scene-12-3" class="scene dungeon-mode">
-			<p class="dan2">淀んだ空気が停滞した暗い通路だ。</p>
-			<p class="dan2">自分の足音だけがやけに大きく冷たく反響している。</p>
+			<p class="dan2 text-i">淀んだ空気が停滞した暗い通路だ。</p>
+			<p class="dan2">電源が落ちた沢山の自動販売機が、巨大な黒壁のように佇んでいる。</p>
 
 			<button class="common-btn5" onclick="openObservation('door-b03')" style="border-style:dashed;">🔍 観察する 🔍</button>
 			<button class="common-btn4" onclick="tryEncounter('scene-12-4')">北へ進む</button>
@@ -1519,8 +1341,8 @@ select {
 	</div>
 
 	<div id="scene-12-4" class="scene dungeon-mode">
-			<p class="dan2">薄汚れた廊下だ。</p>
-			<p class="dan2">ゴミ箱からは収まりきらないペットボトルが溢れ散らばっている。</p>
+			<p class="dan2 text-i">薄汚れた廊下だ。</p>
+			<p class="dan2 text-i">ペットボトルがゴミ箱から溢れ、散らばっている。</p>
 
 			<button class="common-btn5" onclick="openObservation('door-b04')" style="border-style:dashed;">🔍 観察する 🔍</button>
 			<button class="common-btn4" onclick="tryEncounter('scene-12-5')">東へ進む</button>
@@ -1528,27 +1350,27 @@ select {
 	</div>
 
 	<div id="scene-12-5" class="scene dungeon-mode">
-			<p class="dan2">誰もいない通路だ。</p>
-			<p class="dan2">色褪せたフロアタイルが敷かれた床と、すすけた壁が単調に続いている。</p>
+			<p class="dan2 text-i">誰もいない通路だ。</p>
+			<p class="dan2 text-i">すすけた壁と色褪せたフロアタイルが敷かれた床が単調に続いている。</p>
 
 			<button class="common-btn5" onclick="openObservation('door-b05')" style="border-style:dashed;">🔍 観察する 🔍</button>
-			<button class="common-btn4" onclick="changeScene('scene-11-1')">北へ進む</button>
+			<button class="common-btn4" onclick="triggerWhiteoutAndMove('scene-11-1')">北へ進む</button>
 			<button class="common-btn4" onclick="tryEncounter('scene-12-6')">東へ進む</button>
 			<button class="common-btn4" onclick="tryEncounter('scene-12-4')">西へ進む</button>
 			<button class="common-btn4" onclick="changeScene('scene-12-9')">南へ進む</button>
 	</div>
 
 	<div id="scene-12-6" class="scene dungeon-mode">
-			<p class="dan2">人の気配のない静まり返った空間だ。</p>
-			<p class="dan2">非常灯のおかげで、かろうじて廊下の輪郭が判る。</p>
+			<p class="dan2 text-i">静まり返った空間だ。人の気配はな。い</p>
+			<p class="dan2 text-i">廊下の輪郭が非常灯のおかげでかろうじて判る。</p>
 			<button class="common-btn5" onclick="openObservation('door-b06')" style="border-style:dashed;">🔍 観察する 🔍</button>
 			<button class="common-btn4" onclick="tryEncounter('scene-12-5')">西へ進む</button>
 			<button class="common-btn4" onclick="tryEncounter('scene-12-7')">南へ進む</button>
 	</div>
 
 	<div id="scene-12-7" class="scene dungeon-mode">
-			<p class="dan2">壊れた看板や破れたポスターが張られた通路だ。</p>
-			<p class="dan2">照明の消えた天井の下、足元がわかる程度の薄闇が均一に広がっている。</p>
+			<p class="dan2 text-i">破れたポスターや壊れた看板や張られた通路だ。</p>
+			<p class="dan2 text-i">照明の消えた天井の下、足元がわかる程度の薄闇が均一に広がっている。</p>
 
 			<button class="common-btn5" onclick="openObservation('door-b07')" style="border-style:dashed;">🔍 観察する 🔍</button>
 			<button class="common-btn4" onclick="tryEncounter('scene-12-6')">北へ進む</button>
@@ -1557,8 +1379,8 @@ select {
 	</div>
 
 	<div id="scene-12-8" class="scene dungeon-mode">
-			<p class="dan2">赤く塗られた金属製の扉がある通路だ。</p>
-			<p class="dan2">電源が落ちた沢山の自動販売機が、巨大な黒壁のように佇んでいる。</p>
+			<p class="dan2 text-i">電源が落ちた沢山の自動販売機が並んでいる。</p>
+			<p class="dan2 text-i">自動販売機は闇に浮かぶ黒壁のように、静かに佇んでいる。</p>
 
 			<button class="common-btn5" onclick="openObservation('door-b08')" style="border-style:dashed;">🔍 観察する 🔍</button>
 			<button class="common-btn4" onclick="tryEncounter('scene-12-7')">北へ進む</button>
@@ -1567,8 +1389,8 @@ select {
 
 <!-- B まんなか-->
 	<div id="scene-12-9" class="scene dungeon-mode">
-			<p class="dan2">十字路の中心にたどり着いた。</p>
-			<p class="dan2">周囲の空気が他よりも一段と冷たく張り詰めている。<br>四方に延びる暗い通路のどれを選んでも、同じ闇へ引きずり込まれそうな錯覚を覚える。</p>
+			<p class="dan2 text-i">あなたは十字路の中心に立ちすくしている。</p>
+			<p class="dan2 text-i">暗い通路のどれを選んでも、同じ闇へ引きずり込まれそうな錯覚を覚える。</p>
 			<button class="common-btn5" onclick="changeScene('scene-12-9-sp')" style="border-style:dashed;">🔍 観察する 🔍</button>
 
 			<button class="common-btn4" onclick="changeScene('scene-12-5')">北へ進む</button>
@@ -1578,14 +1400,14 @@ select {
 	</div>
 
 	<div id="scene-12-9-sp" class="scene dungeon-mode">
-			<p class="dan2">四つの道が繋がったちょっとした広場だ。</p>
+			<p class="dan2">四方の道が繋がり、ちょっとした広場となっている。</p>
 			<p class="dan2">どこからか冷えた風が吹き込んできているのか、頬に冷気が当たる。</p>
 			<p>薄暗い四辻に佇みながら、あなたはふと記憶をたどった。</p>
 
 			<button class="common-btn4" onclick="changeScene('scene-12-9-sp0')">メモ帳の∃が∃のままだ</button>
 			<button class="common-btn4" onclick="changeScene('scene-12-9-sp1')">メモ帳の∃が∀になっている</button>
 			<button class="common-btn4" onclick="changeScene('scene-12-9-sp9')">左上の☽が☀になっている</button>
-			<p style="margin-top:10px;" align="center"><span class="text-red" style="font-size:0.75rem; color:#8b0000;">（メモ帳と左上を確認してください）</span></p>
+			<p style="margin-top:10px;" align="center"><span class="text-red" style="font-size:0.75rem; color:#8b0000; font-weught:bold;">（メモ帳と左上を確認してください）</span></p>
 	</div>
 
 	<div id="scene-12-9-sp0" class="scene dungeon-mode">
@@ -1609,7 +1431,36 @@ select {
 	</div>
 
 	<div id="scene-12-9-sp1" class="scene dungeon-mode">
-			<p class="dan2">四辻の通路の片隅に、あなたは緑色の古めかしいドアを見つけた。</p>
+			<svg viewBox="0 0 110 175" width="110" height="175" style="display: block; margin: 0 auto;">
+				<defs>
+				<!-- 扉本体のグラデーション（ディープグリーン系） -->
+				<linearGradient id="green-door-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+				<stop offset="0%" stop-color="#4a6b5d"/>
+				<stop offset="50%" stop-color="#364f43"/>
+				<stop offset="100%" stop-color="#23342c"/>
+				</linearGradient>
+				<!-- 枠用のグラデーション -->
+				<linearGradient id="green-frame" x1="0%" y1="0%" x2="0%" y2="100%">
+				<stop offset="0%" stop-color="#3a4f44"/>
+				<stop offset="100%" stop-color="#18241e"/>
+				</linearGradient>
+				</defs>
+				<!-- 外枠 -->
+				<rect x="10" y="10" width="90" height="155" fill="#1d2722" stroke="#121a16" stroke-width="1"/>
+				<!-- 扉本体 -->
+				<rect x="14" y="14" width="82" height="147" fill="url(#green-door-grad)" stroke="#18241e" stroke-width="1.5"/>
+				<!-- パネルの凹凸（4分割） -->
+				<rect x="20" y="20" width="32" height="64" fill="none" stroke="#2a3d34" stroke-width="1.5"/>
+				<rect x="58" y="20" width="32" height="64" fill="none" stroke="#2a3d34" stroke-width="1.5"/>
+				<rect x="20" y="90" width="32" height="64" fill="none" stroke="#2a3d34" stroke-width="1.5"/>
+				<rect x="58" y="90" width="32" height="64" fill="none" stroke="#2a3d34" stroke-width="1.5"/>
+				<!-- ドアノブ・プレート -->
+				<rect x="76" y="85" width="10" height="22" fill="#7a8c82" stroke="#23342c" stroke-width="1" rx="1"/>
+				<path d="M72 93 h6 v4 h-6 z" fill="#9ab0a4" stroke="#23342c" stroke-width="1"/>
+				<circle cx="81" cy="95" r="1.5" fill="#23342c"/>
+			</svg>
+
+			<p class="dan2">四辻の片隅に、あなたは緑色の古めかしいドアを見つけた。</p>
 			<p class="dan2">どうやら、ここがあの警備員が言っていた計装制御室のようだ。</p>
 			<p class="dan2">ドアの鍵穴に鍵を差し込み、解錠する。</p>
 			<p class="dan2">きしんだ音を鳴らしながら、計装制御室のドアはゆっくりと開いた。</p>
@@ -1649,11 +1500,11 @@ select {
 			</div>
 		</div>
 
-	<!-- 正解したときに出現する次のシーンへのボタン -->
+<!-- 正解したときに出現する次のシーンへのボタン -->
 		<div id="clear-route" style="display: none; margin-top: 20px;">
 			<p class="dan2">動作音と共にメイン・インジケーターが緑色に点灯した！</p>
-			<p class="dan2">あなたはほっと息をつくと、計装制御室から立ち去ることにした。</p>
-			<button class="common-btn4" onclick="changeScene('scene-12-zombie-battle-scene')">計装制御室から立ち去る</button>
+			<p>あなたはほっと息をつくと、計装制御室から立ち去ることにした。</p>
+			<button class="common-btn-d" onclick="changeScene('scene-12-zombie-battle-scene')">＞ 計装制御室から立ち去る ＜</button>
 		</div>
 	</div>
 
@@ -1668,9 +1519,9 @@ select {
 			</div>
 
 			<p class="dan2">同時に魚が腐ったような異様な臭いが満ちたことに気づき、不意打ちの臭気にあなたはたまらずえずいてしまう。</p>
-			<p class="dan2">目の前の不審な人物を押しのけ、あなたはこの計装制御室から脱出しなければならない。</p>
+			<p>目の前の不審者を押しのけ、あなたはこの計装制御室から脱出しなければならない。</p>
 
-			<button class="common-btn4" onclick="startZombieBattle()">立ち向かう</button>
+			<button class="common-btn-d" onclick="startZombieBattle()">＞ 立ち向かう ＜</button>
 		</div>
 	</div>
 
@@ -1700,7 +1551,7 @@ select {
 			<p class="dan2">計装制御室の扉を閉め、震える手で鍵をかける。</p>
 			<p class="dan2">これでもう、あのゾンビが出てくることはないだろう。</p>
 			<p>あなたは大きく息を吐くと、さえない警備員のもとへ戻ることにした。</p>
-			<p class="dan2"><span class="text-red" style="font-size:0.75rem; color:#8b0000;">（左上の☽をチェックし、☀に変えてください）</span></p>
+			<p class="dan2"><span class="text-red" style="font-size:0.75rem; color:#8b0000; font-weught:bold;">（左上の☽をチェックし、☀に変えてください）</span></p>
 
 			<button class="common-btn4" onclick="changeScene('scene-12-5')">北へ進む</button>
 			<button class="common-btn4" onclick="changeScene('scene-12-7')">東へ進む</button>
@@ -1735,10 +1586,9 @@ select {
 
 			<!-- ★IDを固有のものに変える！ -->
 			<p id="zombie-battle-message" style="font-size:0.9rem; line-height:1.6; margin-bottom:20px; color:#ddd;">どうする！？</p>
-			
 			<div id="battle-action-area" style="display:flex; flex-direction:column; gap:10px;">
 				<button onclick="rollZombieDice()" style="padding:10px; background:#444; color:#fff; border:1px solid #666; border-radius:4px; cursor:pointer; font-size:0.9rem;">🎲 逃げる（ダイスを振る）</button>
-				<button onclick="useZombieYokel()" style="padding:10px; background:#553333; color:#ff9999; border:1px solid #774444; border-radius:4px; cursor:pointer; font-size:0.9rem;">💊 Zヨケールを使う</button>
+				<button onclick="useZombieYokel()" style="padding:10px; background:#553333; color:#ff9999; border:1px solid #774444; border-radius:4px; cursor:pointer; font-size:0.9rem;">💊 Zヨケールを使う<p align="center"><span class="text-red" style="font-size:0.75rem; color:#8b0000; font-weught:bold;">（メモ帳の◇が◆になっていたら使えます）</span></p></button>
 			</div>
 		</div>
 	</div>
@@ -1759,10 +1609,14 @@ select {
 
 <!--　明暗のループ迷宮　-->
 	<div id="scene-13" class="scene dungeon-mode">
-			<p class="dan2">錆びついた鉄製のはしごを伝って地下へ降りる。</p>
-			<p class="dan2">どこからともなくゴーッという低く不気味な風の音が響いてくる。</p>
-			<p class="dan2">足がコンクリートの床に触れた瞬間、頭上でガチャンと音を立てて蓋が閉ざされた。<br>もう戻ることはできない。</p>
-			<button class="common-btn4" onclick="changeScene('scene-13-sp')">意を決して進む</button>
+			<p class="dan2">「おたっしゃデ」</p>
+			<p class="dan2">さえない警備員は非常用通路へ向かうあなたに声をかけた。</p>
+
+			<p class="dan2">あなたは錆びついた鉄製のはしごを伝ってゆっくりと地下へ降りていく。</p>
+
+			<p class="dan2">どこからともなく、ゴーッという低く不気味な風の音が響いてくる。</p>
+			<p>足がコンクリートの床に触れた瞬間、頭上でガチャンと音を立てて蓋が閉ざされた。<br>もう戻ることはできない。</p>
+			<button class="common-btn-d" onclick="changeScene('scene-13-sp')">＞ 意を決して進む ＜</button>
 	</div>
 
 	<div id="scene-13-sp" class="scene dungeon-mode">
@@ -1854,7 +1708,6 @@ select {
 
 
 <!-- ラストバトル -->
-<!-- ラストバトル -->
 	<div id="scene-14" class="scene dungeon-mode">
 		<p class="dan2">冷たく無骨な鉄格子を押し開けると、そこは非常灯だけが赤く灯る殺風景な通用路だった。</p>
 		<p class="dan2">通用路は古めかしいエアコンの室外機達がひしめき合い、ベタつく配管が無造作に生い茂っている。</p>
@@ -1862,9 +1715,8 @@ select {
 		<p class="dan2">やがて通路は行き止まりを迎え、あなたはうねる配管の奥に錆びついた赤銅の扉を見つけた。</p>
 
 <!-- ★ボタンのかわりに配置する無機質な鉄の扉（SVG） -->
-<!-- ★アンティークで使い込まれたドアノブのSVG -->
 		<div style="text-align: center; margin: 20px 0;">
-			<svg width="170" height="230" viewBox="0 0 170 230" style="cursor: pointer; filter: drop-shadow(0 0 10px rgba(0,0,0,0.9));" onclick="triggerWhiteoutAndMove();">
+			<svg width="170" height="230" viewBox="0 0 170 230" style="cursor: pointer; filter: drop-shadow(0 0 10px rgba(0,0,0,0.9));" onclick="triggerWhiteoutAndMoveCopperDoor();">
 				<!-- 扉の枠 -->
 				<rect x="5" y="5" width="160" height="220" fill="#111111" stroke="#2b140e" stroke-width="4"/>
 				<!-- 赤銅の扉本体 -->
@@ -1928,12 +1780,11 @@ select {
 		<p class="dan2">「ここ、は………？」</p>
 		<p class="dan2">あなたがふと漏らした抜けた独り言を遮るように、あの不快な――腐った魚の臭いが空間に満ちる。</p>
 
-		<!-- ★ここにしっとりとループする足音を配置する -->
 		<div id="creepy-sound-area" class="creepy-loop-container" style="color: #ff1a1a !important;"></div>
 
 		<p class="dan2">粘着質な泥を踏みしめるような音が背後から響く。</p>
 		<p class="dan2">振り返らずとも判る。あいつだ。<br>ゾンビ警備員があなたの背後に確実に”いる”ようだ。</p>
-		<button class="common-btn4" onclick="stopCreepyLoop(); changeScene('scene-14-2');">ゾンビ警備員と対峙する</button>
+		<button class="common-btn-d" onclick="stopCreepyLoop(); changeScene('scene-14-2');">＞ ゾンビ警備員と対峙する ＜</button>
 	</div>
 
 
@@ -1947,42 +1798,42 @@ select {
 					<div style="text-align: center; margin: 0;">
 						<svg width="100" height="175" viewBox="0 0 100 175" style="filter: drop-shadow(0 0 15px rgba(0,0,0,0.8);">
 						<style>
-						@keyframes upperBodyBreath {
-						0%, 100% { transform: translateY(0); }
-						50% { transform: translateY(-1.5px); }
-						}
-						.upper-body {
-						animation: upperBodyBreath 3s ease-in-out infinite;
-						transform-origin: bottom center;
-						}
-						@keyframes armTwitch {
-						0%, 94%, 100% { transform: translateY(0) rotate(0deg); }
-						95% { transform: translateY(2px) rotate(1.5deg); } 
-						97% { transform: translateY(-1px) rotate(-1deg); } 
-						}
-						.arm-right-twitch {
-						animation: armTwitch 2.5s infinite;
-						transform-origin: top center;
-						}
-						@keyframes headTwitch {
-						0%, 70%, 100% { transform: rotate(15deg); }
-						72% { transform: rotate(16deg) translateY(-0.1px); } /* 17.5を16に変更。揺れがマイルドになる */
-						74% { transform: rotate(14deg); }                  /* 13.5を14に変更。戻りも控えめに */
-						76% { transform: rotate(15deg); }
-						}
-						.head-twitch {
-						animation: headTwitch 4s infinite;
-						transform-origin: -55px 48px; 
-						}
-						@keyframes eyeFlicker {
-						0%, 68% { opacity: 1; filter: drop-shadow(0 0 4px red); }
-						70% { opacity: 0.1; filter: none; } 
-						72% { opacity: 1; filter: drop-shadow(0 0 9px #ff0000); } 
-						74%, 100% { opacity: 1; filter: drop-shadow(0 0 4px red); }
-						}
-						.blink-eye {
-						animation: eyeFlicker 3.5s infinite;
-						}
+@keyframes upperBodyBreath {
+0%, 100% { transform: translateY(0); }
+50% { transform: translateY(-1.5px); }
+}
+.upper-body {
+animation: upperBodyBreath 3s ease-in-out infinite;
+transform-origin: bottom center;
+}
+@keyframes armTwitch {
+0%, 94%, 100% { transform: translateY(0) rotate(0deg); }
+95% { transform: translateY(2px) rotate(1.5deg); } 
+97% { transform: translateY(-1px) rotate(-1deg); } 
+}
+.arm-right-twitch {
+animation: armTwitch 2.5s infinite;
+transform-origin: top center;
+}
+@keyframes headTwitch {
+0%, 70%, 100% { transform: rotate(15deg); }
+72% { transform: rotate(16deg) translateY(-0.1px); } /* 17.5を16に変更。揺れがマイルドになる */
+74% { transform: rotate(14deg); }                  /* 13.5を14に変更。戻りも控えめに */
+76% { transform: rotate(15deg); }
+}
+.head-twitch {
+animation: headTwitch 4s infinite;
+transform-origin: -55px 48px; 
+}
+@keyframes eyeFlicker {
+0%, 68% { opacity: 1; filter: drop-shadow(0 0 4px red); }
+70% { opacity: 0.1; filter: none; } 
+72% { opacity: 1; filter: drop-shadow(0 0 9px #ff0000); } 
+74%, 100% { opacity: 1; filter: drop-shadow(0 0 4px red); }
+}
+.blink-eye {
+animation: eyeFlicker 3.5s infinite;
+}
 						</style>
 
 						<defs>
@@ -2014,8 +1865,8 @@ select {
 						<ellipse cx="24" cy="25" rx="3" ry="5" fill="#5b6864" transform="rotate(-15, 22, 25)"/> 
 						<ellipse cx="74" cy="25" rx="3" ry="5" fill="#5b6864" transform="rotate(15, 78, 25)"/> 
 
-						<!-- 帽子（全体を下に下げる） -->
-						<!-- 元のコードの y座標や qの基準点を、すべて +4 くらい大きくする -->
+<!-- 帽子（全体を下に下げる） -->
+<!-- 元のコードの y座標や qの基準点を、すべて +4 くらい大きくする -->
 						<path d="M 28 8 L 72 8 L 64 -4 L 36 -4 Z" fill="#1b273d"/> <!-- 上の4と-8をそれぞれ+4した -->
 						<path d="M 24 9 Q 50 17 76 9" fill="none" stroke="#0a0f17" stroke-width="3.5" stroke-linecap="round"/> <!-- 上の5と13をそれぞれ+4した -->
 						<ellipse cx="50" cy="2" rx="3" ry="1.5" fill="#d4af37"/> <!-- 上の-2を+4して2にした -->
@@ -2063,28 +1914,26 @@ select {
 <!-- ★白い扉のSVG（ゾンビとまったく同じ位置にぴったり重ねる） -->
 				<div id="escape-door-area" style="display: none; opacity: 0; position: absolute; top: 0; left: 0; width: 100%; height: 100%; transition: opacity 1.5s ease; z-index: 1;">
 					<svg viewBox="0 0 110 175" width="110" height="175" style="display: block; margin: 0 auto; filter: drop-shadow(0 0 20px rgba(255,255,255,0.8));">
-					<defs>
-					<linearGradient id="white-door-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-					<stop offset="0%" stop-color="#ffffff"/>
-					<stop offset="50%" stop-color="#e0e0e0"/>
-					<stop offset="100%" stop-color="#cccccc"/>
-					</linearGradient>
-					<linearGradient id="white-frame" x1="0%" y1="0%" x2="0%" y2="100%">
-					<stop offset="0%" stop-color="#ffffff"/>
-					<stop offset="100%" stop-color="#999999"/>
-					</linearGradient>
-					</defs>
-					<rect x="10" y="10" width="90" height="155" fill="#f0f0f0" stroke="#ccc" stroke-width="1"/>
-					<rect x="14" y="14" width="82" height="147" fill="url(#white-door-grad)" stroke="#bbb" stroke-width="1.5"/>
-					<rect x="20" y="20" width="32" height="64" fill="none" stroke="#ccc" stroke-width="1.5"/>
-					<rect x="58" y="20" width="32" height="64" fill="none" stroke="#ccc" stroke-width="1.5"/>
-					<rect x="20" y="90" width="32" height="64" fill="none" stroke="#ccc" stroke-width="1.5"/>
-					<rect x="58" y="90" width="32" height="64" fill="none" stroke="#ccc" stroke-width="1.5"/>
+						<defs>
+						<linearGradient id="white-door-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+						<stop offset="0%" stop-color="#ffffff"/>
+						<stop offset="50%" stop-color="#e0e0e0"/>
+						<stop offset="100%" stop-color="#cccccc"/>
+						</linearGradient>
+						<linearGradient id="white-frame" x1="0%" y1="0%" x2="0%" y2="100%">
+						<stop offset="0%" stop-color="#ffffff"/>
+						<stop offset="100%" stop-color="#999999"/>
+						</linearGradient>
+						</defs>
+						<rect x="10" y="10" width="90" height="155" fill="#f0f0f0" stroke="#ccc" stroke-width="1"/>
+						<rect x="14" y="14" width="82" height="147" fill="url(#white-door-grad)" stroke="#bbb" stroke-width="1.5"/>
+						<rect x="20" y="20" width="32" height="64" fill="none" stroke="#ccc" stroke-width="1.5"/>
+						<rect x="58" y="20" width="32" height="64" fill="none" stroke="#ccc" stroke-width="1.5"/>
+						<rect x="20" y="90" width="32" height="64" fill="none" stroke="#ccc" stroke-width="1.5"/>
+						<rect x="58" y="90" width="32" height="64" fill="none" stroke="#ccc" stroke-width="1.5"/>
 
-<!-- ドアノブを右上に移動！ -->
-<!-- 右利きが自然に開ける位置（右側＆上め）へ大移動！ -->
-					<circle cx="84" cy="95" r="3.5" fill="#666666" stroke="#222" stroke-width="1"/>
-					<line x1="84" y1="92" x2="84" y2="98" stroke="#444" stroke-width="1"/>
+						<circle cx="84" cy="95" r="3.5" fill="#666666" stroke="#222" stroke-width="1"/>
+						<line x1="84" y1="92" x2="84" y2="98" stroke="#444" stroke-width="1"/>
 					</svg>
 				</div>
 
@@ -2119,9 +1968,9 @@ select {
 		<div id="phase-stop-prompt-area" class="battle-step" style="display: none; margin-top: 15px;">
 			<p style="font-size: 0.95rem; margin-bottom: 10px; color: #333;">もっと投げられる物はないか？</p>
 			<p style="font-size: 0.95rem; margin-bottom: 10px; color: #333;">あなたは自分のバッグの中身を調べてみた。</p>
-			<p style="font-size: 0.95rem; margin-bottom: 10px; color: #333;">いくつか投げられそうな物が見つかった。</p>
+			<p style="font-size: 0.95rem; color: #333;">いくつか投げられそうな物が見つかった。</p>
 			<div id="phase-bag-btn-area" style="display: flex; justify-content: center; margin-top: 12px;">
-				<button class="common-btn4" onclick="toBagPhase()" style="width: 100%; max-width: 280px;">手持ちのバッグの中身も投げてみる</button>
+				<button class="common-btn-d" onclick="toBagPhase()" style="width: 100%; max-width: 280px;">＞ バッグの中身も投げる ＜</button>
 			</div>
 		</div>
 
@@ -2146,42 +1995,80 @@ select {
 <!-- 裏ダンジョン　エンディング -->
 	<div id="scene-8-88" class="scene dungeon-mode">
 		<p class="dan2">誰かが、自分の身体を揺さぶっている感覚であなたは目を覚ました。</p>
-
 		<p class="dan2">そこはカフェの店内で、隣のテーブルにはオーナーが座っている。</p>
-
 		<p class="dan2">「そろそろ閉店なんで、起こさせてもらいました」</p>
-
 		<p class="dan2">あなたを起こした常連客は、少し苦笑気味にあなたを見ている。</p>
-
 		<p class="dan2">なんという事だ。自分は酔い潰れて眠ってしまったというのか。<br>言われてみると、確かにつっぷして寝ていたせいか首が少々痛む。</p>
-
 		<p>いや、それだけじゃない。なぜか全身が鉛のように重く、底知れない疲労感がじっとりと身体の芯にこびりついている…</p>
-
 		<button class="common-btn" onclick="changeScene('scene-8-89')">＞ 退店の準備をする ＜</button>
 	</div>
 
 	<div id="scene-8-89" class="scene dungeon-mode">
 		<p class="dan2">「ごちそうさまでした。また、来ます」</p>
-
 		<p class="dan2">退店間際、あなたは背筋を伸ばし、オーナーへ声をかける。</p>
-
 		<p class="dan2">「また、是非、いらしてください」</p>
-
 		<p class="dan2">柔らかい笑顔を浮かべたオーナーはそう微笑むと、静かに扉を開けた。</p>
-
 		<p class="dan2">オーナーの静かな見送りを受け、あなたは常連客と共に帰路へと着く。</p>
-
 		<p class="dan2">振り返った視線の先で、オーナーは小さく微笑みながら、手にした何かをひらひらと振って見送ってくれていた。</p>
-
 		<p class="dan2">あれはたしか、さっき自分がこっそり拾ったはずの、あの酒のラベルに見えた気がするが果たして――</p>
-
 		<p class="dan2">バッグの中から、いつの間にか酒のラベルが消えていることにあなたが気づくのは、ずっと後のことだ。</p>
-
 		<p align="center">＜ファイナルエンディング＞<br>夢か現か幻か</p>
-		<button class="common-btn3" onclick="location.reload()">＞ もう一度カフェへ行く ＜</button>
+		<button class="common-btn" onclick="location.reload()">＞ もう一度カフェへ行く ＜</button>
+		<p style="padding:10px 0;" align="center"><span class="atogaki" onclick="openAtogakiModal()">✏ あとがきを読む ✏</span></p>
 	</div>
 
+<!-- あとがき用モーダルウィンドウ -->
+	<div id="atogaki-modal" onclick="closeAtogakiModal(event)">
+		<div class="atogaki-modal-content" onclick="event.stopPropagation()">
+			<div class="atogaki-modal-header">
+				<span>あとがき・制作裏話</span>
+				<button class="atogaki-close-btn" onclick="closeAtogakiModalBtn()">×</button>
+			</div>
+			<div class="atogaki-modal-body">エクストラシナリオまで遊んでもらえてウレシイです。ありがとう。
 
+ゲームブックを作る事は私の長年の夢であり、同時にとても難しく諦めてた事でもあります。
+特にパラグラフの振り分けや、cssやJavascriptなどを使った演出をするには、パズルの組み立て力と、コーディング力の二つが必要でした。
+私はゲームブックのシナリオテキストを書く事は出来ても、コーディングやパラグラフの整理などが出来ない。
+なので、諦めていたゲームブック制作…
+（大昔にエクセルを使って作ろうとして断念した事がある）
+
+しかし、2023年に生成AIが登場し、2026年現在その能力は非常に高度な物となっています。
+画面OCR性能の向上、話し言葉によるコーディング能力の向上など、生成AIは非常に進化しました。
+私はその恩恵をフルで受けられた非常に幸運なユーザーだと思います。
+
+このゲームブックのコーディングは、全て話し言葉ベースで生成AIに出してもらった物です。
+時に笑い、時に泣きつき、コードや文章のサンプルを書いてもらったり、難しい言い回しの見本をもらったり…
+難しいプログラムは一切書けない私ですが、生成AIはそんな私でも作れる様、熱心な編集者や相棒の様に完成するまで付き合ってくれました。
+
+例）ゾンビ警備員をSVGでアニメーションさせたい！出来る？
+例）赤銅色のかっこいドアをSVGで出してそれをクリックしたら画面が一瞬真っ白になって次のシーンに行きたい！
+など
+
+こんなファジーな話し言葉の指示でも、生成AIは的確なコーディングを出力してくれました。
+これなら私でも複雑な演出のゲームブックを作れる…その結果が、このエキストラシナリオです。
+また、アナログな単行本の方も、インデザインの使い方を画面OCR機能などで全て補佐してもらい、刊行する事が出来ました。（それまでインデザイン使った事ありませんでした）
+
+このゲームブック制作は悲願であり、同時に諦めてたけど技術の進化によって叶えられた夢です。
+そして私が長年仕事で覚えてきた技術や演出をフルで活用した、まさに結晶でもあります。
+途中で挿入された廊下に佇むゾンビ警備員の写真と、ファビコン以外、ありません。
+このゲームブックは全てindex.htmlに内包されたもので、オフラインでも遊べる様になっています。
+
+WEB製作者の端くれとして、生成AI誕生後の世界は夢のようです。
+難しくて覚えられなかったプログラム。諦めた技術習得…
+生成AIのおかげで、私のコーディングレベルでもこうしてゲームブックを形にする事が出来て、あまつさえアナログな本にする事もでき、さらにはhtmlの演出を使ったエクストラシナリオを完成させる事も出来ました。
+
+geminiがいなければ、この夢はいつまでも叶えられなかったと思います。
+ありがとう、gemini。そしてGoogle。
+彼らにこのゲームブックを捧げたいです。
+
+そして、このカフェのもとになった某カフェを経営する某W先生。
+令和の世の中にゲームブックの新刊を出してくださった某R先生。
+お二人にも、このゲームブックを捧げたいと思います。</div>
+			<div class="atogaki-modal-footer">
+				<button class="atogaki-close-btn" onclick="closeAtogakiModalBtn()">閉じる</button>
+			</div>
+		</div>
+	</div>
 
 <!-- ========================================== -->
 <!-- ゲームオーバー用モーダルと　観察用モーダルは、HTMLの一番下にこれ1個だけでOK！ -->
@@ -2192,7 +2079,7 @@ select {
 		<div class="modal-content" style="text-align: center;">
 			<p class="dan2" style="margin-bottom: 10px;">あなたは目の前が<br>真っ暗になってしまった！</p>
 			<p style="font-size: 1em; font-weight: bold; color: #ff4444;">ゲームオーバー</p>
-			<button class="common-btn3" onclick="document.getElementById('gameover-modal').style.display='none'; sessionStorage.setItem('nextScene', 'scene-10'); location.reload();">もう一度カフェを探す</button>
+			<button class="common-btn-d" onclick="document.getElementById('gameover-modal').style.display='none'; sessionStorage.setItem('nextScene', 'scene-10'); location.reload();">＞ もう一度カフェを探す ＜</button>
 		</div>
 	</div>
 
@@ -2214,6 +2101,9 @@ select {
 <!-------------------------------------------------------- ここから メモ帳欄 -->
 	<div class="memo-area">
 		<div id="shiori-container" style="display:flex; justify-content:center; gap:3px; margin-bottom:10px;">
+			<!-- ★テスト用（終わったらここを消すだけ！） -->
+			<!--div class="shiori test-shiori" onclick="sessionStorage.setItem('nextScene', 'scene-8-89'); location.reload();" title="ファイナルエンディグへ"></div-->
+
 			<div class="shiori" data-scene="scene-1" onclick="sessionStorage.setItem('nextScene', 'scene-1'); location.reload();"></div>
 			<div class="shiori" data-scene="scene-2" onclick="sessionStorage.setItem('nextScene', 'scene-2'); location.reload();"></div>
 			<div class="shiori" data-scene="scene-3" onclick="sessionStorage.setItem('nextScene', 'scene-3'); location.reload();"></div>
@@ -2245,7 +2135,7 @@ select {
 					<span onclick="toggleFlag(this)">△</span>
 					<span onclick="toggleFlag(this)">◇</span>
 					<span onclick="toggleFlag(this)">□</span>
-					<span onclick="toggleFlag(this)">†</span>
+					<span onclick="toggleFlag(this)">◎</span>
 					<span onclick="toggleFlag(this)">∃</span>
 				</div>
 			</li>
@@ -2277,7 +2167,6 @@ function changeScene(sceneId) {
         if (sceneId.startsWith('scene-8-')) {
             title.innerHTML = '幻のカフェに行こう';
             document.body.classList.remove('dark-mode');
-            
             // 表用アイコンを表示し、裏用を隠す
             document.getElementById('normal-dice-icon').style.display = 'flex';
             document.getElementById('moon-sun-icon').style.display = 'none';
@@ -2646,7 +2535,7 @@ function toggleFlag(element) {
     '◇': '◆', '◆': '◇', 
     '□': '■', '■': '□', 
     '△': '▲', '▲': '△',
-    '†': '‡', '‡': '†',
+    '◎': '†', '†': '◎',
     '∃': '∀', '∀': '∃'
   };
 
@@ -2991,7 +2880,7 @@ function resetBattleModalContent() {
     if (actionArea) {
         actionArea.innerHTML = `
             <button onclick="rollZombieDice()" style="padding:10px; background:#444; color:#fff; border:1px solid #666; border-radius:4px; cursor:pointer; font-size:0.9rem;">🎲 逃げる（ダイスを振る）</button>
-            <button onclick="useZombieYokel()" style="padding:10px; background:#553333; color:#ff9999; border:1px solid #774444; border-radius:4px; cursor:pointer; font-size:0.9rem;">💊 Zヨケールを使う</button>
+            <button onclick="useZombieYokel()" style="padding:10px; background:#553333; color:#ff9999; border:1px solid #774444; border-radius:4px; cursor:pointer; font-size:0.9rem;">💊 Zヨケールを使う<p align="center"><span class="text-red" style="font-size:0.75rem; color:#8b0000; font-weught:bold;">（メモ帳の◇が◆になっていたら使えます）</p></button>
         `;
     }
 }
@@ -3027,8 +2916,9 @@ const observationData = {
     },
     'door-a08': {
         isCustomCheck: true,
-        startText: '固く閉ざされた古いロッカーがある<br>建付けが悪いのか<br>びくともしない…',
-        foundText: 'ドアを開けると中から金属片が<br>転げ出てきた<br>探すよう頼まれていた緑のスペアキーだ！<br><strong>【「緑のスペアキー」を手に入れた！】</strong><br><span style="font-size:0.75rem; color:#ff6b6b;">（メモ帳の†をチェックし、‡に変えてください）</span>'
+        startText: '固く閉ざされた古いロッカーがある',
+        notYetText: '固く閉ざされた古いロッカーがある<br>誰かに蹴られたのか<br>全体的にボコボコしている<br><br>力を込めて引っ張ってみたが、扉は固く閉ざされていてビクともしない。',
+        foundText: 'ドアを開けると中から金属片が<br>転げ出てきた<br>探すよう頼まれていた緑のスペアキーだ！<br><strong>【「緑のスペアキー」を手に入れた！】</strong><br><span style="font-size:0.75rem; color:#ff6b6b;">（メモ帳の◎をチェックし、†に変えてください）</span>'
     },
 
     // --- 【マップ B】 ---
@@ -3147,8 +3037,8 @@ function answerLockerCheck(isFilled) {
     const buttonArea = document.getElementById('observation-buttons');
 
     if (isFilled === false) {
-        // 【□が■になっていない場合】
-        textElem.innerHTML = observationData['door-a08'].startText;
+        // 【□が■になっていない場合】（notYetTextを表示する！）
+        textElem.innerHTML = observationData['door-a08'].notYetText;
     } else {
         // 【□が■になっている場合】
         textElem.innerHTML = observationData['door-a08'].foundText;
@@ -3159,6 +3049,7 @@ function answerLockerCheck(isFilled) {
         <button onclick="closeObservationModal()" class="common-btn4" style="cursor:pointer;">閉じる</button>
     `;
 }
+
 // ==========================================
 // 観察データ END
 // ==========================================
@@ -3199,7 +3090,7 @@ function startCorridorZombieBattle() {
     if (actionArea) {
         actionArea.innerHTML = `
             <button onclick="rollZombieDice()" style="padding:10px; background:#444; color:#fff; border:1px solid #666; border-radius:4px; cursor:pointer; font-size:0.9rem;">🎲 逃げる（ダイスを振る）</button>
-            <button onclick="useZombieYokel()" style="padding:10px; background:#553333; color:#ff9999; border:1px solid #774444; border-radius:4px; cursor:pointer; font-size:0.9rem;">💊 Zヨケールを使う</button>
+            <button onclick="useZombieYokel()" style="padding:10px; background:#553333; color:#ff9999; border:1px solid #774444; border-radius:4px; cursor:pointer; font-size:0.9rem;">💊 Zヨケールを使う<p align="center"><span class="text-red" style="font-size:0.75rem; color:#8b0000; font-weught:bold;">（メモ帳の◇が◆になっていたら使えます）</p></button>
         `;
     }
 }
@@ -3337,8 +3228,10 @@ function stopCreepyLoop() {
     }
 }
 
-// 赤銅の扉を開けたときのホワイトアウト演出
-function triggerWhiteoutAndMove() {
+// ==========================================
+// 赤銅の扉を開けたときの専用ホワイトアウト演出
+// ==========================================
+function triggerWhiteoutAndMoveCopperDoor() {
     const overlay = document.getElementById('whiteout-overlay');
     if (!overlay) return;
 
@@ -3356,6 +3249,31 @@ function triggerWhiteoutAndMove() {
         }, 400);
     }, 450);
 }
+
+// ==========================================
+// 汎用のホワイトアウト＆シーン移動関数
+// ==========================================
+function triggerWhiteoutAndMove(nextSceneId) {
+  // 2つ目のホワイトアウト要素を取得
+  const overlay = document.getElementById('whiteout-overlay2');
+  if (!overlay) {
+    // 万が一要素がないときはそのままシーン移動しちゃう保険
+    changeScene(nextSceneId);
+    return;
+  }
+
+  // flashクラスをつけてホワイトアウトを発動！
+  overlay.classList.add('flash');
+
+  // CSSの transition: opacity 0.4s なので、400ミリ秒後にシーンを切り替える
+  setTimeout(() => {
+    changeScene(nextSceneId);
+    
+    // 次のシーンに行ったあと、フェードアウトのためにクラスを外しておく（必要に応じて）
+    overlay.classList.remove('flash');
+  }, 400); // 0.4秒 = 400ミリ秒
+}
+
 ///////////////////////////////////////////////////////////
 
 
@@ -3395,7 +3313,7 @@ function executeThrow(selectId) {
     if (selectedValue === "alcohol-label") {
         reactionText = `「${selectedText}」を投げつけた！<br>…なんと、ゾンビ警備員がピタリと動きを止めた！<br><br>ゾンビ警備員は酒のラベルを大切そうに拾うとかすれた声で一言呻き、そして何処かへと歩き去った…<br><br>とまどうあなたの目の前に、白く大きな扉が現れた。` +
                        `<div style="text-align: center; margin-top: 15px;">` +
-                       `<button class="common-btn4" onclick="openDoor()" style="width: 100%; max-width: 280px; padding: 12px 30px; font-size: 16px; cursor: pointer;">扉を開ける</button>` +
+                       `<button class="common-btn4" onclick="openDoor()" style="width: 100%; max-width: 280px; padding: 12px 30px; font-size: 16px; cursor: pointer;">＞ 扉を開ける ＜</button>` +
                        `</div>`;
 
         if (messageArea) {
@@ -3630,13 +3548,11 @@ function closeItemModal() {
 // アイテムを選んだときの処理（完全デバッグ版）
 function selectItem(value, text) {
     console.log("選択されたよ！:", value, text, "現在のエリア:", currentActiveSelect);
-
     // 1. 隠しinputに値をセット
     const inputElem = document.getElementById(`item-select-${currentActiveSelect}`);
     if (inputElem) {
         inputElem.value = value;
     }
-
     // 2. 該当するボタンの中の span をピンポイントで探して書き換える
     const textSpan = document.getElementById(`selected-item-text-${currentActiveSelect}`);
     if (textSpan) {
@@ -3645,9 +3561,37 @@ function selectItem(value, text) {
     } else {
         console.error("エラー: selected-item-text-" + currentActiveSelect + " が見つかりません！");
     }
-
     // 3. モーダルを閉じる
     closeItemModal();
+}
+
+// ==========================================
+// あとがきモーダルを開く
+// ==========================================
+function openAtogakiModal() {
+    const modal = document.getElementById('atogaki-modal');
+    if (modal) {
+        modal.style.display = 'flex';
+    }
+}
+
+// ==========================================
+// あとがきモーダルを閉じる（ボタン・背景クリック共通）
+// ==========================================
+function closeAtogakiModal(event) {
+    // 背景（外側）をクリックしたときだけ閉じる（中身のクリック時は閉じないための保険）
+    const modal = document.getElementById('atogaki-modal');
+    if (modal) {
+        modal.style.display = 'none';
+    }
+}
+
+// ボタンから閉じるとき用の関数
+function closeAtogakiModalBtn() {
+    const modal = document.getElementById('atogaki-modal');
+    if (modal) {
+        modal.style.display = 'none';
+    }
 }
 
 ///////////////////////////////////////////////////////////
@@ -3656,6 +3600,7 @@ function selectItem(value, text) {
 
 <div id="global-dungeon-overlay"></div>
 <div id="whiteout-overlay"></div>
+<div id="whiteout-overlay2"></div>
 
 <!-- アイテム選択用モーダルウィンドウ -->
 <div id="item-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 9999; justify-content: center; align-items: center;">
